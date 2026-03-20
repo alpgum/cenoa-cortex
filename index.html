@@ -175,15 +175,19 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .header-nav a:hover{color:var(--accent)}
 
 /* Tool Inventory — Clean Cards */
-.tool-category{margin-bottom:2rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.8rem;transition:border .3s}
-.tool-category:hover{border-color:rgba(0,255,136,.2)}
-.tool-category-title{font-size:1.05rem;font-weight:700;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;letter-spacing:.02em}
-.tool-list{display:flex;flex-direction:column;gap:.6rem}
-.tool-chip{font-size:.95rem;padding:.6rem 0;color:var(--text);line-height:1.5;border-bottom:1px solid var(--border);transition:all .25s;display:flex;align-items:baseline;gap:.4rem}
-.tool-chip:last-child{border-bottom:none}
-.tool-chip:hover{color:var(--accent)}
-.tool-chip .tool-name{color:var(--text-bright);font-weight:700;font-size:1rem}
-.tool-chip.cancelled{opacity:.35;text-decoration:line-through}
+/* Platform Hub */
+.ph-cat-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dim);margin:1rem 0 .4rem;padding-left:.1rem;font-weight:600}
+.ph-cat-label:first-child{margin-top:0}
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.5rem}
+.ph-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.6rem .3rem;gap:.3rem;transition:all .25s;cursor:default;position:relative}
+.ph-card:hover{border-color:var(--accent);box-shadow:0 0 12px rgba(0,255,136,.08)}
+.ph-card img{height:28px;width:auto;filter:brightness(1);transition:filter .2s}
+.ph-card .ph-text-logo{font-size:1rem;font-weight:800;color:var(--text-bright);line-height:1}
+.ph-card .ph-name{font-size:.58rem;color:var(--text-dim);text-align:center;line-height:1.2}
+.ph-card.cancelled{opacity:.3;filter:grayscale(1)}
+.ph-card.cancelled .ph-name{text-decoration:line-through}
+.ph-card .ph-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--border);color:var(--text);font-size:.65rem;padding:.35rem .6rem;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none}
+.ph-card:hover .ph-tooltip{display:block}
 
 /* Routing Table — Bigger Cards */
 .routing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
@@ -225,6 +229,7 @@ footer span{color:var(--accent)}
   .container{padding:0 1rem}
   header{padding:0 1rem}
   .doc-grid,.agent-grid,.market-grid,.routing-grid,.unsub-grid{grid-template-columns:1fr}
+  .ph-grid{grid-template-columns:repeat(auto-fill,minmax(75px,1fr))}
   .header-nav{gap:.6rem}
   .header-nav a{font-size:.6rem}
 }
@@ -242,6 +247,7 @@ footer span{color:var(--accent)}
     <a href="#docHub">Docs</a>
     <a href="#agentStatus">Agents</a>
     <a href="#marketOverview">Markets</a>
+    <a href="#platformHub">Platforms</a>
     <a href="#openclawTaktik">OpenClaw Taktikleri</a>
     <span style="color:#333">|</span>
     <span style="font-size:.7rem;color:#444;letter-spacing:.08em">v1.0 &middot; LIVE</span>
@@ -261,6 +267,81 @@ footer span{color:var(--accent)}
 </section>
 
 <div class="container">
+
+<!-- PLATFORM HUB -->
+<section class="section" id="platformHub" style="margin-top:2rem">
+  <div class="section-header">
+    <h2>Platform & Tool Envanteri</h2>
+    <div class="line"></div>
+    <div class="badge">27 TOOLS</div>
+  </div>
+
+  <div class="ph-cat-label">AI Modelleri & LLM</div>
+  <div class="ph-grid">
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/anthropic/white" alt="Anthropic"><span class="ph-name">Anthropic</span><span class="ph-tooltip">Claude Opus 4.6 — Orkestrator, konusma</span></div>
+    <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">CC</span><span class="ph-name">Claude Code</span><span class="ph-tooltip">Claude Max — Agir is, kod, analiz</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/openai/white" alt="OpenAI"><span class="ph-name">OpenAI</span><span class="ph-tooltip">GPT-5.2 — Fallback LLM</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gemini</span><span class="ph-tooltip">Image gen, alternatif LLM</span></div>
+  </div>
+
+  <div class="ph-cat-label">Image & Video Generation</div>
+  <div class="ph-grid">
+    <div class="ph-card"><span class="ph-text-logo" style="font-weight:900">fal</span><span class="ph-name">fal.ai</span><span class="ph-tooltip">ANA PLATFORM — FLUX, Kling, Veo, Sora, Wan — pay-per-use</span></div>
+    <div class="ph-card"><span class="ph-text-logo" style="color:#00e87b">R</span><span class="ph-name">Runway</span><span class="ph-tooltip">API $10 bakiye, abonelik 28 Mart bitiyor</span></div>
+    <div class="ph-card cancelled"><span class="ph-text-logo">H</span><span class="ph-name">Higgsfield</span><span class="ph-tooltip">IPTAL</span></div>
+    <div class="ph-card cancelled"><span class="ph-text-logo">F</span><span class="ph-name">Freepik</span><span class="ph-tooltip">IPTAL</span></div>
+  </div>
+
+  <div class="ph-cat-label">Ses & TTS</div>
+  <div class="ph-grid">
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/elevenlabs/white" alt="ElevenLabs"><span class="ph-name">ElevenLabs</span><span class="ph-tooltip">TTS voiceover (TR+EN), kalite standardi</span></div>
+    <div class="ph-card"><span class="ph-text-logo" style="font-size:.7rem">e-tts</span><span class="ph-name">edge-tts</span><span class="ph-tooltip">Acil fallback (ucretsiz)</span></div>
+  </div>
+
+  <div class="ph-cat-label">Analytics & Data</div>
+  <div class="ph-grid">
+    <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">Amp</span><span class="ph-name">Amplitude</span><span class="ph-tooltip">MCP bagli, urun analytics</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleanalytics/white" alt="GA4"><span class="ph-name">GA4</span><span class="ph-tooltip">Web + App traffic</span></div>
+    <div class="ph-card"><span class="ph-text-logo">📊</span><span class="ph-name">Looker</span><span class="ph-tooltip">Dashboard'lar</span></div>
+    <div class="ph-card"><span class="ph-text-logo">🗄️</span><span class="ph-name">BigQuery</span><span class="ph-tooltip">Data warehouse</span></div>
+    <div class="ph-card"><span class="ph-text-logo">📱</span><span class="ph-name">AppsFlyer</span><span class="ph-tooltip">Attribution, install tracking</span></div>
+  </div>
+
+  <div class="ph-cat-label">Reklam & Marketing</div>
+  <div class="ph-grid">
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleads/white" alt="Google Ads"><span class="ph-name">Google Ads</span><span class="ph-tooltip">Paid search/display</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/meta/white" alt="Meta"><span class="ph-name">Meta Ads</span><span class="ph-tooltip">Facebook/Instagram ads</span></div>
+    <div class="ph-card"><span class="ph-text-logo">🔍</span><span class="ph-name">Search Console</span><span class="ph-tooltip">SEO, indexing</span></div>
+  </div>
+
+  <div class="ph-cat-label">Web & Deploy</div>
+  <div class="ph-grid">
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/netlify/white" alt="Netlify"><span class="ph-name">Netlify</span><span class="ph-tooltip">Static site deploy</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/vercel/white" alt="Vercel"><span class="ph-name">Vercel</span><span class="ph-tooltip">App deploy</span></div>
+    <div class="ph-card"><span class="ph-text-logo">🎴</span><span class="ph-name">Gamma</span><span class="ph-tooltip">Deck/sunum olusturma</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube"><span class="ph-name">YouTube</span><span class="ph-tooltip">Video upload — Data API</span></div>
+  </div>
+
+  <div class="ph-cat-label">Arastirma & Web</div>
+  <div class="ph-grid">
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/brave/white" alt="Brave"><span class="ph-name">Brave Search</span><span class="ph-tooltip">Web arastirma (built-in)</span></div>
+    <div class="ph-card"><span class="ph-text-logo">🌐</span><span class="ph-name">Web Fetch</span><span class="ph-tooltip">Sayfa icerik cekme (built-in)</span></div>
+    <div class="ph-card"><span class="ph-text-logo">🖥️</span><span class="ph-name">Browser</span><span class="ph-tooltip">Web sitesi otomasyonu</span></div>
+  </div>
+
+  <div class="ph-cat-label">Mesajlasma</div>
+  <div class="ph-grid">
+    <div class="ph-card"><span class="ph-text-logo">💬</span><span class="ph-name">Webchat</span><span class="ph-tooltip">Ana iletisim</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/telegram/white" alt="Telegram"><span class="ph-name">Telegram</span><span class="ph-tooltip">Mobil iletisim</span></div>
+  </div>
+
+  <div class="ph-cat-label">Google Workspace & Dev</div>
+  <div class="ph-grid">
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gmail/Drive</span><span class="ph-tooltip">alperen@cenoa.com — Workspace</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/github/white" alt="GitHub"><span class="ph-name">GitHub</span><span class="ph-tooltip">Kod yonetimi</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/slack/white" alt="Slack"><span class="ph-name">Slack</span><span class="ph-tooltip">Ekip iletisimi</span></div>
+  </div>
+</section>
 
 <!-- WHAT IS CORTEX -->
 <section class="section" id="whatIs">
@@ -784,92 +865,7 @@ footer span{color:var(--accent)}
     <div class="line"></div>
     <div class="badge">PLATFORM & ROUTING</div>
   </div>
-  <p style="color:var(--text-dim);font-size:.95rem;margin-bottom:2rem;max-width:700px">Tüm erişilebilir platform, API ve tool'ların kategorili envanteri. Media generation routing kararları ve abonelik optimizasyonu.</p>
-
-  <!-- Platform & Tool Envanteri -->
-  <div class="division-label">Platform & Tool Envanteri</div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">AI Modelleri & LLM</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">Anthropic (Claude Opus 4.6)</span> — Orkestrator, konusma</span>
-      <span class="tool-chip"><span class="tool-name">Claude Code (Claude Max)</span> — Agir is, kod, analiz</span>
-      <span class="tool-chip"><span class="tool-name">OpenAI (GPT-5.2)</span> — Fallback LLM</span>
-      <span class="tool-chip"><span class="tool-name">Google Gemini</span> — Image gen, alternatif LLM</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Image & Video Generation</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">fal.ai</span> — ANA PLATFORM (FLUX, Kling, Veo, Sora, Wan) — pay-per-use</span>
-      <span class="tool-chip"><span class="tool-name">Runway</span> — API $10 bakiye (acil fallback), abonelik 28 Mart bitiyor</span>
-      <span class="tool-chip cancelled"><span class="tool-name">Higgsfield</span> — IPTAL</span>
-      <span class="tool-chip cancelled"><span class="tool-name">Freepik</span> — IPTAL</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Ses & TTS</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">ElevenLabs</span> — TTS voiceover (TR+EN), kalite standardi</span>
-      <span class="tool-chip"><span class="tool-name">edge-tts</span> — Acil fallback (ucretsiz)</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Analytics & Data</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">Amplitude</span> — MCP bagli, urun analytics</span>
-      <span class="tool-chip"><span class="tool-name">Google Analytics (GA4)</span> — Web + App traffic</span>
-      <span class="tool-chip"><span class="tool-name">Looker Studio</span> — Dashboard'lar</span>
-      <span class="tool-chip"><span class="tool-name">Google BigQuery</span> — Data warehouse</span>
-      <span class="tool-chip"><span class="tool-name">AppsFlyer</span> — Attribution, install tracking</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Reklam & Marketing</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">Google Ads</span> — Paid search/display</span>
-      <span class="tool-chip"><span class="tool-name">Meta Ads</span> — Facebook/Instagram ads</span>
-      <span class="tool-chip"><span class="tool-name">Search Console</span> — SEO, indexing</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Web & Deploy</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">Netlify</span> — Static site deploy</span>
-      <span class="tool-chip"><span class="tool-name">Vercel</span> — App deploy</span>
-      <span class="tool-chip"><span class="tool-name">Gamma</span> — Deck/sunum olusturma</span>
-      <span class="tool-chip"><span class="tool-name">YouTube Data API</span> — Video upload</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Arastirma & Web</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">Brave Search</span> — Web arastirma (built-in)</span>
-      <span class="tool-chip"><span class="tool-name">Web Fetch</span> — Sayfa icerik cekme (built-in)</span>
-      <span class="tool-chip"><span class="tool-name">Browser</span> — Web sitesi otomasyonu</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Mesajlasma</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">Webchat</span> — Ana iletisim</span>
-      <span class="tool-chip"><span class="tool-name">Telegram</span> — Mobil</span>
-    </div>
-  </div>
-
-  <div class="tool-category">
-    <div class="tool-category-title">Google Workspace</div>
-    <div class="tool-list">
-      <span class="tool-chip"><span class="tool-name">Gmail, Drive, Looker Studio, Search Console</span> — alperen@cenoa.com</span>
-    </div>
-  </div>
+  <p style="color:var(--text-dim);font-size:.95rem;margin-bottom:2rem;max-width:700px">Media generation routing kararları ve abonelik optimizasyonu.</p>
 
   <!-- Media Generation Routing -->
   <div class="division-label" style="margin-top:2rem">Media Generation Routing (fal.ai bazli)</div>
