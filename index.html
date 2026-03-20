@@ -320,53 +320,69 @@ footer span{color:var(--accent)}
     <div class="badge" id="kpiWeek">W12 · Mar 17-20</div>
   </div>
 
-  <div class="kpi-row">
-    <div class="kpi-card">
+  <div class="kpi-row" id="kpiRow">
+    <div class="kpi-card" data-kpi="installs">
       <div class="kpi-icon">📲</div>
       <div class="kpi-data">
-        <div class="kpi-value">1,422</div>
+        <div class="kpi-value">1,448</div>
         <div class="kpi-label">App Installs</div>
-        <div class="kpi-delta down">▼ 37.5% vs prev week</div>
+        <div class="kpi-delta down">▼ 36.3% vs prev week</div>
       </div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-icon">✅</div>
-      <div class="kpi-data">
-        <div class="kpi-value">177</div>
-        <div class="kpi-label">KYC Submissions</div>
-        <div class="kpi-delta down">▼ 42.3% vs prev week</div>
-      </div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-icon">👤</div>
-      <div class="kpi-data">
-        <div class="kpi-value">3,028</div>
-        <div class="kpi-label">Active Users (DAU avg)</div>
-        <div class="kpi-delta neutral">7-day average</div>
-      </div>
-    </div>
-    <div class="kpi-card">
+    <div class="kpi-card" data-kpi="signups">
       <div class="kpi-icon">📝</div>
       <div class="kpi-data">
-        <div class="kpi-value">1,189</div>
+        <div class="kpi-value">1,211</div>
         <div class="kpi-label">Sign-ups</div>
-        <div class="kpi-delta down">▼ 28.8% vs prev week</div>
+        <div class="kpi-delta down">▼ 27.5% vs prev week</div>
       </div>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card" data-kpi="kycSubmits">
+      <div class="kpi-icon">✅</div>
+      <div class="kpi-data">
+        <div class="kpi-value">179</div>
+        <div class="kpi-label">KYC Submissions</div>
+        <div class="kpi-delta down">▼ 41.7% vs prev week</div>
+      </div>
+    </div>
+    <div class="kpi-card" data-kpi="virtualAccountOpened">
       <div class="kpi-icon">🏦</div>
       <div class="kpi-data">
-        <div class="kpi-value">428</div>
-        <div class="kpi-label">US Accounts Opened</div>
-        <div class="kpi-delta neutral">activation milestone</div>
+        <div class="kpi-value">434</div>
+        <div class="kpi-label">Virtual Accounts Opened</div>
+        <div class="kpi-delta down">▼ 31.3% vs prev week</div>
       </div>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card" data-kpi="dauAvg">
+      <div class="kpi-icon">👤</div>
+      <div class="kpi-data">
+        <div class="kpi-value">3,065</div>
+        <div class="kpi-label">Active Users (DAU avg)</div>
+        <div class="kpi-delta down">▼ 46.0% vs prev week</div>
+      </div>
+    </div>
+    <div class="kpi-card" data-kpi="depositCompleted">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-data">
+        <div class="kpi-value">1,550</div>
+        <div class="kpi-label">Deposits</div>
+        <div class="kpi-delta down">▼ 5.6% vs prev week</div>
+      </div>
+    </div>
+    <div class="kpi-card" data-kpi="transferCompleted">
       <div class="kpi-icon">🔄</div>
       <div class="kpi-data">
-        <div class="kpi-value">12.4%</div>
-        <div class="kpi-label">Install→KYC Rate</div>
-        <div class="kpi-delta neutral">conversion funnel</div>
+        <div class="kpi-value">784</div>
+        <div class="kpi-label">Transfers</div>
+        <div class="kpi-delta down">▼ 1.5% vs prev week</div>
+      </div>
+    </div>
+    <div class="kpi-card" data-kpi="withdrawCompleted">
+      <div class="kpi-icon">💸</div>
+      <div class="kpi-data">
+        <div class="kpi-value">2,229</div>
+        <div class="kpi-label">Withdrawals</div>
+        <div class="kpi-delta up">▲ 0.7% vs prev week</div>
       </div>
     </div>
   </div>
@@ -1238,7 +1254,60 @@ const markets = [
   observer.observe(document.getElementById('statsRow'));
 })();
 
-// ========== RENDER DOCUMENTS ==========
+// ========== KPI BANNER (data.json) ==========
+(async function loadKpis(){
+  try {
+    const res = await fetch('data.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data || !data.kpis) return;
+
+    const weekEl = document.getElementById('kpiWeek');
+    if (weekEl && data.week) weekEl.textContent = data.week;
+
+    const updatedEl = document.getElementById('kpiLastUpdated');
+    if (updatedEl && data.updated) updatedEl.textContent = `Last updated: ${data.updated}`;
+
+    function fmtNum(n){
+      if (n === null || n === undefined || Number.isNaN(Number(n))) return '-';
+      const num = Number(n);
+      const rounded = Math.round(num);
+      if (Math.abs(num - rounded) < 1e-9) return rounded.toLocaleString('en-US');
+      return num.toLocaleString('en-US', { maximumFractionDigits: 1 });
+    }
+
+    function fmtDelta(p){
+      const num = Number(p);
+      if (!Number.isFinite(num)) return '0.0%';
+      const sign = num > 0 ? '+' : '';
+      return `${sign}${num.toFixed(1)}%`;
+    }
+
+    document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
+      const key = card.getAttribute('data-kpi');
+      const k = data.kpis[key];
+      if (!k) return;
+
+      const valueEl = card.querySelector('.kpi-value');
+      if (valueEl && k.value !== undefined) valueEl.textContent = fmtNum(k.value);
+
+      const deltaEl = card.querySelector('.kpi-delta');
+      if (deltaEl && k.deltaPct !== undefined) {
+        const dir = (k.direction || '').toLowerCase();
+        const cls = dir === 'up' ? 'up' : (dir === 'down' ? 'down' : 'neutral');
+        const arrow = dir === 'up' ? '▲' : (dir === 'down' ? '▼' : '→');
+        deltaEl.classList.remove('up','down','neutral');
+        deltaEl.classList.add(cls);
+        deltaEl.textContent = `${arrow} ${fmtDelta(k.deltaPct)} vs prev week`;
+      }
+    });
+  } catch (e) {
+    // Fallback: keep hardcoded KPI values if fetch fails
+    console.warn('KPI data.json fetch failed:', e);
+  }
+})();
+
+// ========== RENDER DOCUMENTS ========== 
 const docGrid = document.getElementById('docGrid');
 const noResults = document.getElementById('noResults');
 
@@ -1341,7 +1410,7 @@ if (lookerFrame && lookerTabs) {
   });
 }
 
-// ========== RENDER AGENTS ========== 
+// ========== RENDER AGENTS ==========
 function renderAgents(id, list) {
   document.getElementById(id).innerHTML = list.map((a, i) => `
     <div class="agent-card fade-in" style="animation-delay:${i * 0.04}s">
