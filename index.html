@@ -179,8 +179,12 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .ph-cat-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dim);margin:1rem 0 .4rem;padding-left:.1rem;font-weight:600}
 .ph-cat-label:first-child{margin-top:0}
 .ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.5rem}
-.ph-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.6rem .3rem;gap:.3rem;transition:all .25s;cursor:default;position:relative}
+.ph-card{background:var(--surface);border:1px solid rgba(0,255,136,.14);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.6rem .3rem;gap:.3rem;transition:all .25s;cursor:default;position:relative}
 .ph-card:hover{border-color:var(--accent);box-shadow:0 0 12px rgba(0,255,136,.08)}
+.ph-card.planned{opacity:.45;filter:grayscale(1);border-style:dashed;border-color:rgba(255,255,255,.14)}
+.ph-card.planned:hover{border-color:rgba(255,255,255,.22);box-shadow:none}
+.ph-card.planned .ph-name{color:#555}
+.ph-cat-sub{margin:.6rem 0 .4rem;color:#444;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
 .ph-card img{height:28px;width:auto;filter:brightness(1);transition:filter .2s}
 .ph-card .ph-text-logo{font-size:1rem;font-weight:800;color:var(--text-bright);line-height:1}
 .ph-card .ph-name{font-size:.58rem;color:var(--text-dim);text-align:center;line-height:1.2}
@@ -362,6 +366,35 @@ footer span{color:var(--accent)}
     <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gmail/Drive</span><span class="ph-tooltip">alperen@cenoa.com - Workspace</span></div>
     <div class="ph-card"><img src="https://cdn.simpleicons.org/github/white" alt="GitHub"><span class="ph-name">GitHub</span><span class="ph-tooltip">Kod yonetimi</span></div>
     <div class="ph-card"><img src="https://cdn.simpleicons.org/slack/white" alt="Slack"><span class="ph-name">Slack</span><span class="ph-tooltip">Ekip iletisimi</span></div>
+  </div>
+
+  <div class="ph-cat-label" style="margin-top:1.2rem">Planned Access (Not Connected Yet)</div>
+  <div class="ph-cat-sub">Performance Marketing</div>
+  <div class="ph-grid">
+    <div class="ph-card planned"><span class="ph-text-logo">🎵</span><span class="ph-name">TikTok Ads</span><span class="ph-tooltip">Planned: country-level paid performance</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">in</span><span class="ph-name">LinkedIn Ads</span><span class="ph-tooltip">Planned: B2B experiments</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">X</span><span class="ph-name">X Ads</span><span class="ph-tooltip">Planned: creator + awareness</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">👻</span><span class="ph-name">Snap Ads</span><span class="ph-tooltip">Planned: MENA tests</span></div>
+  </div>
+
+  <div class="ph-cat-sub">App Growth</div>
+  <div class="ph-grid">
+    <div class="ph-card planned"><span class="ph-text-logo"></span><span class="ph-name">App Store Connect</span><span class="ph-tooltip">Planned: installs → KYC analytics</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">▶</span><span class="ph-name">Play Console</span><span class="ph-tooltip">Planned: country-level store performance</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">🔎</span><span class="ph-name">Apple Search Ads</span><span class="ph-tooltip">Planned: intent acquisition</span></div>
+  </div>
+
+  <div class="ph-cat-sub">CRM & Support</div>
+  <div class="ph-grid">
+    <div class="ph-card planned"><span class="ph-text-logo">HS</span><span class="ph-name">HubSpot</span><span class="ph-tooltip">Planned: lifecycle + segmentation</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">💬</span><span class="ph-name">Intercom</span><span class="ph-tooltip">Planned: support + activation triggers</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">📨</span><span class="ph-name">Braze</span><span class="ph-tooltip">Planned: push/email automation</span></div>
+  </div>
+
+  <div class="ph-cat-sub">Payments / Ops</div>
+  <div class="ph-grid">
+    <div class="ph-card planned"><span class="ph-text-logo">S</span><span class="ph-name">Stripe</span><span class="ph-tooltip">Planned: revenue + cohort tracking</span></div>
+    <div class="ph-card planned"><span class="ph-text-logo">🧾</span><span class="ph-name">Chargebee</span><span class="ph-tooltip">Planned: subscriptions</span></div>
   </div>
 </section>
 
