@@ -103,6 +103,41 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .market-status.launching{background:rgba(251,191,36,.12);color:#fbbf24}
 .market-status.prelaunch{background:rgba(168,85,247,.12);color:#c084fc}
 
+/* Nav Links */
+.header-nav{display:flex;gap:1.2rem;align-items:center}
+.header-nav a{font-size:.7rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .2s;text-decoration:none}
+.header-nav a:hover{color:var(--accent)}
+
+/* Tool Inventory */
+.tool-category{margin-bottom:1.25rem}
+.tool-category-title{font-size:.82rem;font-weight:700;color:var(--text-bright);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.tool-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.tool-chip{font-size:.68rem;padding:.3rem .7rem;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);line-height:1.4;transition:all .25s}
+.tool-chip:hover{border-color:var(--accent);color:var(--accent)}
+.tool-chip .tool-name{color:var(--text-bright);font-weight:600}
+.tool-chip.cancelled{opacity:.4;text-decoration:line-through}
+
+/* Routing Table */
+.routing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem}
+.routing-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;transition:all .3s}
+.routing-card:hover{border-color:var(--accent);box-shadow:0 0 16px rgba(0,255,136,.06)}
+.routing-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:.25rem;font-weight:600}
+.routing-value{font-size:.85rem;font-weight:600;color:var(--text-bright)}
+.routing-meta{font-size:.65rem;color:var(--text-dim);margin-top:.2rem}
+
+/* Unsub Grid */
+.unsub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem}
+.unsub-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;display:flex;align-items:center;gap:.7rem;transition:all .3s}
+.unsub-card:hover{border-color:var(--accent);box-shadow:0 0 16px rgba(0,255,136,.06)}
+.unsub-icon{font-size:1.1rem;flex-shrink:0}
+.unsub-name{font-size:.82rem;font-weight:600;color:var(--text-bright)}
+.unsub-detail{font-size:.68rem;color:var(--text-dim)}
+.unsub-card.keep{border-left:3px solid var(--accent)}
+.unsub-card.cancel{border-left:3px solid #f43f5e;opacity:.7}
+.unsub-savings{background:var(--accent-dim);border:1px solid rgba(0,255,136,.2);border-radius:10px;padding:1rem 1.2rem;text-align:center;margin-top:.75rem}
+.unsub-savings .amount{font-size:1.6rem;font-weight:800;color:var(--accent)}
+.unsub-savings .label{font-size:.72rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase}
+
 /* Footer */
 footer{text-align:center;padding:3rem 2rem;margin-top:4rem;border-top:1px solid var(--border);color:#444;font-size:.78rem;letter-spacing:.04em}
 footer span{color:var(--accent)}
@@ -121,7 +156,9 @@ footer span{color:var(--accent)}
   .stat-num{font-size:1.8rem}
   .container{padding:0 1rem}
   header{padding:0 1rem}
-  .doc-grid,.agent-grid,.market-grid{grid-template-columns:1fr}
+  .doc-grid,.agent-grid,.market-grid,.routing-grid,.unsub-grid{grid-template-columns:1fr}
+  .header-nav{gap:.6rem}
+  .header-nav a{font-size:.6rem}
 }
 </style>
 </head>
@@ -132,7 +169,14 @@ footer span{color:var(--accent)}
     <div class="header-pulse"></div>
     CENOA <span>&times;</span> CORTEX — Marketing Operations Dashboard
   </div>
-  <div class="header-right">v1.0 &middot; LIVE</div>
+  <nav class="header-nav">
+    <a href="#docHub">Docs</a>
+    <a href="#agentStatus">Agents</a>
+    <a href="#marketOverview">Markets</a>
+    <a href="#openclawTaktik">OpenClaw Taktikleri</a>
+    <span style="color:#333">|</span>
+    <span style="font-size:.7rem;color:#444;letter-spacing:.08em">v1.0 &middot; LIVE</span>
+  </nav>
 </header>
 
 <!-- HERO -->
@@ -150,7 +194,7 @@ footer span{color:var(--accent)}
 <div class="container">
 
 <!-- DOCUMENT HUB -->
-<section class="section">
+<section class="section" id="docHub">
   <div class="section-header">
     <h2>Growth Engine Document Hub</h2>
     <div class="line"></div>
@@ -177,7 +221,7 @@ footer span{color:var(--accent)}
 </section>
 
 <!-- AGENT STATUS -->
-<section class="section">
+<section class="section" id="agentStatus">
   <div class="section-header">
     <h2>Agent Status</h2>
     <div class="line"></div>
@@ -192,13 +236,198 @@ footer span{color:var(--accent)}
 </section>
 
 <!-- MARKET OVERVIEW -->
-<section class="section">
+<section class="section" id="marketOverview">
   <div class="section-header">
     <h2>Market Overview</h2>
     <div class="line"></div>
     <div class="badge">4 MARKETS</div>
   </div>
   <div class="market-grid" id="marketGrid"></div>
+</section>
+
+<!-- OPENCLAW KULLANIM TAKTİKLERİ -->
+<section class="section" id="openclawTaktik">
+  <div class="section-header">
+    <h2>OpenClaw Kullanim Taktikleri</h2>
+    <div class="line"></div>
+    <div class="badge">PLATFORM & ROUTING</div>
+  </div>
+
+  <!-- Platform & Tool Envanteri -->
+  <div class="division-label">Platform & Tool Envanteri</div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">AI Modelleri & LLM</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">Anthropic (Claude Opus 4.6)</span> — Orkestrator, konusma</span>
+      <span class="tool-chip"><span class="tool-name">Claude Code (Claude Max)</span> — Agir is, kod, analiz</span>
+      <span class="tool-chip"><span class="tool-name">OpenAI (GPT-5.2)</span> — Fallback LLM</span>
+      <span class="tool-chip"><span class="tool-name">Google Gemini</span> — Image gen, alternatif LLM</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Image & Video Generation</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">fal.ai</span> — ANA PLATFORM (FLUX, Kling, Veo, Sora, Wan) — pay-per-use</span>
+      <span class="tool-chip"><span class="tool-name">Runway</span> — API $10 bakiye (acil fallback), abonelik 28 Mart bitiyor</span>
+      <span class="tool-chip cancelled"><span class="tool-name">Higgsfield</span> — IPTAL</span>
+      <span class="tool-chip cancelled"><span class="tool-name">Freepik</span> — IPTAL</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Ses & TTS</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">ElevenLabs</span> — TTS voiceover (TR+EN), kalite standardi</span>
+      <span class="tool-chip"><span class="tool-name">edge-tts</span> — Acil fallback (ucretsiz)</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Analytics & Data</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">Amplitude</span> — MCP bagli, urun analytics</span>
+      <span class="tool-chip"><span class="tool-name">Google Analytics (GA4)</span> — Web + App traffic</span>
+      <span class="tool-chip"><span class="tool-name">Looker Studio</span> — Dashboard'lar</span>
+      <span class="tool-chip"><span class="tool-name">Google BigQuery</span> — Data warehouse</span>
+      <span class="tool-chip"><span class="tool-name">AppsFlyer</span> — Attribution, install tracking</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Reklam & Marketing</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">Google Ads</span> — Paid search/display</span>
+      <span class="tool-chip"><span class="tool-name">Meta Ads</span> — Facebook/Instagram ads</span>
+      <span class="tool-chip"><span class="tool-name">Search Console</span> — SEO, indexing</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Web & Deploy</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">Netlify</span> — Static site deploy</span>
+      <span class="tool-chip"><span class="tool-name">Vercel</span> — App deploy</span>
+      <span class="tool-chip"><span class="tool-name">Gamma</span> — Deck/sunum olusturma</span>
+      <span class="tool-chip"><span class="tool-name">YouTube Data API</span> — Video upload</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Arastirma & Web</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">Brave Search</span> — Web arastirma (built-in)</span>
+      <span class="tool-chip"><span class="tool-name">Web Fetch</span> — Sayfa icerik cekme (built-in)</span>
+      <span class="tool-chip"><span class="tool-name">Browser</span> — Web sitesi otomasyonu</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Mesajlasma</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">Webchat</span> — Ana iletisim</span>
+      <span class="tool-chip"><span class="tool-name">Telegram</span> — Mobil</span>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">Google Workspace</div>
+    <div class="tool-list">
+      <span class="tool-chip"><span class="tool-name">Gmail, Drive, Looker Studio, Search Console</span> — alperen@cenoa.com</span>
+    </div>
+  </div>
+
+  <!-- Media Generation Routing -->
+  <div class="division-label" style="margin-top:2rem">Media Generation Routing (fal.ai bazli)</div>
+  <div class="routing-grid">
+    <div class="routing-card">
+      <div class="routing-label">Image Draft</div>
+      <div class="routing-value">FLUX Schnell</div>
+      <div class="routing-meta">~1s &middot; $0.003/image</div>
+    </div>
+    <div class="routing-card">
+      <div class="routing-label">Image Production</div>
+      <div class="routing-value">FLUX Pro</div>
+      <div class="routing-meta">$0.03/image</div>
+    </div>
+    <div class="routing-card">
+      <div class="routing-label">Video Draft</div>
+      <div class="routing-value">Wan</div>
+      <div class="routing-meta">$0.05/sn</div>
+    </div>
+    <div class="routing-card">
+      <div class="routing-label">Video Production</div>
+      <div class="routing-value">Kling 3.0 Pro</div>
+      <div class="routing-meta">$0.10/sn</div>
+    </div>
+    <div class="routing-card">
+      <div class="routing-label">Video Premium</div>
+      <div class="routing-value">Veo 3.1</div>
+      <div class="routing-meta">$0.20/sn &middot; audio dahil</div>
+    </div>
+    <div class="routing-card">
+      <div class="routing-label">Image-to-Video</div>
+      <div class="routing-value">Kling 3 i2v / MiniMax i2v</div>
+      <div class="routing-meta">Animasyon & motion</div>
+    </div>
+    <div class="routing-card">
+      <div class="routing-label">TTS</div>
+      <div class="routing-value">ElevenLabs</div>
+      <div class="routing-meta">Default &middot; edge-tts fallback</div>
+    </div>
+  </div>
+
+  <!-- Unsub Kararlari -->
+  <div class="division-label" style="margin-top:2rem">Unsub Kararlari — Mart 2026</div>
+  <div class="unsub-grid">
+    <div class="unsub-card cancel">
+      <div class="unsub-icon">&#10060;</div>
+      <div>
+        <div class="unsub-name">Runway Unlimited</div>
+        <div class="unsub-detail">$95/ay — IPTAL</div>
+      </div>
+    </div>
+    <div class="unsub-card cancel">
+      <div class="unsub-icon">&#10060;</div>
+      <div>
+        <div class="unsub-name">Higgsfield</div>
+        <div class="unsub-detail">IPTAL</div>
+      </div>
+    </div>
+    <div class="unsub-card cancel">
+      <div class="unsub-icon">&#10060;</div>
+      <div>
+        <div class="unsub-name">Freepik API</div>
+        <div class="unsub-detail">IPTAL</div>
+      </div>
+    </div>
+    <div class="unsub-card keep">
+      <div class="unsub-icon">&#9989;</div>
+      <div>
+        <div class="unsub-name">fal.ai</div>
+        <div class="unsub-detail">KORU — ~$20-40/ay</div>
+      </div>
+    </div>
+    <div class="unsub-card keep">
+      <div class="unsub-icon">&#9989;</div>
+      <div>
+        <div class="unsub-name">ElevenLabs</div>
+        <div class="unsub-detail">KORU — $11/ay</div>
+      </div>
+    </div>
+    <div class="unsub-card keep">
+      <div class="unsub-icon">&#9989;</div>
+      <div>
+        <div class="unsub-name">OpenAI</div>
+        <div class="unsub-detail">KORU — $20/ay</div>
+      </div>
+    </div>
+  </div>
+  <div class="unsub-savings fade-in">
+    <div class="amount">$100+/ay</div>
+    <div class="label">Tahmini Tasarruf</div>
+  </div>
 </section>
 
 </div>
