@@ -87,8 +87,8 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .skill-tag{font-size:.62rem;padding:.12rem .4rem;border-radius:4px;background:var(--surface2);color:var(--text-dim);border:1px solid var(--border)}
 
 /* Division Label */
-.division-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-dim);margin:1.5rem 0 .6rem;padding-left:.2rem;font-weight:700}
-.division-label:first-of-type{margin-top:0}
+.division-label{font-size:.9rem;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin:2.5rem 0 1.2rem;padding-left:.2rem;font-weight:700}
+.division-label:first-of-type{margin-top:.5rem}
 
 /* Market Grid */
 .market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}
@@ -108,35 +108,37 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .header-nav a{font-size:.7rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .2s;text-decoration:none}
 .header-nav a:hover{color:var(--accent)}
 
-/* Tool Inventory */
-.tool-category{margin-bottom:1.25rem}
-.tool-category-title{font-size:.82rem;font-weight:700;color:var(--text-bright);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
-.tool-list{display:flex;flex-wrap:wrap;gap:.4rem}
-.tool-chip{font-size:.68rem;padding:.3rem .7rem;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);line-height:1.4;transition:all .25s}
-.tool-chip:hover{border-color:var(--accent);color:var(--accent)}
-.tool-chip .tool-name{color:var(--text-bright);font-weight:600}
-.tool-chip.cancelled{opacity:.4;text-decoration:line-through}
+/* Tool Inventory — Clean Cards */
+.tool-category{margin-bottom:2rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.8rem;transition:border .3s}
+.tool-category:hover{border-color:rgba(0,255,136,.2)}
+.tool-category-title{font-size:1.05rem;font-weight:700;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;letter-spacing:.02em}
+.tool-list{display:flex;flex-direction:column;gap:.6rem}
+.tool-chip{font-size:.95rem;padding:.6rem 0;color:var(--text);line-height:1.5;border-bottom:1px solid var(--border);transition:all .25s;display:flex;align-items:baseline;gap:.4rem}
+.tool-chip:last-child{border-bottom:none}
+.tool-chip:hover{color:var(--accent)}
+.tool-chip .tool-name{color:var(--text-bright);font-weight:700;font-size:1rem}
+.tool-chip.cancelled{opacity:.35;text-decoration:line-through}
 
-/* Routing Table */
-.routing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem}
-.routing-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;transition:all .3s}
-.routing-card:hover{border-color:var(--accent);box-shadow:0 0 16px rgba(0,255,136,.06)}
-.routing-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:.25rem;font-weight:600}
-.routing-value{font-size:.85rem;font-weight:600;color:var(--text-bright)}
-.routing-meta{font-size:.65rem;color:var(--text-dim);margin-top:.2rem}
+/* Routing Table — Bigger Cards */
+.routing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.routing-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.6rem;transition:all .3s}
+.routing-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08);transform:translateY(-2px)}
+.routing-label{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dim);margin-bottom:.4rem;font-weight:600}
+.routing-value{font-size:1.2rem;font-weight:700;color:var(--text-bright)}
+.routing-meta{font-size:.9rem;color:var(--text-dim);margin-top:.35rem}
 
-/* Unsub Grid */
-.unsub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem}
-.unsub-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;display:flex;align-items:center;gap:.7rem;transition:all .3s}
-.unsub-card:hover{border-color:var(--accent);box-shadow:0 0 16px rgba(0,255,136,.06)}
-.unsub-icon{font-size:1.1rem;flex-shrink:0}
-.unsub-name{font-size:.82rem;font-weight:600;color:var(--text-bright)}
-.unsub-detail{font-size:.68rem;color:var(--text-dim)}
-.unsub-card.keep{border-left:3px solid var(--accent)}
-.unsub-card.cancel{border-left:3px solid #f43f5e;opacity:.7}
-.unsub-savings{background:var(--accent-dim);border:1px solid rgba(0,255,136,.2);border-radius:10px;padding:1rem 1.2rem;text-align:center;margin-top:.75rem}
-.unsub-savings .amount{font-size:1.6rem;font-weight:800;color:var(--accent)}
-.unsub-savings .label{font-size:.72rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase}
+/* Unsub Grid — Bigger */
+.unsub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.unsub-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:all .3s}
+.unsub-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08)}
+.unsub-icon{font-size:1.4rem;flex-shrink:0}
+.unsub-name{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
+.unsub-detail{font-size:.9rem;color:var(--text-dim);margin-top:.15rem}
+.unsub-card.keep{border-left:4px solid var(--accent)}
+.unsub-card.cancel{border-left:4px solid #f43f5e;opacity:.6}
+.unsub-savings{background:var(--accent-dim);border:1px solid rgba(0,255,136,.25);border-radius:14px;padding:1.5rem;text-align:center;margin-top:1rem}
+.unsub-savings .amount{font-size:2.2rem;font-weight:800;color:var(--accent)}
+.unsub-savings .label{font-size:.85rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
 
 /* Footer */
 footer{text-align:center;padding:3rem 2rem;margin-top:4rem;border-top:1px solid var(--border);color:#444;font-size:.78rem;letter-spacing:.04em}
@@ -248,10 +250,11 @@ footer span{color:var(--accent)}
 <!-- OPENCLAW KULLANIM TAKTİKLERİ -->
 <section class="section" id="openclawTaktik">
   <div class="section-header">
-    <h2>OpenClaw Kullanim Taktikleri</h2>
+    <h2>⚡ OpenClaw Kullanım Taktikleri</h2>
     <div class="line"></div>
     <div class="badge">PLATFORM & ROUTING</div>
   </div>
+  <p style="color:var(--text-dim);font-size:.95rem;margin-bottom:2rem;max-width:700px">Tüm erişilebilir platform, API ve tool'ların kategorili envanteri. Media generation routing kararları ve abonelik optimizasyonu.</p>
 
   <!-- Platform & Tool Envanteri -->
   <div class="division-label">Platform & Tool Envanteri</div>
