@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CENOA × CORTEX — Marketing Operations Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#222;--accent:#00ff88;--accent-dim:rgba(0,255,136,.12);--accent-glow:rgba(0,255,136,.3);--text:#e0e0e0;--text-dim:#777;--text-bright:#fff}
+body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}
+::selection{background:var(--accent);color:var(--bg)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+
+/* Header */
+header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(10,10,10,.88);height:54px}
+.header-brand{display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;letter-spacing:.12em;color:var(--text-dim)}
+.header-brand span{color:var(--accent)}
+.header-pulse{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;margin-right:.4rem;flex-shrink:0}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 6px transparent}}
+.header-right{font-size:.7rem;color:#444;letter-spacing:.08em}
+
+/* Container */
+.container{max-width:1400px;margin:0 auto;padding:0 2rem}
+
+/* Hero */
+.hero{text-align:center;padding:5rem 2rem 3.5rem;position:relative}
+.hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(0,255,136,.06) 0%,transparent 70%);pointer-events:none}
+.hero-title{font-size:clamp(2.4rem,6vw,4rem);font-weight:800;letter-spacing:.15em;position:relative;z-index:1}
+.hero-title .x{color:#444;font-weight:300;margin:0 .2em}
+.hero-title .cortex{background:linear-gradient(135deg,var(--accent),#00cc6a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{color:var(--text-dim);font-size:1rem;margin-top:.4rem;letter-spacing:.08em;position:relative;z-index:1}
+.stats{display:flex;justify-content:center;gap:3rem;margin-top:2.5rem;position:relative;z-index:1;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-size:2.5rem;font-weight:800;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.stat-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dim);margin-top:.2rem}
+
+/* Section */
+.section{margin-top:3.5rem}
+.section-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
+.section-header h2{font-size:1.2rem;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.section-header .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.section-header .badge{background:var(--accent-dim);color:var(--accent);font-size:.65rem;padding:.2rem .6rem;border-radius:10px;letter-spacing:.1em;font-weight:600;white-space:nowrap}
+
+/* Search */
+.search-wrap{margin-bottom:1rem;position:relative}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#444;pointer-events:none}
+.search-wrap input{width:100%;padding:.8rem 1rem .8rem 2.8rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.9rem;outline:none;transition:border .3s,box-shadow .3s}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+.search-wrap input::placeholder{color:#444}
+
+/* Category Filter */
+.cat-filters{display:flex;gap:.4rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.cat-btn{padding:.35rem .8rem;border-radius:18px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:.7rem;cursor:pointer;transition:all .25s;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.cat-btn:hover,.cat-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
+/* Doc Grid */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:.75rem}
+.doc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.doc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .35s;transform-origin:left}
+.doc-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,255,136,.07)}
+.doc-card:hover::before{transform:scaleX(1)}
+.cat-tag{display:inline-block;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;padding:.12rem .45rem;border-radius:5px;font-weight:700;margin-bottom:.5rem}
+.cat-tag.data{background:rgba(59,130,246,.15);color:#60a5fa}
+.cat-tag.analysis{background:rgba(168,85,247,.15);color:#c084fc}
+.cat-tag.strategy{background:rgba(0,255,136,.12);color:#00ff88}
+.cat-tag.conversion{background:rgba(251,191,36,.15);color:#fbbf24}
+.cat-tag.markets{background:rgba(244,63,94,.15);color:#fb7185}
+.cat-tag.infra{background:rgba(148,163,184,.12);color:#94a3b8}
+.doc-card h3{font-size:.88rem;font-weight:600;color:var(--text-bright);margin-bottom:.25rem}
+.doc-card p{font-size:.77rem;color:var(--text-dim);line-height:1.5;margin-bottom:.4rem}
+.doc-card .file-path{font-size:.65rem;color:#3a3a3a;font-family:'SF Mono',Monaco,Consolas,monospace;letter-spacing:.02em}
+
+/* Agent Grid */
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}
+.agent-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;transition:all .3s}
+.agent-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.06)}
+.agent-header{display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem}
+.agent-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0}
+.agent-name{font-weight:600;font-size:.85rem;color:var(--text-bright)}
+.agent-div{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)}
+.agent-status{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--accent)}
+.agent-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+.agent-skills{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.5rem}
+.skill-tag{font-size:.62rem;padding:.12rem .4rem;border-radius:4px;background:var(--surface2);color:var(--text-dim);border:1px solid var(--border)}
+
+/* Division Label */
+.division-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-dim);margin:1.5rem 0 .6rem;padding-left:.2rem;font-weight:700}
+.division-label:first-of-type{margin-top:0}
+
+/* Market Grid */
+.market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}
+.market-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.3rem;transition:all .3s;position:relative;overflow:hidden}
+.market-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,255,136,.07)}
+.market-flag{font-size:2.2rem;margin-bottom:.4rem;display:block}
+.market-name{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
+.market-code{font-size:.7rem;color:var(--text-dim);letter-spacing:.15em;text-transform:uppercase}
+.market-status{display:inline-block;margin-top:.5rem;padding:.25rem .7rem;border-radius:18px;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.market-status.deepening{background:rgba(0,255,136,.12);color:#00ff88}
+.market-status.accelerating{background:rgba(59,130,246,.12);color:#60a5fa}
+.market-status.launching{background:rgba(251,191,36,.12);color:#fbbf24}
+.market-status.prelaunch{background:rgba(168,85,247,.12);color:#c084fc}
+
+/* Footer */
+footer{text-align:center;padding:3rem 2rem;margin-top:4rem;border-top:1px solid var(--border);color:#444;font-size:.78rem;letter-spacing:.04em}
+footer span{color:var(--accent)}
+
+/* No results */
+.no-results{text-align:center;padding:2.5rem;color:var(--text-dim);font-size:.85rem;display:none}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .5s ease forwards;opacity:0}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero-title{letter-spacing:.08em}
+  .stats{gap:1.5rem}
+  .stat-num{font-size:1.8rem}
+  .container{padding:0 1rem}
+  header{padding:0 1rem}
+  .doc-grid,.agent-grid,.market-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <div class="header-pulse"></div>
+    CENOA <span>&times;</span> CORTEX — Marketing Operations Dashboard
+  </div>
+  <div class="header-right">v1.0 &middot; LIVE</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-title">CENOA<span class="x">&times;</span><span class="cortex">CORTEX</span></h1>
+  <p class="hero-sub">Marketing Operations Intelligence Layer</p>
+  <div class="stats" id="statsRow">
+    <div class="stat"><div class="stat-num" data-target="9">0</div><div class="stat-label">Agents</div></div>
+    <div class="stat"><div class="stat-num" data-target="4">0</div><div class="stat-label">Markets</div></div>
+    <div class="stat"><div class="stat-num" data-target="29">0</div><div class="stat-label">Deliverables</div></div>
+    <div class="stat"><div class="stat-num" data-target="15">0</div><div class="stat-label">Skills</div></div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- DOCUMENT HUB -->
+<section class="section">
+  <div class="section-header">
+    <h2>Growth Engine Document Hub</h2>
+    <div class="line"></div>
+    <div class="badge">26 DOCS</div>
+  </div>
+
+  <div class="search-wrap">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" id="docSearch" placeholder="Search documents by name, category, or description...">
+  </div>
+
+  <div class="cat-filters" id="catFilters">
+    <button class="cat-btn active" data-cat="all">All</button>
+    <button class="cat-btn" data-cat="data">Data</button>
+    <button class="cat-btn" data-cat="analysis">Analysis</button>
+    <button class="cat-btn" data-cat="strategy">Strategy</button>
+    <button class="cat-btn" data-cat="conversion">Conversion</button>
+    <button class="cat-btn" data-cat="markets">Markets</button>
+    <button class="cat-btn" data-cat="infra">Infra</button>
+  </div>
+
+  <div class="doc-grid" id="docGrid"></div>
+  <div class="no-results" id="noResults">No documents match your search.</div>
+</section>
+
+<!-- AGENT STATUS -->
+<section class="section">
+  <div class="section-header">
+    <h2>Agent Status</h2>
+    <div class="line"></div>
+    <div class="badge">9 ACTIVE</div>
+  </div>
+
+  <div class="division-label">Cenoa Division</div>
+  <div class="agent-grid" id="cenoaAgents"></div>
+
+  <div class="division-label">Video Studio Division</div>
+  <div class="agent-grid" id="videoAgents"></div>
+</section>
+
+<!-- MARKET OVERVIEW -->
+<section class="section">
+  <div class="section-header">
+    <h2>Market Overview</h2>
+    <div class="line"></div>
+    <div class="badge">4 MARKETS</div>
+  </div>
+  <div class="market-grid" id="marketGrid"></div>
+</section>
+
+</div>
+
+<footer>
+  Cenoa Marketing Operations &middot; Powered by <span>Cortex</span> &middot; Built on <span>OpenClaw</span>
+</footer>
+
+<script>
+// ========== DATA ==========
+const documents = [
+  {cat:"data",title:"Historical Campaign Performance",desc:"Aggregated performance data from all previous marketing campaigns across channels.",file:"historical-campaign-performance.md"},
+  {cat:"data",title:"GTM Meeting Synthesis",desc:"Key decisions and action items extracted from go-to-market strategy meetings.",file:"gtm-meeting-synthesis.md"},
+  {cat:"data",title:"Tracking Audit",desc:"Full audit of analytics tracking implementation across web and mobile properties.",file:"tracking-audit.md"},
+  {cat:"data",title:"Partner Intelligence",desc:"Intelligence briefs on current and potential partnership opportunities.",file:"partner-intelligence.md"},
+  {cat:"data",title:"User Feedback Synthesis",desc:"Synthesized themes from user interviews, NPS surveys, and support tickets.",file:"user-feedback-synthesis.md"},
+  {cat:"analysis",title:"Full-Funnel Model",desc:"End-to-end conversion funnel model from awareness to activation and retention.",file:"full-funnel-model.md"},
+  {cat:"analysis",title:"Channel ROI Matrix",desc:"Comparative ROI analysis across all acquisition channels with CAC benchmarks.",file:"channel-roi-matrix.md"},
+  {cat:"analysis",title:"Competitive Intelligence",desc:"Market positioning and feature comparison against key competitors.",file:"competitive-intelligence.md"},
+  {cat:"strategy",title:"90-Day Roadmap",desc:"Phased growth execution plan with OKRs, milestones, and resource allocation.",file:"90-day-roadmap.md"},
+  {cat:"strategy",title:"Google Ads Plan",desc:"Search and display campaign architecture for Google Ads across all markets.",file:"google-ads-plan.md"},
+  {cat:"strategy",title:"Meta Ads Blueprint",desc:"Facebook and Instagram ad strategy including creative frameworks and audiences.",file:"meta-ads-blueprint.md"},
+  {cat:"strategy",title:"SEO Content Calendar",desc:"Quarterly content calendar targeting high-intent keywords for organic growth.",file:"seo-content-calendar.md"},
+  {cat:"strategy",title:"Referral Program",desc:"Viral referral loop design with incentive structures and tracking mechanics.",file:"referral-program.md"},
+  {cat:"strategy",title:"Community Growth Plan",desc:"Strategy for building and nurturing user communities across markets.",file:"community-growth-plan.md"},
+  {cat:"conversion",title:"Activation Plan",desc:"First-session activation optimization targeting key aha-moment triggers.",file:"activation-plan.md"},
+  {cat:"conversion",title:"CRM Strategy",desc:"Lifecycle marketing strategy with segmentation, triggers, and channel mix.",file:"crm-strategy.md"},
+  {cat:"conversion",title:"Onboarding Redesign Brief",desc:"UX brief for redesigning the first-time user onboarding experience.",file:"onboarding-redesign-brief.md"},
+  {cat:"conversion",title:"KYC Dropout Analysis",desc:"Analysis of drop-off points in the KYC verification flow with recommendations.",file:"kyc-dropout-analysis.md"},
+  {cat:"conversion",title:"Android/iOS Gap",desc:"Parity analysis between Android and iOS apps identifying conversion gaps.",file:"android-ios-gap.md"},
+  {cat:"markets",title:"Turkey Deepening",desc:"Market-specific growth strategy for deepening penetration in Turkey.",file:"turkey-deepening.md"},
+  {cat:"markets",title:"Egypt Playbook",desc:"Launch-to-growth playbook for the Egyptian market entry.",file:"egypt-playbook.md"},
+  {cat:"markets",title:"Nigeria Acceleration",desc:"Acceleration strategy for scaling user acquisition in Nigeria.",file:"nigeria-acceleration.md"},
+  {cat:"markets",title:"Pakistan Pre-Launch",desc:"Pre-launch preparation plan for Pakistan market entry.",file:"pakistan-prelaunch.md"},
+  {cat:"infra",title:"Weekly Report Template",desc:"Standardized template for weekly growth metrics and status reporting.",file:"weekly-report-template.md"},
+  {cat:"infra",title:"Growth Team OS",desc:"Operating system for the growth team: rituals, tools, and workflows.",file:"growth-team-os.md"},
+  {cat:"infra",title:"Experiment Log",desc:"Living log of all growth experiments with hypotheses, results, and learnings.",file:"experiment-log.md"}
+];
+
+const agents = {
+  cenoa: [
+    {name:"Brand Manager",icon:"🎨",bg:"rgba(244,63,94,.15)",skills:["Brand Guidelines","Visual Identity","Tone & Voice"]},
+    {name:"Growth Manager",icon:"📈",bg:"rgba(0,255,136,.15)",skills:["Campaign Strategy","A/B Testing","Funnel Optimization"]},
+    {name:"Data Lead",icon:"📊",bg:"rgba(59,130,246,.15)",skills:["Analytics","Reporting","Attribution Modeling"]},
+    {name:"Web Ops",icon:"🌐",bg:"rgba(168,85,247,.15)",skills:["Web Performance","SEO","Landing Pages"]}
+  ],
+  video: [
+    {name:"Script Writer",icon:"✍️",bg:"rgba(251,191,36,.15)",skills:["Storytelling","Copywriting","Hooks"]},
+    {name:"Producer",icon:"🎬",bg:"rgba(244,63,94,.15)",skills:["Direction","Scheduling","Asset Mgmt"]},
+    {name:"Packager",icon:"📦",bg:"rgba(0,255,136,.15)",skills:["Format Adaptation","Platform Specs","Thumbnails"]},
+    {name:"QA",icon:"✅",bg:"rgba(59,130,246,.15)",skills:["Review","Compliance","Quality Gates"]},
+    {name:"Distributor",icon:"🚀",bg:"rgba(168,85,247,.15)",skills:["Multi-Platform","Scheduling","Analytics"]}
+  ]
+};
+
+const markets = [
+  {flag:"🇹🇷",name:"Turkey",code:"TR",status:"Deepening",cls:"deepening"},
+  {flag:"🇳🇬",name:"Nigeria",code:"NG",status:"Accelerating",cls:"accelerating"},
+  {flag:"🇪🇬",name:"Egypt",code:"EG",status:"Launching",cls:"launching"},
+  {flag:"🇵🇰",name:"Pakistan",code:"PK",status:"Pre-Launch",cls:"prelaunch"}
+];
+
+// ========== COUNTER ANIMATION ==========
+(function() {
+  let fired = false;
+  const nums = document.querySelectorAll('.stat-num');
+  const observer = new IntersectionObserver(entries => {
+    if (fired) return;
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        fired = true;
+        nums.forEach(el => {
+          const target = +el.dataset.target;
+          let cur = 0;
+          const step = Math.max(1, Math.floor(target / 30));
+          const iv = setInterval(() => {
+            cur += step;
+            if (cur >= target) { cur = target; clearInterval(iv); }
+            el.textContent = cur;
+          }, 40);
+        });
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  observer.observe(document.getElementById('statsRow'));
+})();
+
+// ========== RENDER DOCUMENTS ==========
+const docGrid = document.getElementById('docGrid');
+const noResults = document.getElementById('noResults');
+
+function renderDocs(filter, query) {
+  filter = filter || 'all';
+  query = (query || '').toLowerCase();
+  const filtered = documents.filter(d => {
+    const catOk = filter === 'all' || d.cat === filter;
+    const qOk = !query || d.title.toLowerCase().includes(query) || d.desc.toLowerCase().includes(query) || d.cat.includes(query) || d.file.includes(query);
+    return catOk && qOk;
+  });
+
+  if (!filtered.length) {
+    docGrid.innerHTML = '';
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+
+  docGrid.innerHTML = filtered.map((d, i) => `
+    <div class="doc-card fade-in" style="animation-delay:${i * 0.025}s">
+      <span class="cat-tag ${d.cat}">${d.cat}</span>
+      <h3>${hl(d.title, query)}</h3>
+      <p>${hl(d.desc, query)}</p>
+      <div class="file-path">${d.file}</div>
+    </div>
+  `).join('');
+}
+
+function hl(text, q) {
+  if (!q) return text;
+  const i = text.toLowerCase().indexOf(q);
+  if (i === -1) return text;
+  return text.slice(0, i) + '<mark style="background:var(--accent-dim);color:var(--accent);border-radius:2px;padding:0 1px">' + text.slice(i, i + q.length) + '</mark>' + text.slice(i + q.length);
+}
+
+renderDocs();
+
+// Search input
+document.getElementById('docSearch').addEventListener('input', function() {
+  const cat = document.querySelector('.cat-btn.active');
+  renderDocs(cat ? cat.dataset.cat : 'all', this.value);
+});
+
+// Category filter buttons
+document.getElementById('catFilters').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('cat-btn')) return;
+  this.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderDocs(e.target.dataset.cat, document.getElementById('docSearch').value);
+});
+
+// ========== RENDER AGENTS ==========
+function renderAgents(id, list) {
+  document.getElementById(id).innerHTML = list.map((a, i) => `
+    <div class="agent-card fade-in" style="animation-delay:${i * 0.04}s">
+      <div class="agent-header">
+        <div class="agent-icon" style="background:${a.bg}">${a.icon}</div>
+        <div>
+          <div class="agent-name">${a.name}</div>
+          <div class="agent-status"><span class="agent-dot"></span> Online</div>
+        </div>
+      </div>
+      <div class="agent-skills">${a.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+renderAgents('cenoaAgents', agents.cenoa);
+renderAgents('videoAgents', agents.video);
+
+// ========== RENDER MARKETS ==========
+document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
+  <div class="market-card fade-in" style="animation-delay:${i * 0.06}s">
+    <span class="market-flag">${m.flag}</span>
+    <div class="market-name">${m.name}</div>
+    <div class="market-code">${m.code}</div>
+    <div class="market-status ${m.cls}">${m.status}</div>
+  </div>
+`).join('');
+</script>
+</body>
+</html>
