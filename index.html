@@ -103,6 +103,29 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .market-status.launching{background:rgba(251,191,36,.12);color:#fbbf24}
 .market-status.prelaunch{background:rgba(168,85,247,.12);color:#c084fc}
 
+/* Org Chart */
+.org-tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.org-leader{display:flex;flex-direction:column;align-items:center}
+.org-connector{width:2px;height:2rem;background:linear-gradient(180deg,var(--accent),var(--border))}
+.org-orchestrator{border:2px solid var(--accent) !important;max-width:500px;text-align:center}
+.org-orchestrator .org-says{text-align:center}
+.org-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:all .4s;cursor:default;position:relative}
+.org-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,255,136,.1)}
+.org-card:hover .org-says{max-height:200px;opacity:1;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.org-avatar{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;background:var(--accent-dim)}
+.org-info{flex:1}
+.org-name{font-size:1.1rem;font-weight:700;color:var(--text-bright)}
+.org-role{font-size:.8rem;color:var(--text-dim);letter-spacing:.06em;margin-top:.15rem}
+.org-says{max-height:0;opacity:0;overflow:hidden;transition:all .4s ease;font-size:.9rem;color:var(--text);line-height:1.6;font-style:italic}
+.org-orchestrator .org-says{max-height:none;opacity:1;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.org-card .org-avatar,.org-card .org-info{display:inline-block;vertical-align:middle}
+.org-card{display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
+.org-divisions{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;width:100%}
+.org-division{}
+.org-div-label{font-size:.85rem;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.org-agents{display:flex;flex-direction:column;gap:1rem}
+@media(max-width:900px){.org-divisions{grid-template-columns:1fr}}
+
 /* Cortex Intro Grid responsive */
 @media(max-width:768px){.cortex-intro-grid{grid-template-columns:1fr !important}}
 
@@ -354,19 +377,164 @@ footer span{color:var(--accent)}
   <div class="no-results" id="noResults">No documents match your search.</div>
 </section>
 
-<!-- AGENT STATUS -->
+<!-- MEET THE TEAM -->
 <section class="section" id="agentStatus">
   <div class="section-header">
-    <h2>Agent Status</h2>
+    <h2>👥 Meet the Team</h2>
     <div class="line"></div>
-    <div class="badge">12 ACTIVE</div>
+    <div class="badge">12 AGENTS</div>
+  </div>
+  <p style="color:var(--text-dim);font-size:1rem;margin-bottom:2rem;max-width:700px;line-height:1.6">
+    Every agent is an autonomous specialist with its own knowledge base, tools, and personality. Click to see what they can do.
+  </p>
+
+  <!-- Orchestrator (top) -->
+  <div class="org-tree">
+    <div class="org-leader">
+      <div class="org-card org-orchestrator">
+        <div class="org-avatar">⚡</div>
+        <div class="org-info">
+          <div class="org-name">Lucas</div>
+          <div class="org-role">Orchestrator</div>
+        </div>
+        <div class="org-says">"I route every task to the right agent, manage quality gates, and keep the whole system running 24/7."</div>
+      </div>
+      <div class="org-connector"></div>
+    </div>
+
+    <!-- Division Headers -->
+    <div class="org-divisions">
+      <!-- Cenoa Division -->
+      <div class="org-division">
+        <div class="org-div-label">Cenoa Division</div>
+        <div class="org-agents">
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(244,63,94,.15)">🎨</div>
+            <div class="org-info">
+              <div class="org-name">Brand Manager</div>
+              <div class="org-role">Brand & Identity</div>
+            </div>
+            <div class="org-says">"I guard Cenoa's brand voice across every channel. I write guidelines, review creatives, and make sure we sound trustworthy and human — never corporate."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(0,255,136,.15)">📈</div>
+            <div class="org-info">
+              <div class="org-name">Growth Manager</div>
+              <div class="org-role">Campaigns & Funnels</div>
+            </div>
+            <div class="org-says">"I design growth experiments, optimize funnels, and manage Google Ads + Meta Ads campaigns. I track every dollar from click to KYC completion."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(59,130,246,.15)">📊</div>
+            <div class="org-info">
+              <div class="org-name">Data Lead</div>
+              <div class="org-role">Analytics & Reporting</div>
+            </div>
+            <div class="org-says">"I connect Amplitude, GA4, BigQuery, and AppsFlyer to build the full picture. Funnels, cohorts, attribution — I make data talk."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(168,85,247,.15)">🌐</div>
+            <div class="org-info">
+              <div class="org-name">Web Ops</div>
+              <div class="org-role">Performance & Deploy</div>
+            </div>
+            <div class="org-says">"I manage cenoa.com, deploy landing pages, monitor Core Web Vitals, and handle Netlify/Vercel deployments. Fast sites convert better."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(251,191,36,.15)">📝</div>
+            <div class="org-info">
+              <div class="org-name">Content Writer</div>
+              <div class="org-role">Blog, Email & Copy</div>
+            </div>
+            <div class="org-says">"I write blog posts, email sequences, and landing page copy for learn.cenoa.com. SEO-optimized, conversion-focused, in both Turkish and English."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(0,200,255,.15)">🔍</div>
+            <div class="org-info">
+              <div class="org-name">SEO Specialist</div>
+              <div class="org-role">Search & Organic</div>
+            </div>
+            <div class="org-says">"I run technical audits, research keywords, optimize content, and build links. Cenoa.com ranks for 'freelancer bank account' because of me."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(244,63,94,.15)">📱</div>
+            <div class="org-info">
+              <div class="org-name">Social Media Manager</div>
+              <div class="org-role">Instagram, TikTok, X</div>
+            </div>
+            <div class="org-says">"I plan content calendars, create carousel posts, script Reels and TikToks, and engage with the freelancer community. Hook-first, always."</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Video Studio Division -->
+      <div class="org-division">
+        <div class="org-div-label">Video Studio</div>
+        <div class="org-agents">
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(251,191,36,.15)">✍️</div>
+            <div class="org-info">
+              <div class="org-name">Script Writer</div>
+              <div class="org-role">Story & Hooks</div>
+            </div>
+            <div class="org-says">"I write video scripts with killer hooks, clear structure, and emotional beats. Every script is optimized for retention — the first 3 seconds decide everything."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(244,63,94,.15)">🎬</div>
+            <div class="org-info">
+              <div class="org-name">Producer</div>
+              <div class="org-role">Generation & Edit</div>
+            </div>
+            <div class="org-says">"I generate AI video clips via Kling 3.0 and Veo 3.1, create voiceovers with ElevenLabs, mix audio at -14 LUFS, and render the final cut with ffmpeg."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(0,255,136,.15)">📦</div>
+            <div class="org-info">
+              <div class="org-name">Packager</div>
+              <div class="org-role">Format & Distribute</div>
+            </div>
+            <div class="org-says">"I adapt videos for every platform — 9:16 for Shorts/TikTok, 16:9 for YouTube, burn captions, create thumbnails, and prep metadata for upload."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(59,130,246,.15)">✅</div>
+            <div class="org-info">
+              <div class="org-name">QA Reviewer</div>
+              <div class="org-role">Quality Gates</div>
+            </div>
+            <div class="org-says">"I watch every video before publish. Audio quality, visual consistency, caption accuracy, brand compliance — nothing goes live without my approval."</div>
+          </div>
+
+          <div class="org-card">
+            <div class="org-avatar" style="background:rgba(168,85,247,.15)">🚀</div>
+            <div class="org-info">
+              <div class="org-name">Distributor</div>
+              <div class="org-role">Upload & Schedule</div>
+            </div>
+            <div class="org-says">"I upload to YouTube via Data API, schedule posts across platforms, and track initial performance metrics to feed back to the team."</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="division-label">Cenoa Division</div>
-  <div class="agent-grid" id="cenoaAgents"></div>
-
-  <div class="division-label">Video Studio Division</div>
-  <div class="agent-grid" id="videoAgents"></div>
+  <!-- Legacy grid (hidden, kept for data) -->
+  <div style="display:none">
+    <div id="cenoaAgents"></div>
+    <div id="videoAgents"></div>
+  </div>
 </section>
 
 <!-- MARKET OVERVIEW -->
