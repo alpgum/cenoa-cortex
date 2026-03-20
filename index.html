@@ -57,21 +57,21 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .cat-btn:hover,.cat-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
 
 /* Doc Grid */
-.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:.75rem}
-.doc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.5rem}
+.doc-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
 .doc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .35s;transform-origin:left}
-.doc-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,255,136,.07)}
+.doc-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,255,136,.06)}
 .doc-card:hover::before{transform:scaleX(1)}
-.cat-tag{display:inline-block;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;padding:.12rem .45rem;border-radius:5px;font-weight:700;margin-bottom:.5rem}
+.cat-tag{display:inline-block;font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;padding:.1rem .35rem;border-radius:4px;font-weight:700;margin-bottom:.3rem}
 .cat-tag.data{background:rgba(59,130,246,.15);color:#60a5fa}
 .cat-tag.analysis{background:rgba(168,85,247,.15);color:#c084fc}
 .cat-tag.strategy{background:rgba(0,255,136,.12);color:#00ff88}
 .cat-tag.conversion{background:rgba(251,191,36,.15);color:#fbbf24}
 .cat-tag.markets{background:rgba(244,63,94,.15);color:#fb7185}
 .cat-tag.infra{background:rgba(148,163,184,.12);color:#94a3b8}
-.doc-card h3{font-size:.88rem;font-weight:600;color:var(--text-bright);margin-bottom:.25rem}
-.doc-card p{font-size:.77rem;color:var(--text-dim);line-height:1.5;margin-bottom:.4rem}
-.doc-card .file-path{font-size:.65rem;color:#3a3a3a;font-family:'SF Mono',Monaco,Consolas,monospace;letter-spacing:.02em}
+.doc-card h3{font-size:.8rem;font-weight:600;color:var(--text-bright);margin-bottom:.15rem}
+.doc-card p{font-size:.7rem;color:var(--text-dim);line-height:1.4;margin-bottom:0;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.doc-card .file-path{display:none}
 
 /* Agent Grid */
 .agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}
