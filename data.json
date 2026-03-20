@@ -1,0 +1,54 @@
+{
+  "week": "Mar 14-20, 2026",
+  "updated": "2026-03-21 01:54 TRT",
+  "kpis": {
+    "installs": {
+      "value": 1448,
+      "prev": 2274,
+      "deltaPct": -36.3,
+      "direction": "down"
+    },
+    "signups": {
+      "value": 1211,
+      "prev": 1671,
+      "deltaPct": -27.5,
+      "direction": "down"
+    },
+    "kycSubmits": {
+      "value": 179,
+      "prev": 307,
+      "deltaPct": -41.7,
+      "direction": "down"
+    },
+    "virtualAccountOpened": {
+      "value": 434,
+      "prev": 632,
+      "deltaPct": -31.3,
+      "direction": "down"
+    },
+    "depositCompleted": {
+      "value": 1550,
+      "prev": 1642,
+      "deltaPct": -5.6,
+      "direction": "down"
+    },
+    "transferCompleted": {
+      "value": 784,
+      "prev": 796,
+      "deltaPct": -1.5,
+      "direction": "down"
+    },
+    "withdrawCompleted": {
+      "value": 2229,
+      "prev": 2214,
+      "deltaPct": 0.7,
+      "direction": "up"
+    },
+    "dauAvg": {
+      "value": 3065.0,
+      "prev": 5677.7,
+      "deltaPct": -46.0,
+      "direction": "down"
+    }
+  }
+}
