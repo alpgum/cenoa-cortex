@@ -103,6 +103,9 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .market-status.launching{background:rgba(251,191,36,.12);color:#fbbf24}
 .market-status.prelaunch{background:rgba(168,85,247,.12);color:#c084fc}
 
+/* Cortex Intro Grid responsive */
+@media(max-width:768px){.cortex-intro-grid{grid-template-columns:1fr !important}}
+
 /* Nav Links */
 .header-nav{display:flex;gap:1.2rem;align-items:center}
 .header-nav a{font-size:.7rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .2s;text-decoration:none}
@@ -172,6 +175,7 @@ footer span{color:var(--accent)}
     CENOA <span>&times;</span> CORTEX — Marketing Operations Dashboard
   </div>
   <nav class="header-nav">
+    <a href="#whatIs">About</a>
     <a href="#docHub">Docs</a>
     <a href="#agentStatus">Agents</a>
     <a href="#marketOverview">Markets</a>
@@ -194,6 +198,82 @@ footer span{color:var(--accent)}
 </section>
 
 <div class="container">
+
+<!-- WHAT IS CORTEX -->
+<section class="section" id="whatIs">
+  <div class="section-header">
+    <h2>🧠 Cortex Nedir?</h2>
+    <div class="line"></div>
+    <div class="badge">INTERNAL TOOL</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem" class="cortex-intro-grid">
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem">
+      <h3 style="font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:1rem">Ne İşe Yarıyor?</h3>
+      <p style="color:var(--text);font-size:.95rem;line-height:1.7">
+        Cortex, Cenoa'nın <strong style="color:var(--text-bright)">AI-powered marketing operations merkeziydi</strong>. 
+        Tüm büyüme stratejileri, kampanya planları, market analizleri ve agent durumları tek bir dashboard'dan yönetilir.
+        <br><br>
+        OpenClaw üzerinde çalışan <strong style="color:var(--text-bright)">12 otonom agent</strong> tarafından üretilen dokümanlar, 
+        analizler ve stratejiler burada toplanır ve aranabilir hale gelir.
+      </p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem">
+      <h3 style="font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:1rem">Nasıl Kullanılır?</h3>
+      <div style="color:var(--text);font-size:.95rem;line-height:1.7">
+        <div style="display:flex;gap:.8rem;align-items:flex-start;margin-bottom:.8rem">
+          <span style="color:var(--accent);font-weight:700;font-size:1.1rem">1.</span>
+          <span><strong style="color:var(--text-bright)">Doküman Ara</strong> — Aşağıdaki hub'da kategori filtrele veya arama yap</span>
+        </div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start;margin-bottom:.8rem">
+          <span style="color:var(--accent);font-weight:700;font-size:1.1rem">2.</span>
+          <span><strong style="color:var(--text-bright)">Agent'ları Takip Et</strong> — Her agent'ın durumunu ve yeteneklerini gör</span>
+        </div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start;margin-bottom:.8rem">
+          <span style="color:var(--accent);font-weight:700;font-size:1.1rem">3.</span>
+          <span><strong style="color:var(--text-bright)">Market Durumu</strong> — Hangi pazarda ne aşamadayız, tek bakışta</span>
+        </div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start">
+          <span style="color:var(--accent);font-weight:700;font-size:1.1rem">4.</span>
+          <span><strong style="color:var(--text-bright)">Tool Routing</strong> — Hangi iş için hangi platform/API kullanılacak</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="cortex-intro-grid">
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem">
+      <h3 style="font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:1rem">✅ Şu An Yapabildiği</h3>
+      <ul style="color:var(--text);font-size:.95rem;line-height:2;list-style:none;padding:0">
+        <li>📄 <strong style="color:var(--text-bright)">26 strateji dokümanı</strong> — aranabilir, kategorili hub</li>
+        <li>🤖 <strong style="color:var(--text-bright)">12 otonom agent</strong> — content, SEO, social, video, data, growth</li>
+        <li>🌍 <strong style="color:var(--text-bright)">4 market takibi</strong> — Turkey, Egypt, Nigeria, Pakistan</li>
+        <li>🎬 <strong style="color:var(--text-bright)">Media routing</strong> — fal.ai bazlı maliyet-optimize video/image üretimi</li>
+        <li>💰 <strong style="color:var(--text-bright)">Platform optimizasyonu</strong> — $100+/ay tasarruf kararları</li>
+        <li>📊 <strong style="color:var(--text-bright)">Amplitude MCP</strong> — doğrudan ürün analytics erişimi</li>
+        <li>🔍 <strong style="color:var(--text-bright)">SEO + Google Ads + Meta Ads</strong> — kampanya yönetim skill'leri</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem;border-left:3px solid rgba(251,191,36,.5)">
+      <h3 style="font-size:1.1rem;font-weight:700;color:#fbbf24;margin-bottom:1rem">🚀 Planned (Yakında)</h3>
+      <ul style="color:var(--text);font-size:.95rem;line-height:2;list-style:none;padding:0">
+        <li>📹 <strong style="color:var(--text-bright)">Video pipeline otomasyonu</strong> — script → TTS → render → upload tek komut</li>
+        <li>📱 <strong style="color:var(--text-bright)">TikTok + YouTube Shorts kanalı</strong> — AI-generated UGC içerik</li>
+        <li>🔄 <strong style="color:var(--text-bright)">Competitor watch</strong> — Payoneer/Wise otomatik izleme + alert</li>
+        <li>📈 <strong style="color:var(--text-bright)">Otomatik haftalık rapor</strong> — cron ile Growth Report → Slack/Telegram</li>
+        <li>🧪 <strong style="color:var(--text-bright)">A/B test framework</strong> — hipotez → deney → sonuç döngüsü</li>
+        <li>🌐 <strong style="color:var(--text-bright)">Çok dilli content pipeline</strong> — EN/TR/AR otomatik çeviri + localize</li>
+        <li>📊 <strong style="color:var(--text-bright)">Real-time KPI dashboard</strong> — Amplitude + GA4 canlı metrikler</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
 
 <!-- DOCUMENT HUB -->
 <section class="section" id="docHub">
