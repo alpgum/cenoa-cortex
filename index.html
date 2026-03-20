@@ -129,6 +129,45 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 /* Cortex Intro Grid responsive */
 @media(max-width:768px){.cortex-intro-grid{grid-template-columns:1fr !important}}
 
+/* Flow Diagram */
+.flow-diagram{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;padding:1rem 0}
+.flow-step{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:1.5rem 2rem;text-align:center;transition:all .3s;min-width:120px}
+.flow-step:hover{border-color:var(--accent);box-shadow:0 0 24px var(--accent-glow);transform:translateY(-3px)}
+.flow-icon{font-size:2.5rem;margin-bottom:.5rem}
+.flow-label{font-size:1rem;font-weight:700;color:var(--text-bright);letter-spacing:.04em}
+.flow-arrow{width:48px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-glow));position:relative;flex-shrink:0}
+.flow-arrow::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left:7px solid var(--accent)}
+@media(max-width:700px){.flow-arrow{width:2px;height:32px;background:linear-gradient(180deg,var(--accent),var(--accent-glow))}.flow-arrow::after{right:50%;top:auto;bottom:-1px;transform:translateX(50%);border:5px solid transparent;border-top:7px solid var(--accent);border-left:5px solid transparent}.flow-diagram{flex-direction:column}}
+
+/* Capabilities Grid */
+.cap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem}
+@media(max-width:1000px){.cap-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.cap-grid{grid-template-columns:repeat(2,1fr)}}
+.cap-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1rem;text-align:center;transition:all .3s;cursor:default}
+.cap-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08);transform:translateY(-2px)}
+.cap-emoji{font-size:3rem;margin-bottom:.5rem}
+.cap-title{font-size:1rem;font-weight:700;color:var(--text-bright);margin-bottom:.25rem}
+.cap-desc{font-size:.85rem;color:var(--text-dim);line-height:1.4}
+
+/* Cenoa Workflows Grid */
+.cenoa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+@media(max-width:800px){.cenoa-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.cenoa-grid{grid-template-columns:1fr}}
+.cenoa-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center;transition:all .3s;cursor:default}
+.cenoa-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08);transform:translateY(-2px)}
+.cenoa-emoji{font-size:2.5rem;margin-bottom:.4rem}
+.cenoa-title{font-size:1rem;font-weight:700;color:var(--text-bright);margin-bottom:.2rem}
+.cenoa-desc{font-size:.85rem;color:var(--text-dim)}
+
+/* Timeline */
+.timeline{position:relative;padding-left:2rem;max-width:600px;margin:0 auto}
+.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#fbbf24,rgba(251,191,36,.2))}
+.timeline-item{position:relative;padding-bottom:1.5rem;padding-left:1.5rem}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-dot{position:absolute;left:-2rem;top:.25rem;width:14px;height:14px;border-radius:50%;background:#fbbf24;box-shadow:0 0 10px rgba(251,191,36,.4);border:2px solid var(--surface)}
+.timeline-title{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
+.timeline-desc{font-size:.85rem;color:var(--text-dim);margin-top:.15rem}
+
 /* Nav Links */
 .header-nav{display:flex;gap:1.2rem;align-items:center}
 .header-nav a{font-size:.7rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .2s;text-decoration:none}
@@ -229,124 +268,227 @@ footer span{color:var(--accent)}
     <div class="line"></div>
     <div class="badge">INTERNAL TOOL</div>
   </div>
-  <p style="color:var(--text-dim);font-size:1rem;margin-bottom:2.5rem;max-width:800px;line-height:1.7">
-    Cortex is Cenoa's <strong style="color:var(--text-bright)">AI-powered marketing operations center</strong>. 
-    It orchestrates 12 autonomous agents, manages growth strategies across 4 markets, 
-    and centralizes all campaign data, content production, and media generation into a single dashboard — powered by <strong style="color:var(--accent)">OpenClaw</strong>.
+  <p style="color:var(--text-dim);font-size:1.05rem;margin-bottom:2.5rem;max-width:800px;line-height:1.7">
+    Cenoa's <strong style="color:var(--text-bright)">AI-powered marketing ops center</strong> —
+    12 agents, 4 markets, one dashboard. Powered by <strong style="color:var(--accent)">OpenClaw</strong>.
   </p>
 
-  <!-- Row 1: What + How -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem" class="cortex-intro-grid">
-
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem">
-      <h3 style="font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:1.2rem">What It Does</h3>
-      <p style="color:var(--text);font-size:.95rem;line-height:1.8">
-        Cortex replaces a 5-person marketing team with <strong style="color:var(--text-bright)">12 specialized AI agents</strong> 
-        that run 24/7 on OpenClaw. Each agent has its own knowledge base, tools, and decision-making capabilities.
-        <br><br>
-        From writing blog posts and optimizing SEO to generating videos and managing ad campaigns — 
-        Cortex handles the entire marketing stack for <strong style="color:var(--text-bright)">Cenoa's freelancer banking platform</strong>.
-      </p>
-    </div>
-
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem">
-      <h3 style="font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:1.2rem">How It Works</h3>
-      <div style="color:var(--text);font-size:.95rem;line-height:1.8">
-        <div style="display:flex;gap:.8rem;align-items:flex-start;margin-bottom:1rem">
-          <span style="color:var(--accent);font-weight:700;font-size:1.1rem;min-width:1.5rem">1.</span>
-          <span><strong style="color:var(--text-bright)">Orchestrator (Lucas)</strong> receives a task and routes it to the right agent</span>
-        </div>
-        <div style="display:flex;gap:.8rem;align-items:flex-start;margin-bottom:1rem">
-          <span style="color:var(--accent);font-weight:700;font-size:1.1rem;min-width:1.5rem">2.</span>
-          <span><strong style="color:var(--text-bright)">Specialist agent</strong> executes using its tools (APIs, browser, code)</span>
-        </div>
-        <div style="display:flex;gap:.8rem;align-items:flex-start;margin-bottom:1rem">
-          <span style="color:var(--accent);font-weight:700;font-size:1.1rem;min-width:1.5rem">3.</span>
-          <span><strong style="color:var(--text-bright)">Quality gate</strong> — output is reviewed before publishing</span>
-        </div>
-        <div style="display:flex;gap:.8rem;align-items:flex-start">
-          <span style="color:var(--accent);font-weight:700;font-size:1.1rem;min-width:1.5rem">4.</span>
-          <span><strong style="color:var(--text-bright)">Deploy & measure</strong> — content goes live, metrics flow back</span>
-        </div>
+  <!-- What It Does — Visual Card -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem;text-align:center">
+    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem">What It Does</h3>
+    <div style="display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap">
+      <div style="text-align:center">
+        <div style="font-size:2.8rem;margin-bottom:.4rem">🤖</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">12 AI Agents</div>
+        <div style="font-size:.85rem;color:var(--text-dim)">Running 24/7</div>
       </div>
-    </div>
-
-  </div>
-
-  <!-- Row 2: Current Capabilities (full width, detailed) -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:2rem">
-    <h3 style="font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem">✅ Current Capabilities — What We Can Do Today</h3>
-    
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="cortex-intro-grid">
-      <div>
-        <h4 style="font-size:.95rem;font-weight:700;color:var(--text-bright);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.1em">Content & Creative</h4>
-        <ul style="color:var(--text);font-size:.95rem;line-height:2.2;list-style:none;padding:0">
-          <li>🎬 <strong style="color:var(--text-bright)">AI Video Production</strong> — Script → TTS (ElevenLabs) → AI video gen (Kling 3.0, Veo 3.1) → ffmpeg edit → caption burn-in → export</li>
-          <li>🖼️ <strong style="color:var(--text-bright)">Image Generation</strong> — Thumbnails, social creatives, blog visuals via FLUX Pro & Schnell (1-second drafts)</li>
-          <li>📝 <strong style="color:var(--text-bright)">Content Writing</strong> — Blog posts, email copy, landing page text for cenoa.com and learn.cenoa.com</li>
-          <li>🎤 <strong style="color:var(--text-bright)">Voice Generation</strong> — Natural Turkish & English voiceovers via ElevenLabs with voice cloning</li>
-          <li>📊 <strong style="color:var(--text-bright)">Presentation Decks</strong> — Auto-generated pitch decks and one-pagers via Gamma API with PDF export</li>
-        </ul>
-
-        <h4 style="font-size:.95rem;font-weight:700;color:var(--text-bright);margin-bottom:.8rem;margin-top:1.5rem;text-transform:uppercase;letter-spacing:.1em">SEO & Organic</h4>
-        <ul style="color:var(--text);font-size:.95rem;line-height:2.2;list-style:none;padding:0">
-          <li>🔍 <strong style="color:var(--text-bright)">Technical SEO Audits</strong> — Site crawl, indexing issues, Core Web Vitals, schema markup</li>
-          <li>🎯 <strong style="color:var(--text-bright)">Keyword Research</strong> — Competitor gap analysis, search intent mapping, content briefs</li>
-          <li>📈 <strong style="color:var(--text-bright)">Search Console Integration</strong> — Ranking tracking, click-through optimization, query analysis</li>
-          <li>✍️ <strong style="color:var(--text-bright)">SEO Content Optimization</strong> — On-page scoring, internal linking, meta tag optimization</li>
-        </ul>
+      <div style="text-align:center">
+        <div style="font-size:2.8rem;margin-bottom:.4rem">🧠</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">Own Knowledge</div>
+        <div style="font-size:.85rem;color:var(--text-dim)">Tools & decisions</div>
       </div>
-
-      <div>
-        <h4 style="font-size:.95rem;font-weight:700;color:var(--text-bright);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.1em">Paid & Growth</h4>
-        <ul style="color:var(--text);font-size:.95rem;line-height:2.2;list-style:none;padding:0">
-          <li>📢 <strong style="color:var(--text-bright)">Google Ads Management</strong> — Campaign creation, bidding strategy, keyword optimization, performance reporting</li>
-          <li>📱 <strong style="color:var(--text-bright)">Meta Ads (FB/IG)</strong> — Audience targeting, creative testing, ROAS optimization, retargeting</li>
-          <li>🌐 <strong style="color:var(--text-bright)">Landing Page Roasts</strong> — Conversion audit with clarity, trust, offer strength scoring + copy rewrites</li>
-          <li>📊 <strong style="color:var(--text-bright)">Looker Studio Dashboards</strong> — Multi-source marketing dashboards (GA4, Ads, Social, AppsFlyer)</li>
-        </ul>
-
-        <h4 style="font-size:.95rem;font-weight:700;color:var(--text-bright);margin-bottom:.8rem;margin-top:1.5rem;text-transform:uppercase;letter-spacing:.1em">Analytics & Intelligence</h4>
-        <ul style="color:var(--text);font-size:.95rem;line-height:2.2;list-style:none;padding:0">
-          <li>📊 <strong style="color:var(--text-bright)">Amplitude MCP</strong> — Direct product analytics: funnels, retention cohorts, user behavior, event taxonomy</li>
-          <li>🔄 <strong style="color:var(--text-bright)">GA4 Intelligence</strong> — Real-time web + app traffic analysis, conversion tracking, attribution</li>
-          <li>📱 <strong style="color:var(--text-bright)">AppsFlyer Attribution</strong> — Install tracking, campaign attribution, deep link analytics</li>
-          <li>🏦 <strong style="color:var(--text-bright)">BigQuery Data Warehouse</strong> — Raw marketing data warehouse with custom queries and reporting</li>
-          <li>🔬 <strong style="color:var(--text-bright)">Competitive Intelligence</strong> — Market positioning, feature comparison, pricing monitoring (Payoneer, Wise, Deel)</li>
-        </ul>
+      <div style="text-align:center">
+        <div style="font-size:2.8rem;margin-bottom:.4rem">📊</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">Full Stack</div>
+        <div style="font-size:.85rem;color:var(--text-dim)">Content to analytics</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:2.8rem;margin-bottom:.4rem">🏦</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">Cenoa-Built</div>
+        <div style="font-size:.85rem;color:var(--text-dim)">Freelancer banking</div>
       </div>
     </div>
   </div>
 
-  <!-- Row 3: Cenoa Specific + Planned -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="cortex-intro-grid">
-
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem">
-      <h3 style="font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:1.2rem">🏦 Cenoa-Specific Workflows</h3>
-      <ul style="color:var(--text);font-size:.95rem;line-height:2.2;list-style:none;padding:0">
-        <li>🇹🇷 <strong style="color:var(--text-bright)">Turkey Market Deepening</strong> — Localized campaigns, TR content, cenoaylakazan.com optimization</li>
-        <li>🇪🇬 <strong style="color:var(--text-bright)">Egypt Launch Playbook</strong> — Market entry strategy with localized ad creatives</li>
-        <li>💳 <strong style="color:var(--text-bright)">KYC Funnel Optimization</strong> — Dropout analysis at each verification step, A/B test recommendations</li>
-        <li>📲 <strong style="color:var(--text-bright)">App Install Campaigns</strong> — Google Play + App Store optimization, install-to-KYC conversion tracking</li>
-        <li>🤝 <strong style="color:var(--text-bright)">Referral Program Design</strong> — Viral loops with incentive structures and tracking mechanics</li>
-        <li>📧 <strong style="color:var(--text-bright)">CRM & Lifecycle Marketing</strong> — Segmented email flows, onboarding drips, reactivation campaigns</li>
-        <li>🎯 <strong style="color:var(--text-bright)">Brand Voice Management</strong> — Consistent tone across all channels via dedicated Brand Manager agent</li>
-      </ul>
+  <!-- How It Works — Flow Diagram -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem">
+    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:2rem;text-align:center">How It Works</h3>
+    <div class="flow-diagram">
+      <div class="flow-step">
+        <div class="flow-icon">📋</div>
+        <div class="flow-label">Task In</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <div class="flow-icon">⚡</div>
+        <div class="flow-label">Agent Runs</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <div class="flow-icon">✅</div>
+        <div class="flow-label">QA Gate</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <div class="flow-icon">🚀</div>
+        <div class="flow-label">Deploy</div>
+      </div>
     </div>
+  </div>
 
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem;border-left:3px solid rgba(251,191,36,.5)">
-      <h3 style="font-size:1.15rem;font-weight:700;color:#fbbf24;margin-bottom:1.2rem">🚀 Planned — Coming Soon</h3>
-      <ul style="color:var(--text);font-size:.95rem;line-height:2.2;list-style:none;padding:0">
-        <li>📱 <strong style="color:var(--text-bright)">TikTok + YouTube Shorts Channels</strong> — Automated AI-generated UGC content pipeline</li>
-        <li>🔄 <strong style="color:var(--text-bright)">Competitor Watch</strong> — Automated Payoneer/Wise monitoring with change alerts</li>
-        <li>📈 <strong style="color:var(--text-bright)">Automated Weekly Reports</strong> — Cron-scheduled growth reports delivered to Telegram</li>
-        <li>🧪 <strong style="color:var(--text-bright)">A/B Test Framework</strong> — Hypothesis → experiment → results tracking loop</li>
-        <li>🌐 <strong style="color:var(--text-bright)">Multi-Language Pipeline</strong> — EN/TR/AR automatic content translation & localization</li>
-        <li>📊 <strong style="color:var(--text-bright)">Real-Time KPI Dashboard</strong> — Live Amplitude + GA4 metrics on Cortex</li>
-        <li>🎙️ <strong style="color:var(--text-bright)">Podcast Pipeline</strong> — Script → multi-voice TTS → audio editing → distribution</li>
-      </ul>
+  <!-- Current Capabilities — Icon Grid -->
+  <div style="margin-bottom:2rem">
+    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">Current Capabilities</h3>
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="cap-emoji">🎬</div>
+        <div class="cap-title">Video Production</div>
+        <div class="cap-desc">AI video gen + TTS + ffmpeg render</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">🖼️</div>
+        <div class="cap-title">Image Generation</div>
+        <div class="cap-desc">FLUX, thumbnails, social creatives</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">📝</div>
+        <div class="cap-title">Content Writing</div>
+        <div class="cap-desc">Blog, email, landing page copy</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">🎤</div>
+        <div class="cap-title">Voice Generation</div>
+        <div class="cap-desc">Turkish & English via ElevenLabs</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">📊</div>
+        <div class="cap-title">Presentations</div>
+        <div class="cap-desc">Auto-generated decks via Gamma</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">🔍</div>
+        <div class="cap-title">SEO Optimization</div>
+        <div class="cap-desc">Technical audits, keywords, ranking</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">📢</div>
+        <div class="cap-title">Paid Campaigns</div>
+        <div class="cap-desc">Google Ads + Meta Ads management</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">📊</div>
+        <div class="cap-title">Analytics</div>
+        <div class="cap-desc">Amplitude, GA4, BigQuery, AppsFlyer</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">🌐</div>
+        <div class="cap-title">Web Deploy</div>
+        <div class="cap-desc">Netlify, Vercel, site performance</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-emoji">🔬</div>
+        <div class="cap-title">Competitive Intel</div>
+        <div class="cap-desc">Payoneer/Wise/Deel monitoring</div>
+      </div>
     </div>
+  </div>
 
+  <!-- Cenoa-Specific Workflows — Compact Visual Cards -->
+  <div style="margin-bottom:2rem">
+    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">Cenoa-Specific Workflows</h3>
+    <div class="cenoa-grid">
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">🇹🇷</div>
+        <div class="cenoa-title">Turkey Deepening</div>
+        <div class="cenoa-desc">Localized campaigns & TR content</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">🇪🇬</div>
+        <div class="cenoa-title">Egypt Launch</div>
+        <div class="cenoa-desc">Market entry & localized creatives</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">💳</div>
+        <div class="cenoa-title">KYC Funnel</div>
+        <div class="cenoa-desc">Dropout analysis & A/B testing</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">📲</div>
+        <div class="cenoa-title">App Installs</div>
+        <div class="cenoa-desc">Play Store + App Store optimization</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">🤝</div>
+        <div class="cenoa-title">Referral Program</div>
+        <div class="cenoa-desc">Viral loops & incentive tracking</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">📧</div>
+        <div class="cenoa-title">CRM Lifecycle</div>
+        <div class="cenoa-desc">Email flows & reactivation drips</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">🎯</div>
+        <div class="cenoa-title">Brand Voice</div>
+        <div class="cenoa-desc">Consistent tone, all channels</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">🌍</div>
+        <div class="cenoa-title">4 Markets</div>
+        <div class="cenoa-desc">TR, EG, PK, global expansion</div>
+      </div>
+      <div class="cenoa-card">
+        <div class="cenoa-emoji">📈</div>
+        <div class="cenoa-title">Growth Loops</div>
+        <div class="cenoa-desc">Install → KYC → transact funnels</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Planned — Vertical Timeline -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem">
+    <h3 style="font-size:1.2rem;font-weight:700;color:#fbbf24;margin-bottom:2rem;text-align:center">Planned — Coming Soon</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">TikTok + YouTube Shorts</div>
+          <div class="timeline-desc">Automated AI-generated UGC pipeline</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Competitor Watch</div>
+          <div class="timeline-desc">Auto Payoneer/Wise monitoring + alerts</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Weekly Auto-Reports</div>
+          <div class="timeline-desc">Cron-scheduled growth reports to Telegram</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">A/B Test Framework</div>
+          <div class="timeline-desc">Hypothesis → experiment → results loop</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Multi-Language Pipeline</div>
+          <div class="timeline-desc">EN/TR/AR auto translation & localization</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Real-Time KPI Dashboard</div>
+          <div class="timeline-desc">Live Amplitude + GA4 metrics on Cortex</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Podcast Pipeline</div>
+          <div class="timeline-desc">Script → multi-voice TTS → distribution</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
