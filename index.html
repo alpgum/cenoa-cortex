@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CENOA × CORTEX — Marketing Operations Dashboard</title>
+<title>CENOA × CORTEX - Marketing Operations Dashboard</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#222;--accent:#00ff88;--accent-dim:rgba(0,255,136,.12);--accent-glow:rgba(0,255,136,.3);--text:#e0e0e0;--text-dim:#777;--text-bright:#fff}
@@ -174,7 +174,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .header-nav a{font-size:.7rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .2s;text-decoration:none}
 .header-nav a:hover{color:var(--accent)}
 
-/* Tool Inventory — Clean Cards */
+/* Tool Inventory - Clean Cards */
 /* Platform Hub */
 .ph-cat-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dim);margin:1rem 0 .4rem;padding-left:.1rem;font-weight:600}
 .ph-cat-label:first-child{margin-top:0}
@@ -189,7 +189,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .ph-card .ph-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--border);color:var(--text);font-size:.65rem;padding:.35rem .6rem;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none}
 .ph-card:hover .ph-tooltip{display:block}
 
-/* Routing Table — Bigger Cards */
+/* Routing Table - Bigger Cards */
 .routing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
 .routing-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.6rem;transition:all .3s}
 .routing-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08);transform:translateY(-2px)}
@@ -197,7 +197,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .routing-value{font-size:1.2rem;font-weight:700;color:var(--text-bright)}
 .routing-meta{font-size:.9rem;color:var(--text-dim);margin-top:.35rem}
 
-/* Unsub Grid — Bigger */
+/* Unsub Grid - Bigger */
 .unsub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
 .unsub-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:all .3s}
 .unsub-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08)}
@@ -221,6 +221,26 @@ footer span{color:var(--accent)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeUp .5s ease forwards;opacity:0}
 
+/* Analytics */
+.analytics-frame{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem}
+.analytics-iframe{width:100%;height:600px;border:0;border-radius:12px;display:block}
+.amp-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-left:3px solid #fbbf24}
+.amp-title{font-weight:800;color:var(--text-bright);margin-bottom:.2rem}
+.amp-desc{color:var(--text-dim);font-size:.9rem;line-height:1.4}
+.amp-link{color:var(--accent);text-decoration:none;font-weight:700;font-size:.9rem;white-space:nowrap}
+.amp-link:hover{text-decoration:underline}
+
+/* Doc Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal{width:min(560px,100%);background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,.45)}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1rem 1.1rem;border-bottom:1px solid var(--border);background:var(--surface2)}
+.modal-title{font-weight:900;color:var(--text-bright);line-height:1.2}
+.modal-close{background:transparent;border:1px solid var(--border);color:var(--text-dim);border-radius:10px;padding:.35rem .6rem;cursor:pointer}
+.modal-close:hover{border-color:rgba(0,255,136,.25);color:var(--text)}
+.modal-body{padding:1rem 1.1rem;color:var(--text-dim);font-size:.95rem;line-height:1.6}
+.modal-path{margin-top:.6rem;background:#0b0b0b;border:1px solid var(--border);border-radius:10px;padding:.6rem .75rem;color:#b6b6b6;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.82rem;overflow:auto}
+
 /* Responsive */
 @media(max-width:768px){
   .hero-title{letter-spacing:.08em}
@@ -230,6 +250,7 @@ footer span{color:var(--accent)}
   header{padding:0 1rem}
   .doc-grid,.agent-grid,.market-grid,.routing-grid,.unsub-grid{grid-template-columns:1fr}
   .ph-grid{grid-template-columns:repeat(auto-fill,minmax(75px,1fr))}
+  .analytics-iframe{height:400px}
   .header-nav{gap:.6rem}
   .header-nav a{font-size:.6rem}
 }
@@ -240,14 +261,15 @@ footer span{color:var(--accent)}
 <header>
   <div class="header-brand">
     <div class="header-pulse"></div>
-    CENOA <span>&times;</span> CORTEX — Marketing Operations Dashboard
+    CENOA <span>&times;</span> CORTEX - Marketing Operations Dashboard
   </div>
   <nav class="header-nav">
     <a href="#whatIs">About</a>
+    <a href="#platformHub">Platforms</a>
     <a href="#docHub">Docs</a>
+    <a href="#analytics">Analytics</a>
     <a href="#agentStatus">Agents</a>
     <a href="#marketOverview">Markets</a>
-    <a href="#platformHub">Platforms</a>
     <a href="#openclawTaktik">OpenClaw Taktikleri</a>
     <span style="color:#333">|</span>
     <span style="font-size:.7rem;color:#444;letter-spacing:.08em">v1.0 &middot; LIVE</span>
@@ -278,15 +300,15 @@ footer span{color:var(--accent)}
 
   <div class="ph-cat-label">AI Modelleri & LLM</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/anthropic/white" alt="Anthropic"><span class="ph-name">Anthropic</span><span class="ph-tooltip">Claude Opus 4.6 — Orkestrator, konusma</span></div>
-    <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">CC</span><span class="ph-name">Claude Code</span><span class="ph-tooltip">Claude Max — Agir is, kod, analiz</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/openai/white" alt="OpenAI"><span class="ph-name">OpenAI</span><span class="ph-tooltip">GPT-5.2 — Fallback LLM</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/anthropic/white" alt="Anthropic"><span class="ph-name">Anthropic</span><span class="ph-tooltip">Claude Opus 4.6 - Orkestrator, konusma</span></div>
+    <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">CC</span><span class="ph-name">Claude Code</span><span class="ph-tooltip">Claude Max - Agir is, kod, analiz</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/openai/white" alt="OpenAI"><span class="ph-name">OpenAI</span><span class="ph-tooltip">GPT-5.2 - Fallback LLM</span></div>
     <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gemini</span><span class="ph-tooltip">Image gen, alternatif LLM</span></div>
   </div>
 
   <div class="ph-cat-label">Image & Video Generation</div>
   <div class="ph-grid">
-    <div class="ph-card"><span class="ph-text-logo" style="font-weight:900">fal</span><span class="ph-name">fal.ai</span><span class="ph-tooltip">ANA PLATFORM — FLUX, Kling, Veo, Sora, Wan — pay-per-use</span></div>
+    <div class="ph-card"><span class="ph-text-logo" style="font-weight:900">fal</span><span class="ph-name">fal.ai</span><span class="ph-tooltip">ANA PLATFORM - FLUX, Kling, Veo, Sora, Wan - pay-per-use</span></div>
     <div class="ph-card"><span class="ph-text-logo" style="color:#00e87b">R</span><span class="ph-name">Runway</span><span class="ph-tooltip">API $10 bakiye, abonelik 28 Mart bitiyor</span></div>
     <div class="ph-card cancelled"><span class="ph-text-logo">H</span><span class="ph-name">Higgsfield</span><span class="ph-tooltip">IPTAL</span></div>
     <div class="ph-card cancelled"><span class="ph-text-logo">F</span><span class="ph-name">Freepik</span><span class="ph-tooltip">IPTAL</span></div>
@@ -319,7 +341,7 @@ footer span{color:var(--accent)}
     <div class="ph-card"><img src="https://cdn.simpleicons.org/netlify/white" alt="Netlify"><span class="ph-name">Netlify</span><span class="ph-tooltip">Static site deploy</span></div>
     <div class="ph-card"><img src="https://cdn.simpleicons.org/vercel/white" alt="Vercel"><span class="ph-name">Vercel</span><span class="ph-tooltip">App deploy</span></div>
     <div class="ph-card"><span class="ph-text-logo">🎴</span><span class="ph-name">Gamma</span><span class="ph-tooltip">Deck/sunum olusturma</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube"><span class="ph-name">YouTube</span><span class="ph-tooltip">Video upload — Data API</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube"><span class="ph-name">YouTube</span><span class="ph-tooltip">Video upload - Data API</span></div>
   </div>
 
   <div class="ph-cat-label">Arastirma & Web</div>
@@ -337,7 +359,7 @@ footer span{color:var(--accent)}
 
   <div class="ph-cat-label">Google Workspace & Dev</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gmail/Drive</span><span class="ph-tooltip">alperen@cenoa.com — Workspace</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gmail/Drive</span><span class="ph-tooltip">alperen@cenoa.com - Workspace</span></div>
     <div class="ph-card"><img src="https://cdn.simpleicons.org/github/white" alt="GitHub"><span class="ph-name">GitHub</span><span class="ph-tooltip">Kod yonetimi</span></div>
     <div class="ph-card"><img src="https://cdn.simpleicons.org/slack/white" alt="Slack"><span class="ph-name">Slack</span><span class="ph-tooltip">Ekip iletisimi</span></div>
   </div>
@@ -351,11 +373,11 @@ footer span{color:var(--accent)}
     <div class="badge">INTERNAL TOOL</div>
   </div>
   <p style="color:var(--text-dim);font-size:1.05rem;margin-bottom:2.5rem;max-width:800px;line-height:1.7">
-    Cenoa's <strong style="color:var(--text-bright)">AI-powered marketing ops center</strong> —
+    Cenoa's <strong style="color:var(--text-bright)">AI-powered marketing ops center</strong> -
     12 agents, 4 markets, one dashboard. Powered by <strong style="color:var(--accent)">OpenClaw</strong>.
   </p>
 
-  <!-- What It Does — Visual Card -->
+  <!-- What It Does - Visual Card -->
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem;text-align:center">
     <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem">What It Does</h3>
     <div style="display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap">
@@ -382,7 +404,7 @@ footer span{color:var(--accent)}
     </div>
   </div>
 
-  <!-- How It Works — Flow Diagram -->
+  <!-- How It Works - Flow Diagram -->
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem">
     <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:2rem;text-align:center">How It Works</h3>
     <div class="flow-diagram">
@@ -408,7 +430,7 @@ footer span{color:var(--accent)}
     </div>
   </div>
 
-  <!-- Current Capabilities — Icon Grid -->
+  <!-- Current Capabilities - Icon Grid -->
   <div style="margin-bottom:2rem">
     <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">Current Capabilities</h3>
     <div class="cap-grid">
@@ -468,7 +490,7 @@ footer span{color:var(--accent)}
   <!-- Track Record -->
   <div style="margin-bottom:2rem">
     <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">📊 Track Record</h3>
-    
+
     <!-- Big numbers row -->
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-bottom:1.5rem;text-align:center" class="track-numbers">
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem .5rem">
@@ -509,7 +531,7 @@ footer span{color:var(--accent)}
             <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">🎬 Producer</td>
             <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">172 clips</td>
             <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">3 Shorts</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">AnimalByte channel — octopus, pistol shrimp, rabbit</td>
+            <td style="padding:.6rem 1rem;color:var(--text-dim)">AnimalByte channel - octopus, pistol shrimp, rabbit</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border)">
             <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">📈 Growth Manager</td>
@@ -545,14 +567,14 @@ footer span{color:var(--accent)}
             <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">🔍 SEO + ✍️ Content</td>
             <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">New</td>
             <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">Ready</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">Agents created, knowledge loaded — first tasks queued</td>
+            <td style="padding:.6rem 1rem;color:var(--text-dim)">Agents created, knowledge loaded - first tasks queued</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Cenoa-Specific Workflows — Compact Visual Cards -->
+  <!-- Cenoa-Specific Workflows - Compact Visual Cards -->
   <div style="margin-bottom:2rem">
     <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">Cenoa-Specific Workflows</h3>
     <div class="cenoa-grid">
@@ -604,9 +626,9 @@ footer span{color:var(--accent)}
     </div>
   </div>
 
-  <!-- Planned — Vertical Timeline -->
+  <!-- Planned - Vertical Timeline -->
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem">
-    <h3 style="font-size:1.2rem;font-weight:700;color:#fbbf24;margin-bottom:2rem;text-align:center">Planned — Coming Soon</h3>
+    <h3 style="font-size:1.2rem;font-weight:700;color:#fbbf24;margin-bottom:2rem;text-align:center">Planned - Coming Soon</h3>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-dot"></div>
@@ -688,6 +710,41 @@ footer span{color:var(--accent)}
   <div class="no-results" id="noResults">No documents match your search.</div>
 </section>
 
+<!-- LIVE ANALYTICS -->
+<section class="section" id="analytics">
+  <div class="section-header">
+    <h2>📈 Live Analytics</h2>
+    <div class="line"></div>
+    <div class="badge">LOOKER STUDIO</div>
+  </div>
+
+  <div class="cat-filters" id="lookerTabs" style="margin-bottom:1rem">
+    <button class="cat-btn active" data-tab="main">Main Traffic</button>
+    <button class="cat-btn" data-tab="kpis">KPIs</button>
+    <button class="cat-btn" data-tab="paid">Paid</button>
+    <button class="cat-btn" data-tab="social">Social</button>
+  </div>
+
+  <div class="analytics-frame">
+    <iframe
+      id="lookerFrame"
+      class="analytics-iframe"
+      src="https://lookerstudio.google.com/embed/reporting/1e81a948-62f8-42d9-9c6c-31aab4dd60c6/page/p_cx3oz79j0d"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+
+  <div class="amp-card" style="margin-top:1rem">
+    <div>
+      <div class="amp-title">Amplitude Bridge Dashboard</div>
+      <div class="amp-desc">Coming soon - embed/API integration in progress. For now, open in Amplitude.</div>
+    </div>
+    <a class="amp-link" href="https://app.amplitude.com/analytics/cenoa" target="_blank" rel="noreferrer">Open Amplitude →</a>
+  </div>
+</section>
+
 <!-- MEET THE TEAM -->
 <section class="section" id="agentStatus">
   <div class="section-header">
@@ -726,7 +783,7 @@ footer span{color:var(--accent)}
               <div class="org-name">Brand Manager</div>
               <div class="org-role">Brand & Identity</div>
             </div>
-            <div class="org-says">"I guard Cenoa's brand voice across every channel. I write guidelines, review creatives, and make sure we sound trustworthy and human — never corporate."</div>
+            <div class="org-says">"I guard Cenoa's brand voice across every channel. I write guidelines, review creatives, and make sure we sound trustworthy and human - never corporate."</div>
           </div>
 
           <div class="org-card">
@@ -744,7 +801,7 @@ footer span{color:var(--accent)}
               <div class="org-name">Data Lead</div>
               <div class="org-role">Analytics & Reporting</div>
             </div>
-            <div class="org-says">"I connect Amplitude, GA4, BigQuery, and AppsFlyer to build the full picture. Funnels, cohorts, attribution — I make data talk."</div>
+            <div class="org-says">"I connect Amplitude, GA4, BigQuery, and AppsFlyer to build the full picture. Funnels, cohorts, attribution - I make data talk."</div>
           </div>
 
           <div class="org-card">
@@ -797,7 +854,7 @@ footer span{color:var(--accent)}
               <div class="org-name">Script Writer</div>
               <div class="org-role">Story & Hooks</div>
             </div>
-            <div class="org-says">"I write video scripts with killer hooks, clear structure, and emotional beats. Every script is optimized for retention — the first 3 seconds decide everything."</div>
+            <div class="org-says">"I write video scripts with killer hooks, clear structure, and emotional beats. Every script is optimized for retention - the first 3 seconds decide everything."</div>
           </div>
 
           <div class="org-card">
@@ -815,7 +872,7 @@ footer span{color:var(--accent)}
               <div class="org-name">Packager</div>
               <div class="org-role">Format & Distribute</div>
             </div>
-            <div class="org-says">"I adapt videos for every platform — 9:16 for Shorts/TikTok, 16:9 for YouTube, burn captions, create thumbnails, and prep metadata for upload."</div>
+            <div class="org-says">"I adapt videos for every platform - 9:16 for Shorts/TikTok, 16:9 for YouTube, burn captions, create thumbnails, and prep metadata for upload."</div>
           </div>
 
           <div class="org-card">
@@ -824,7 +881,7 @@ footer span{color:var(--accent)}
               <div class="org-name">QA Reviewer</div>
               <div class="org-role">Quality Gates</div>
             </div>
-            <div class="org-says">"I watch every video before publish. Audio quality, visual consistency, caption accuracy, brand compliance — nothing goes live without my approval."</div>
+            <div class="org-says">"I watch every video before publish. Audio quality, visual consistency, caption accuracy, brand compliance - nothing goes live without my approval."</div>
           </div>
 
           <div class="org-card">
@@ -908,13 +965,13 @@ footer span{color:var(--accent)}
   </div>
 
   <!-- Unsub Kararlari -->
-  <div class="division-label" style="margin-top:2rem">Unsub Kararlari — Mart 2026</div>
+  <div class="division-label" style="margin-top:2rem">Unsub Kararlari - Mart 2026</div>
   <div class="unsub-grid">
     <div class="unsub-card cancel">
       <div class="unsub-icon">&#10060;</div>
       <div>
         <div class="unsub-name">Runway Unlimited</div>
-        <div class="unsub-detail">$95/ay — IPTAL</div>
+        <div class="unsub-detail">$95/ay - IPTAL</div>
       </div>
     </div>
     <div class="unsub-card cancel">
@@ -935,21 +992,21 @@ footer span{color:var(--accent)}
       <div class="unsub-icon">&#9989;</div>
       <div>
         <div class="unsub-name">fal.ai</div>
-        <div class="unsub-detail">KORU — ~$20-40/ay</div>
+        <div class="unsub-detail">KORU - ~$20-40/ay</div>
       </div>
     </div>
     <div class="unsub-card keep">
       <div class="unsub-icon">&#9989;</div>
       <div>
         <div class="unsub-name">ElevenLabs</div>
-        <div class="unsub-detail">KORU — $11/ay</div>
+        <div class="unsub-detail">KORU - $11/ay</div>
       </div>
     </div>
     <div class="unsub-card keep">
       <div class="unsub-icon">&#9989;</div>
       <div>
         <div class="unsub-name">OpenAI</div>
-        <div class="unsub-detail">KORU — $20/ay</div>
+        <div class="unsub-detail">KORU - $20/ay</div>
       </div>
     </div>
   </div>
@@ -959,6 +1016,23 @@ footer span{color:var(--accent)}
   </div>
 </section>
 
+</div>
+
+<!-- DOC MODAL -->
+<div class="modal-overlay" id="docModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="docModalTitle">Document</div>
+        <div style="font-size:.75rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem">Local reference</div>
+      </div>
+      <button class="modal-close" id="docModalClose">Close</button>
+    </div>
+    <div class="modal-body">
+      This doc is currently stored in the workspace. Next step: link to Drive/GitHub.
+      <div class="modal-path" id="docModalPath">projects/growth-engine/…</div>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -1069,7 +1143,7 @@ function renderDocs(filter, query) {
   noResults.style.display = 'none';
 
   docGrid.innerHTML = filtered.map((d, i) => `
-    <div class="doc-card fade-in" style="animation-delay:${i * 0.025}s">
+    <div class="doc-card fade-in" data-cat="${d.cat}" data-file="${d.file}" data-title="${d.title.replace(/\"/g,'&quot;')}" style="animation-delay:${i * 0.025}s">
       <span class="cat-tag ${d.cat}">${d.cat}</span>
       <h3>${hl(d.title, query)}</h3>
       <p>${hl(d.desc, query)}</p>
@@ -1101,7 +1175,57 @@ document.getElementById('catFilters').addEventListener('click', function(e) {
   renderDocs(e.target.dataset.cat, document.getElementById('docSearch').value);
 });
 
-// ========== RENDER AGENTS ==========
+// Doc click → modal (local path for now)
+const docModal = document.getElementById('docModal');
+const docModalTitle = document.getElementById('docModalTitle');
+const docModalPath = document.getElementById('docModalPath');
+const docModalClose = document.getElementById('docModalClose');
+
+function openDocModal(title, path){
+  docModalTitle.textContent = title;
+  docModalPath.textContent = path;
+  docModal.classList.add('show');
+}
+function closeDocModal(){ docModal.classList.remove('show'); }
+
+if (docModal && docModalClose) {
+  docModalClose.addEventListener('click', closeDocModal);
+  docModal.addEventListener('click', (e) => { if (e.target === docModal) closeDocModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDocModal(); });
+
+  docGrid.addEventListener('click', (e) => {
+    const card = e.target.closest('.doc-card');
+    if (!card) return;
+    const cat = card.dataset.cat;
+    const file = card.dataset.file;
+    const title = card.dataset.title || 'Document';
+    const path = `projects/growth-engine/${cat}/${file}`;
+    openDocModal(title, path);
+  });
+}
+
+// Looker tabs
+const lookerPages = {
+  main: 'p_cx3oz79j0d',
+  kpis: 'p_cx3oz79j0d',
+  paid: 'p_cx3oz79j0d',
+  social: 'p_cx3oz79j0d'
+};
+const lookerFrame = document.getElementById('lookerFrame');
+const lookerTabs = document.getElementById('lookerTabs');
+if (lookerFrame && lookerTabs) {
+  lookerTabs.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    lookerTabs.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    const page = lookerPages[tab] || lookerPages.main;
+    lookerFrame.src = `https://lookerstudio.google.com/embed/reporting/1e81a948-62f8-42d9-9c6c-31aab4dd60c6/page/${page}`;
+  });
+}
+
+// ========== RENDER AGENTS ========== 
 function renderAgents(id, list) {
   document.getElementById(id).innerHTML = list.map((a, i) => `
     <div class="agent-card fade-in" style="animation-delay:${i * 0.04}s">
