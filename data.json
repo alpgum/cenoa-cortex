@@ -1,54 +1,109 @@
 {
   "week": "Mar 14-20, 2026",
-  "updated": "2026-03-21 01:54 TRT",
+  "updated": "2026-03-21 03:14 TRT",
   "kpis": {
     "installs": {
-      "value": 1448,
+      "value": 1453,
       "prev": 2274,
-      "deltaPct": -36.3,
+      "deltaPct": -36.1,
       "direction": "down"
     },
     "signups": {
-      "value": 1211,
+      "value": 1219,
       "prev": 1671,
-      "deltaPct": -27.5,
+      "deltaPct": -27.0,
       "direction": "down"
     },
     "kycSubmits": {
-      "value": 179,
+      "value": 185,
       "prev": 307,
-      "deltaPct": -41.7,
+      "deltaPct": -39.7,
       "direction": "down"
     },
     "virtualAccountOpened": {
-      "value": 434,
+      "value": 436,
       "prev": 632,
-      "deltaPct": -31.3,
+      "deltaPct": -31.0,
       "direction": "down"
     },
     "depositCompleted": {
-      "value": 1550,
+      "value": 1555,
       "prev": 1642,
-      "deltaPct": -5.6,
+      "deltaPct": -5.3,
       "direction": "down"
     },
     "transferCompleted": {
-      "value": 784,
+      "value": 790,
       "prev": 796,
-      "deltaPct": -1.5,
+      "deltaPct": -0.8,
       "direction": "down"
     },
     "withdrawCompleted": {
-      "value": 2229,
+      "value": 2236,
       "prev": 2214,
-      "deltaPct": 0.7,
+      "deltaPct": 1.0,
       "direction": "up"
     },
     "dauAvg": {
-      "value": 3065.0,
+      "value": 3074.6,
       "prev": 5677.7,
-      "deltaPct": -46.0,
+      "deltaPct": -45.8,
       "direction": "down"
     }
-  }
+  },
+  "countries": {
+    "TR": {
+      "installs": {
+        "value": 672,
+        "prev": 1123,
+        "deltaPct": -40.2
+      },
+      "signups": {
+        "value": 228,
+        "prev": 289,
+        "deltaPct": -21.1
+      }
+    },
+    "NG": {
+      "installs": {
+        "value": 462,
+        "prev": 600,
+        "deltaPct": -23.0
+      },
+      "signups": {
+        "value": 117,
+        "prev": 152,
+        "deltaPct": -23.0
+      }
+    },
+    "EG": {
+      "installs": {
+        "value": 208,
+        "prev": 430,
+        "deltaPct": -51.6
+      },
+      "signups": {
+        "value": 65,
+        "prev": 159,
+        "deltaPct": -59.1
+      }
+    },
+    "PK": {
+      "installs": {
+        "value": 23,
+        "prev": 1,
+        "deltaPct": 2200.0
+      },
+      "signups": {
+        "value": 15,
+        "prev": 0,
+        "deltaPct": 100.0
+      }
+    }
+  },
+  "highlights": [
+    "DAU ▼45.8%",
+    "KYC Submit ▼39.7%",
+    "Installs ▼36.1%"
+  ]
 }
