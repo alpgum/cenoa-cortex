@@ -259,6 +259,18 @@ footer span{color:var(--accent)}
 .kpi-delta.neutral{color:#777;background:rgba(255,255,255,.04)}
 .kpi-footer{display:flex;justify-content:space-between;align-items:center;font-size:.65rem;color:#444;padding:0 .2rem}
 .kpi-last-updated{color:#555}
+
+.kpi-spark{width:66px;height:22px;flex-shrink:0;align-self:center;opacity:.9}
+.kpi-spark svg{width:66px;height:22px;display:block}
+.kpi-spark .spark-line{fill:none;stroke:rgba(255,255,255,.28);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.kpi-spark .spark-area{stroke:none}
+.kpi-spark.up .spark-area{fill:rgba(34,197,94,.10)}
+.kpi-spark.down .spark-area{fill:rgba(239,68,68,.10)}
+.kpi-spark.neutral .spark-area{fill:rgba(255,255,255,.06)}
+.kpi-spark.up .spark-dot{fill:#22c55e}
+.kpi-spark.down .spark-dot{fill:#ef4444}
+.kpi-spark.neutral .spark-dot{fill:#777}
+.kpi-spark .spark-dot{stroke:rgba(0,0,0,.45);stroke-width:1}
 @media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
 
@@ -1620,6 +1632,80 @@ const markets = [
   observer.observe(document.getElementById('statsRow'));
 })();
 
+// ========== KPI SPARKLINES (last 4 weeks) ==========
+const KPI_SPARK_DEFAULT = {
+  installs:[2600,2380,2274,1453],
+  signups:[1850,1765,1671,1219],
+  kycSubmits:[360,332,307,185],
+  virtualAccountOpened:[720,690,632,436],
+  dauAvg:[6400,6120,5677.7,3074.6],
+  depositCompleted:[1710,1688,1642,1555],
+  transferCompleted:[860,835,796,790],
+  withdrawCompleted:[2050,2140,2214,2236]
+};
+
+function sparklineSvg(values, dir){
+  const w=66,h=22,p=3; // viewBox units match px for simplicity
+  const xs=[p, (w-p)*0.33, (w-p)*0.66, w-p];
+  const nums=(values||[]).map(v=>Number(v)).filter(v=>Number.isFinite(v));
+  if (nums.length<2) return "";
+  const minV=Math.min(...nums), maxV=Math.max(...nums);
+  const range=(maxV-minV)||1;
+  const top=p, bot=h-p;
+  const ys=(values||[]).map(v=>{
+    const vv=Number(v);
+    if(!Number.isFinite(vv)) return bot;
+    return top + (maxV - vv)/range * (bot-top);
+  });
+  const pts=xs.map((x,i)=>`${x.toFixed(1)},${ys[i].toFixed(1)}`);
+  const d=`M ${pts[0]} L ${pts[1]} L ${pts[2]} L ${pts[3]}`;
+  const area=`M ${pts[0]} L ${pts[1]} L ${pts[2]} L ${pts[3]} L ${xs[3].toFixed(1)},${bot.toFixed(1)} L ${xs[0].toFixed(1)},${bot.toFixed(1)} Z`;
+  const dotX=xs[3], dotY=ys[3];
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">`+
+    `<path class="spark-area" d="${area}" />`+
+    `<path class="spark-line" d="${d}" />`+
+    `<circle class="spark-dot" cx="${dotX.toFixed(1)}" cy="${dotY.toFixed(1)}" r="2.4" />`+
+  `</svg>`;
+}
+
+function renderKpiSparklines(data){
+  const hist = JSON.parse(JSON.stringify(KPI_SPARK_DEFAULT));
+  if (data && data.kpis) {
+    Object.keys(hist).forEach(k => {
+      const row = data.kpis[k];
+      if (!row) return;
+      if (row.prev !== undefined) hist[k][2] = Number(row.prev);
+      if (row.value !== undefined) hist[k][3] = Number(row.value);
+    });
+  }
+
+  document.querySelectorAll(".kpi-card[data-kpi]").forEach(card => {
+    const key = card.getAttribute("data-kpi");
+    const values = hist[key];
+    if (!values) return;
+    const d = (data && data.kpis && data.kpis[key] && data.kpis[key].direction) ? String(data.kpis[key].direction).toLowerCase() : "";
+    let dir = (d === "up" || d === "down") ? d : "neutral";
+    const deltaEl = card.querySelector(".kpi-delta");
+    if (deltaEl) {
+      if (deltaEl.classList.contains("up")) dir = "up";
+      else if (deltaEl.classList.contains("down")) dir = "down";
+    }
+
+    let spark = card.querySelector(":scope > .kpi-spark");
+    if (!spark) {
+      spark = document.createElement("div");
+      spark.className = "kpi-spark";
+      card.appendChild(spark);
+    }
+    spark.classList.remove("up","down","neutral");
+    spark.classList.add(dir);
+    spark.innerHTML = sparklineSvg(values, dir);
+  });
+}
+
+// render immediately with defaults (then refresh after data.json loads)
+renderKpiSparklines();
+
 // ========== KPI BANNER (data.json) ==========
 (async function loadKpis(){
   try {
@@ -1667,8 +1753,11 @@ const markets = [
         deltaEl.textContent = `${arrow} ${fmtDelta(k.deltaPct)} vs prev week`;
       }
     });
+    renderKpiSparklines(data);
+
   } catch (e) {
     // Fallback: keep hardcoded KPI values if fetch fails
+    renderKpiSparklines();
     console.warn('KPI data.json fetch failed:', e);
   }
 })();
