@@ -296,6 +296,20 @@ footer span{color:var(--accent)}
 .modal-body{padding:1rem 1.1rem;color:var(--text-dim);font-size:.95rem;line-height:1.6}
 .modal-path{margin-top:.6rem;background:#0b0b0b;border:1px solid var(--border);border-radius:10px;padding:.6rem .75rem;color:#b6b6b6;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.82rem;overflow:auto}
 
+/* Action Items */
+.action-grid{display:flex;flex-direction:column;gap:.6rem;max-width:800px;margin:0 auto}
+.action-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:flex-start;gap:.8rem;transition:all .3s}
+.action-card:hover{border-color:rgba(0,255,136,.2);transform:translateX(4px)}
+.action-card.p0{border-left:4px solid #ef4444}
+.action-card.p1{border-left:4px solid #fbbf24}
+.action-card.p2{border-left:4px solid #22c55e}
+.action-priority{font-size:.65rem;font-weight:800;padding:.2rem .55rem;border-radius:6px;letter-spacing:.08em;white-space:nowrap;flex-shrink:0;margin-top:.1rem}
+.action-priority.p0{background:rgba(239,68,68,.18);color:#f87171}
+.action-priority.p1{background:rgba(251,191,36,.15);color:#fbbf24}
+.action-priority.p2{background:rgba(34,197,94,.15);color:#4ade80}
+.action-text{font-size:.88rem;color:var(--text-bright);font-weight:600;line-height:1.4}
+.action-detail{font-size:.75rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4}
+
 /* Responsive */
 @media(max-width:768px){
   #kycDropout > div:nth-child(2){grid-template-columns:1fr !important}
@@ -326,6 +340,7 @@ footer span{color:var(--accent)}
     <a href="#campaignTable">Campaigns</a>
     <a href="#whatIs">About</a>
     <a href="#kycDropout">KYC</a>
+    <a href="#actionItems">Actions</a>
     <a href="#funnelChart">Funnel</a>
     <a href="#platformHub">Platforms</a>
     <a href="#docHub">Docs</a>
@@ -678,6 +693,67 @@ footer span{color:var(--accent)}
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
       <h4 style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin-bottom:1rem;letter-spacing:.04em">KYC Submit by Country</h4>
       <canvas id="kycCountryCanvas" height="220"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ACTION ITEMS -->
+<section class="section" id="actionItems" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>🎯 This Week's Actions</h2>
+    <div class="line"></div>
+    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">PRIORITY</div>
+  </div>
+
+  <div class="action-grid">
+    <div class="action-card p0">
+      <span class="action-priority p0">🔴 P0</span>
+      <div>
+        <div class="action-text">Unblock KYC for Nigeria</div>
+        <div class="action-detail">Bridgexyz shown=0, 230 users stuck — zero KYC submissions this week</div>
+      </div>
+    </div>
+    <div class="action-card p0">
+      <span class="action-priority p0">🔴 P0</span>
+      <div>
+        <div class="action-text">Unblock KYC for Egypt</div>
+        <div class="action-detail">62 users stuck, ~$8 CAC wasted per user with no path to conversion</div>
+      </div>
+    </div>
+    <div class="action-card p0">
+      <span class="action-priority p0">🔴 P0</span>
+      <div>
+        <div class="action-text">Investigate DAU -46% crash</div>
+        <div class="action-detail">Biggest WoW decline across all metrics — need root cause analysis</div>
+      </div>
+    </div>
+    <div class="action-card p1">
+      <span class="action-priority p1">🟡 P1</span>
+      <div>
+        <div class="action-text">Pause Appnext</div>
+        <div class="action-detail">273 installs, near-zero downstream activity — fraud pattern detected</div>
+      </div>
+    </div>
+    <div class="action-card p1">
+      <span class="action-priority p1">🟡 P1</span>
+      <div>
+        <div class="action-text">Pause TikTok</div>
+        <div class="action-detail">49 installs, 0 withdrawals — no ROI signal at current spend</div>
+      </div>
+    </div>
+    <div class="action-card p1">
+      <span class="action-priority p1">🟡 P1</span>
+      <div>
+        <div class="action-text">Fix iOS KYC</div>
+        <div class="action-detail">2.4% conversion vs Android 9.2% — 3.8x gap needs UX investigation</div>
+      </div>
+    </div>
+    <div class="action-card p2">
+      <span class="action-priority p2">🟢 P2</span>
+      <div>
+        <div class="action-text">Scale Pmax + Google Search</div>
+        <div class="action-detail">$10 CPA, best performing channel — increase budget allocation</div>
+      </div>
     </div>
   </div>
 </section>
