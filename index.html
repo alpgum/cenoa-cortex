@@ -242,6 +242,20 @@ footer span{color:var(--accent)}
 @media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
 
+/* Country Breakdown */
+.country-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:.8rem}
+.country-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;transition:border .3s}
+.country-card:hover{border-color:rgba(0,255,136,.2)}
+.country-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.country-flag{font-size:1.6rem;line-height:1}
+.country-name{font-size:.85rem;font-weight:700;color:var(--text-bright)}
+.country-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem}
+.country-metric{display:flex;justify-content:space-between;align-items:center}
+.country-metric-label{font-size:.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em}
+.country-metric-value{font-size:.82rem;font-weight:700;color:var(--text-bright);font-variant-numeric:tabular-nums}
+@media(max-width:900px){.country-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.country-grid{grid-template-columns:1fr}}
+
 /* Analytics */
 .analytics-frame{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem}
 .analytics-iframe{width:100%;height:600px;border:0;border-radius:12px;display:block}
@@ -286,6 +300,7 @@ footer span{color:var(--accent)}
   </div>
   <nav class="header-nav">
     <a href="#kpiBanner">KPIs</a>
+    <a href="#countryBreakdown">Countries</a>
     <a href="#whatIs">About</a>
     <a href="#platformHub">Platforms</a>
     <a href="#docHub">Docs</a>
@@ -390,6 +405,66 @@ footer span{color:var(--accent)}
   <div class="kpi-footer">
     <span>Source: Amplitude + GA4 + AppsFlyer · Updated manually until API pipeline is live</span>
     <span class="kpi-last-updated" id="kpiLastUpdated">Last updated: Mar 20, 2026 23:35 TRT</span>
+  </div>
+</section>
+
+<!-- COUNTRY BREAKDOWN -->
+<section class="section" id="countryBreakdown" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>🌍 Country Breakdown</h2>
+    <div class="line"></div>
+    <div class="badge">W12 · BY MARKET</div>
+  </div>
+
+  <div class="country-grid">
+    <div class="country-card">
+      <div class="country-head">
+        <span class="country-flag">🇹🇷</span>
+        <span class="country-name">Turkey</span>
+      </div>
+      <div class="country-metrics">
+        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">670</span></div>
+        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">226</span></div>
+        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">170</span></div>
+        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">1,177</span></div>
+      </div>
+    </div>
+    <div class="country-card">
+      <div class="country-head">
+        <span class="country-flag">🇳🇬</span>
+        <span class="country-name">Nigeria</span>
+      </div>
+      <div class="country-metrics">
+        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">448</span></div>
+        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">115</span></div>
+        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">0</span></div>
+        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">778</span></div>
+      </div>
+    </div>
+    <div class="country-card">
+      <div class="country-head">
+        <span class="country-flag">🇪🇬</span>
+        <span class="country-name">Egypt</span>
+      </div>
+      <div class="country-metrics">
+        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">197</span></div>
+        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">61</span></div>
+        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">0</span></div>
+        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">23</span></div>
+      </div>
+    </div>
+    <div class="country-card">
+      <div class="country-head">
+        <span class="country-flag">🇵🇰</span>
+        <span class="country-name">Pakistan</span>
+      </div>
+      <div class="country-metrics">
+        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">23</span></div>
+        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">15</span></div>
+        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">0</span></div>
+        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">0</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
