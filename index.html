@@ -44,7 +44,17 @@ a{color:var(--accent);text-decoration:none}
 .exec-chip.green:hover{background:rgba(0,184,92,.06);border-color:var(--accent)}
 .exec-attr{display:inline-flex;align-items:center;gap:.45rem;background:#fff;border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:.5rem 1rem;font-size:.78rem;font-weight:600;color:#d97706;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .exec-attr .attr-icon{font-size:1rem}
-@media(max-width:768px){.exec-kpis{grid-template-columns:1fr}.exec-actions{flex-direction:column}.exec-chip{justify-content:center}}
+
+/* Date Range Selector */
+.exec-range{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-bottom:1.1rem;flex-wrap:wrap}
+.range-pill{display:inline-flex;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:3px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.range-btn{appearance:none;border:0;background:transparent;color:var(--text-dim);font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.45rem .9rem;border-radius:999px;cursor:pointer;transition:all .2s;outline:none;user-select:none}
+.range-btn:hover{color:var(--text-bright)}
+.range-btn.active{background:#fff;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.08);border:1px solid rgba(0,184,92,.25)}
+.range-note{font-size:.72rem;color:var(--text-dim);letter-spacing:.02em}
+.range-note .tbd{display:inline-flex;align-items:center;gap:.35rem;padding:.18rem .55rem;border-radius:999px;border:1px solid rgba(245,158,11,.28);background:rgba(245,158,11,.08);color:#d97706;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+
+@media(max-width:768px){.exec-kpis{grid-template-columns:1fr}.exec-actions{flex-direction:column}.exec-chip{justify-content:center}.exec-range{justify-content:center}}
 
 /* Header */
 header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);height:54px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
@@ -719,21 +729,31 @@ footer span{color:var(--accent)}
     </div>
   </div>
 
+  <!-- Date range selector -->
+  <div class="exec-range" id="execRange">
+    <div class="range-pill" role="tablist" aria-label="Date range">
+      <button class="range-btn" type="button" data-range="week" aria-pressed="true">This Week</button>
+      <button class="range-btn" type="button" data-range="mtd" aria-pressed="false">MTD</button>
+      <button class="range-btn" type="button" data-range="last30" aria-pressed="false">Last 30d</button>
+    </div>
+    <div class="range-note" id="dateRangeNote"></div>
+  </div>
+
   <!-- 3 key numbers -->
   <div class="exec-kpis">
     <div class="exec-kpi">
       <div class="exec-kpi-value" id="execNewActives">—</div>
-      <div class="exec-kpi-label">New Actives</div>
+      <div class="exec-kpi-label" id="execLabelNewActives">New Actives</div>
       <div class="exec-kpi-delta neutral" id="execActivesDelta">—</div>
     </div>
     <div class="exec-kpi">
       <div class="exec-kpi-value" id="execTrueCAC">—</div>
-      <div class="exec-kpi-label">TRUE CAC</div>
+      <div class="exec-kpi-label" id="execLabelTrueCAC">TRUE CAC</div>
       <div class="exec-kpi-delta neutral" id="execCACDelta">blended</div>
     </div>
     <div class="exec-kpi">
       <div class="exec-kpi-value" id="execBudgetPace">—</div>
-      <div class="exec-kpi-label">Budget Pace</div>
+      <div class="exec-kpi-label" id="execLabelBudgetPace">Budget Pace</div>
       <div class="exec-kpi-delta neutral" id="execBudgetDelta">—</div>
     </div>
   </div>
@@ -1429,6 +1449,260 @@ const DEFAULTS = {
 // ========== GLOBAL DATA (populated by renderDashboard) ==========
 let DATA = JSON.parse(JSON.stringify(DEFAULTS));
 
+// ========== DATE RANGE SELECTOR ==========
+const DATE_RANGE_STORAGE_KEY = 'cortex_date_range';
+const DATE_RANGES = {
+  week:   { label: 'This Week' },
+  mtd:    { label: 'MTD' },
+  last30: { label: 'Last 30d' }
+};
+
+function getSavedDateRange(){
+  try {
+    const v = String(localStorage.getItem(DATE_RANGE_STORAGE_KEY) || '').trim();
+    if (v && DATE_RANGES[v]) return v;
+  } catch(e) {}
+  return 'week';
+}
+function saveDateRange(v){
+  if (!v || !DATE_RANGES[v]) v = 'week';
+  try { localStorage.setItem(DATE_RANGE_STORAGE_KEY, v); } catch(e) {}
+}
+function rangeLabel(v){ return (DATE_RANGES[v] || DATE_RANGES.week).label; }
+
+function setRangeLabel(el, baseText, range){
+  if (!el) return;
+  if (!el.dataset.baseLabel) el.dataset.baseLabel = baseText || el.textContent || '';
+  el.textContent = el.dataset.baseLabel + ' · ' + rangeLabel(range);
+}
+
+function findLast30dKpis(D){
+  if (!D) return null;
+  const candidates = [
+    D.last30d,
+    D.last_30d,
+    D.funnelLast30d,
+    D.funnel_last_30d,
+    D.funnel30d,
+    D.funnel_30d,
+    (D.funnelApi && (D.funnelApi.last30d || D.funnelApi.last_30d || D.funnelApi.funnel30d || D.funnelApi.funnel_30d)),
+    D.funnel_api_last30d
+  ].filter(Boolean);
+
+  for (const c of candidates) {
+    if (c && typeof c === 'object') {
+      if (c.kpis && typeof c.kpis === 'object') return c.kpis;
+      // Sometimes APIs return a flat object with install/signup/etc keys
+      if (c.installs !== undefined || c.signups !== undefined || c.kycSubmits !== undefined) return c;
+    }
+  }
+  return null;
+}
+
+function renderWeeklyPulseFromKpis(kpis){
+  const weekBadge = document.getElementById('kpiWeek');
+  if (weekBadge) weekBadge.textContent = DATA.week || '—';
+
+  document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
+    const key = card.getAttribute('data-kpi');
+    const k = kpis ? kpis[key] : null;
+
+    if (!k) {
+      const ve = card.querySelector('.kpi-value');
+      if (ve) ve.textContent = 'No data';
+      const de = card.querySelector('.kpi-delta');
+      if (de) { de.textContent = '—'; de.className = 'kpi-delta neutral'; }
+      return;
+    }
+
+    const valueEl = card.querySelector('.kpi-value');
+    if (valueEl && k.value !== undefined) valueEl.textContent = fmtNum(k.value);
+
+    const deltaEl = card.querySelector('.kpi-delta');
+    if (deltaEl && k.deltaPct !== undefined) {
+      const dir = String(k.direction || '').toLowerCase();
+      const cls = dir === 'up' ? 'up' : (dir === 'down' ? 'down' : 'neutral');
+      deltaEl.classList.remove('up','down','neutral');
+      deltaEl.classList.add(cls);
+      deltaEl.textContent = (dir === 'up' ? '▲' : (dir === 'down' ? '▼' : '→')) + ' ' + fmtDelta(k.deltaPct) + ' vs prev week';
+    }
+  });
+
+  renderKpiSparklines(kpis);
+}
+
+function renderWeeklyPulseTBD(labelText){
+  const weekBadge = document.getElementById('kpiWeek');
+  if (weekBadge) weekBadge.textContent = labelText || 'TBD';
+
+  document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
+    const ve = card.querySelector('.kpi-value');
+    if (ve) ve.textContent = 'TBD';
+    const de = card.querySelector('.kpi-delta');
+    if (de) { de.textContent = '—'; de.className = 'kpi-delta neutral'; }
+  });
+
+  // Avoid drawing misleading sparklines when values are TBD
+  document.querySelectorAll('.kpi-card .kpi-spark').forEach(s => { s.innerHTML = ''; });
+}
+
+function renderExecSummaryThisWeek(){
+  const D = DATA || DEFAULTS;
+  const kpis = D.kpis || DEFAULTS.kpis;
+
+  const weekLabel = document.getElementById('execWeekLabel');
+  if (weekLabel) weekLabel.textContent = D.week ? ('Week of ' + D.week + ':') : '—';
+
+  const installDeltaEl = document.getElementById('execInstallDelta');
+  if (installDeltaEl && kpis.installs) {
+    const d = kpis.installs.deltaPct || 0;
+    installDeltaEl.textContent = (d < 0 ? '▼' : '▲') + Math.abs(d) + '%';
+    installDeltaEl.className = d < 0 ? 'dn' : 'up';
+  }
+
+  const channels = D.channelPerformance || [];
+  const totalNewActives = channels.reduce((s,c) => s + (c.new_active || c.newActives || 0), 0);
+  const totalSpend = channels.reduce((s,c) => s + (c.spend || 0), 0);
+
+  const execNA = document.getElementById('execNewActives');
+  if (execNA) execNA.textContent = totalNewActives > 0 ? totalNewActives.toLocaleString('en-US') : 'No data';
+
+  const activesDelta = document.getElementById('execActivesDelta');
+  if (activesDelta) { activesDelta.textContent = '—'; activesDelta.className = 'exec-kpi-delta neutral'; }
+
+  const activeDeltaEl = document.getElementById('execActiveDelta');
+  if (activeDeltaEl && kpis.installs) {
+    const approx = Math.round(Math.abs(kpis.installs.deltaPct || 0) * 0.15);
+    activeDeltaEl.textContent = '▼' + approx + '%';
+    activeDeltaEl.className = 'dn';
+  }
+
+  const cacTopEl = document.getElementById('execTrueCAC');
+  if (cacTopEl) cacTopEl.textContent = (totalNewActives > 0 && totalSpend > 0) ? '$' + (totalSpend / totalNewActives).toFixed(2) : 'No data';
+
+  const bp = D.budgetPacing || DEFAULTS.budgetPacing;
+  const pacePct = bp.pacing_pct || (bp.target > 0 ? ((bp.mtd_spend || bp.mtdSpend || 0) / bp.target * 100) : 0);
+  const paceTopEl = document.getElementById('execBudgetPace');
+  if (paceTopEl) paceTopEl.textContent = pacePct.toFixed(1) + '%';
+
+  const paceDelta = document.getElementById('execBudgetDelta');
+  if (paceDelta) {
+    const st = String(bp.status || '').toLowerCase();
+    paceDelta.textContent = st === 'underspending' ? 'underspending' : st === 'overspending' ? 'overspending' : 'on track';
+    paceDelta.className = 'exec-kpi-delta ' + (st === 'underspending' ? 'warn' : st === 'overspending' ? 'down' : 'neutral');
+  }
+}
+
+function renderExecSummaryTBD(range){
+  const D = DATA || DEFAULTS;
+
+  const weekLabel = document.getElementById('execWeekLabel');
+  if (weekLabel) weekLabel.textContent = rangeLabel(range) + ':';
+
+  const installDeltaEl = document.getElementById('execInstallDelta');
+  if (installDeltaEl) { installDeltaEl.textContent = '—'; installDeltaEl.className = 'dn'; }
+  const activeDeltaEl = document.getElementById('execActiveDelta');
+  if (activeDeltaEl) { activeDeltaEl.textContent = '—'; activeDeltaEl.className = 'dn'; }
+
+  const execNA = document.getElementById('execNewActives');
+  if (execNA) execNA.textContent = 'TBD';
+
+  const activesDelta = document.getElementById('execActivesDelta');
+  if (activesDelta) { activesDelta.textContent = '—'; activesDelta.className = 'exec-kpi-delta neutral'; }
+
+  const cacTopEl = document.getElementById('execTrueCAC');
+  if (cacTopEl) cacTopEl.textContent = 'TBD';
+
+  // Keep Budget Pace meaningful for MTD (uses budgetPacing.mtd_spend)
+  const bp = D.budgetPacing || DEFAULTS.budgetPacing;
+  const pacePct = bp.pacing_pct || (bp.target > 0 ? ((bp.mtd_spend || bp.mtdSpend || 0) / bp.target * 100) : 0);
+  const paceTopEl = document.getElementById('execBudgetPace');
+  if (paceTopEl) paceTopEl.textContent = pacePct.toFixed(1) + '%';
+}
+
+function applyDateRange(range){
+  range = (range && DATE_RANGES[range]) ? range : 'week';
+
+  // Toggle buttons
+  document.querySelectorAll('#execRange .range-btn').forEach(btn => {
+    const on = btn.dataset.range === range;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+
+  // Update labels (Exec Summary + Weekly Pulse)
+  setRangeLabel(document.getElementById('execLabelNewActives'), 'New Actives', range);
+  setRangeLabel(document.getElementById('execLabelTrueCAC'), 'TRUE CAC', range);
+  setRangeLabel(document.getElementById('execLabelBudgetPace'), 'Budget Pace', range);
+  document.querySelectorAll('.kpi-card .kpi-label').forEach(lab => setRangeLabel(lab, lab.textContent, range));
+
+  // Note / badges
+  const note = document.getElementById('dateRangeNote');
+  if (note) {
+    if (range === 'mtd') note.innerHTML = '<span class="tbd">MTD KPIs TBD</span> (budget pacing is MTD)';
+    else if (range === 'last30') note.innerHTML = '<span class="tbd">Last 30d TBD</span> (waiting for funnel API)';
+    else note.textContent = '';
+  }
+
+  // Values
+  if (range === 'week') {
+    renderExecSummaryThisWeek();
+    renderWeeklyPulseFromKpis((DATA && DATA.kpis) ? DATA.kpis : DEFAULTS.kpis);
+    return;
+  }
+
+  if (range === 'mtd') {
+    renderExecSummaryTBD(range);
+    renderWeeklyPulseTBD('MTD KPIs TBD');
+    return;
+  }
+
+  if (range === 'last30') {
+    const k30 = findLast30dKpis(DATA);
+    if (k30 && typeof k30 === 'object' && (k30.installs || k30.signups || k30.kycSubmits)) {
+      const looksLikeKpis = !!(k30.installs && typeof k30.installs === 'object' && ('value' in k30.installs));
+
+      renderExecSummaryTBD(range);
+
+      if (looksLikeKpis) {
+        renderWeeklyPulseFromKpis(k30);
+      } else {
+        // Normalize flat shape into {key:{value}} for renderer
+        const normalized = {};
+        ['installs','signups','kycSubmits','virtualAccountOpened','depositCompleted','transferCompleted','withdrawCompleted','dauAvg'].forEach(key => {
+          const v = (k30[key] && typeof k30[key] === 'object') ? (k30[key].value ?? k30[key].count ?? k30[key]) : k30[key];
+          if (v !== undefined) normalized[key] = { value: v, prev: 0, deltaPct: 0, direction: 'neutral' };
+        });
+        renderWeeklyPulseFromKpis(normalized);
+      }
+
+      const weekBadge = document.getElementById('kpiWeek');
+      if (weekBadge) weekBadge.textContent = 'Last 30d';
+    } else {
+      renderExecSummaryTBD(range);
+      renderWeeklyPulseTBD('Last 30d TBD');
+    }
+  }
+}
+
+function initDateRangeSelector(){
+  const wrap = document.getElementById('execRange');
+  if (!wrap || wrap.dataset.init === '1') return;
+  wrap.dataset.init = '1';
+
+  // Persist default selection
+  const saved = getSavedDateRange();
+  saveDateRange(saved);
+
+  wrap.addEventListener('click', (e) => {
+    const btn = e.target.closest('.range-btn');
+    if (!btn) return;
+    const r = btn.dataset.range;
+    saveDateRange(r);
+    applyDateRange(r);
+  });
+}
+
 // ========== STATIC DATA (not from data.json) ==========
 const documents = [
   {cat:"data",title:"Historical Campaign Performance",desc:"Aggregated performance data from all previous marketing campaigns across channels.",file:"historical-campaign-performance.md"},
@@ -1937,6 +2211,10 @@ async function bootDashboard() {
   }
 
   renderDashboard(data || {});
+
+  // Date range selector (display-layer only)
+  initDateRangeSelector();
+  applyDateRange(getSavedDateRange());
 
   // Hide skeleton, show dashboard
   document.body.classList.remove('dashboard-loading');
