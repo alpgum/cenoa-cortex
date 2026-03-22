@@ -6,31 +6,31 @@
 <title>CENOA × CORTEX - Marketing Operations Dashboard</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#222;--accent:#00ff88;--accent-dim:rgba(0,255,136,.12);--accent-glow:rgba(0,255,136,.3);--text:#e0e0e0;--text-dim:#777;--text-bright:#fff}
+:root{--bg:#ffffff;--surface:#f8f9fa;--surface2:#f0f1f3;--border:#e0e0e0;--accent:#00b85c;--accent-dim:rgba(0,184,92,.08);--accent-glow:rgba(0,184,92,.2);--text:#1a1a1a;--text-dim:#666;--text-bright:#000}
 body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden}
 a{color:var(--accent);text-decoration:none}
-::selection{background:var(--accent);color:var(--bg)}
+::selection{background:var(--accent);color:#fff}
 ::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+::-webkit-scrollbar-track{background:#f5f5f5}
+::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
 
 /* Header */
-header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(10,10,10,.88);height:54px}
+header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);height:54px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .header-brand{display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;letter-spacing:.12em;color:var(--text-dim)}
 .header-brand span{color:var(--accent)}
 .header-pulse{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;margin-right:.4rem;flex-shrink:0}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 6px transparent}}
-.header-right{font-size:.7rem;color:#444;letter-spacing:.08em}
+.header-right{font-size:.7rem;color:#aaa;letter-spacing:.08em}
 
 /* Container */
 .container{max-width:1400px;margin:0 auto;padding:0 2rem}
 
 /* Hero */
 .hero{text-align:center;padding:5rem 2rem 3.5rem;position:relative}
-.hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(0,255,136,.06) 0%,transparent 70%);pointer-events:none}
+.hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(0,184,92,.06) 0%,transparent 70%);pointer-events:none}
 .hero-title{font-size:clamp(2.4rem,6vw,4rem);font-weight:800;letter-spacing:.15em;position:relative;z-index:1}
-.hero-title .x{color:#444;font-weight:300;margin:0 .2em}
-.hero-title .cortex{background:linear-gradient(135deg,var(--accent),#00cc6a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-title .x{color:#bbb;font-weight:300;margin:0 .2em}
+.hero-title .cortex{background:linear-gradient(135deg,#00b85c,#00994d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-sub{color:var(--text-dim);font-size:1rem;margin-top:.4rem;letter-spacing:.08em;position:relative;z-index:1}
 .stats{display:flex;justify-content:center;gap:3rem;margin-top:2.5rem;position:relative;z-index:1;flex-wrap:wrap}
 .stat{text-align:center}
@@ -46,10 +46,10 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 
 /* Search */
 .search-wrap{margin-bottom:1rem;position:relative}
-.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#444;pointer-events:none}
-.search-wrap input{width:100%;padding:.8rem 1rem .8rem 2.8rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.9rem;outline:none;transition:border .3s,box-shadow .3s}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#aaa;pointer-events:none}
+.search-wrap input{width:100%;padding:.8rem 1rem .8rem 2.8rem;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:10px;color:var(--text);font-size:.9rem;outline:none;transition:border .3s,box-shadow .3s}
 .search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
-.search-wrap input::placeholder{color:#444}
+.search-wrap input::placeholder{color:#aaa}
 
 /* Category Filter */
 .cat-filters{display:flex;gap:.4rem;margin-bottom:1.25rem;flex-wrap:wrap}
@@ -58,14 +58,14 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 
 /* Doc Grid */
 .doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.5rem}
-.doc-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.doc-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .doc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .35s;transform-origin:left}
-.doc-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,255,136,.06)}
+.doc-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,184,92,.08)}
 .doc-card:hover::before{transform:scaleX(1)}
 .cat-tag{display:inline-block;font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;padding:.1rem .35rem;border-radius:4px;font-weight:700;margin-bottom:.3rem}
 .cat-tag.data{background:rgba(59,130,246,.15);color:#60a5fa}
 .cat-tag.analysis{background:rgba(168,85,247,.15);color:#c084fc}
-.cat-tag.strategy{background:rgba(0,255,136,.12);color:#00ff88}
+.cat-tag.strategy{background:rgba(0,184,92,.1);color:#00994d}
 .cat-tag.conversion{background:rgba(251,191,36,.15);color:#fbbf24}
 .cat-tag.markets{background:rgba(244,63,94,.15);color:#fb7185}
 .cat-tag.infra{background:rgba(148,163,184,.12);color:#94a3b8}
@@ -75,8 +75,8 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 
 /* Agent Grid */
 .agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}
-.agent-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;transition:all .3s}
-.agent-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.06)}
+.agent-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.1rem 1.2rem;transition:all .3s}
+.agent-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.06)}
 .agent-header{display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem}
 .agent-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0}
 .agent-name{font-weight:600;font-size:.85rem;color:var(--text-bright)}
@@ -92,13 +92,13 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 
 /* Market Grid */
 .market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}
-.market-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.3rem;transition:all .3s;position:relative;overflow:hidden}
-.market-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,255,136,.07)}
+.market-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.3rem;transition:all .3s;position:relative;overflow:hidden}
+.market-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.08)}
 .market-flag{font-size:2.2rem;margin-bottom:.4rem;display:block}
 .market-name{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
 .market-code{font-size:.7rem;color:var(--text-dim);letter-spacing:.15em;text-transform:uppercase}
 .market-status{display:inline-block;margin-top:.5rem;padding:.25rem .7rem;border-radius:18px;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.market-status.deepening{background:rgba(0,255,136,.12);color:#00ff88}
+.market-status.deepening{background:rgba(0,184,92,.1);color:#00994d}
 .market-status.accelerating{background:rgba(59,130,246,.12);color:#60a5fa}
 .market-status.launching{background:rgba(251,191,36,.12);color:#fbbf24}
 .market-status.prelaunch{background:rgba(168,85,247,.12);color:#c084fc}
@@ -106,11 +106,11 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 /* Org Chart */
 .org-tree{display:flex;flex-direction:column;align-items:center;gap:0}
 .org-leader{display:flex;flex-direction:column;align-items:center}
-.org-connector{width:2px;height:2rem;background:linear-gradient(180deg,var(--accent),var(--border))}
+.org-connector{width:2px;height:2rem;background:linear-gradient(180deg,var(--accent),#ddd)}
 .org-orchestrator{border:2px solid var(--accent) !important;max-width:500px;text-align:center}
 .org-orchestrator .org-says{text-align:center}
-.org-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:all .4s;cursor:default;position:relative}
-.org-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,255,136,.1)}
+.org-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem;transition:all .4s;cursor:default;position:relative}
+.org-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.08)}
 .org-card:hover .org-says{max-height:200px;opacity:1;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
 .org-avatar{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;background:var(--accent-dim)}
 .org-info{flex:1}
@@ -133,7 +133,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 /* Flow Diagram */
 .flow-diagram{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;padding:1rem 0}
 .flow-step{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:1.5rem 2rem;text-align:center;transition:all .3s;min-width:120px}
-.flow-step:hover{border-color:var(--accent);box-shadow:0 0 24px var(--accent-glow);transform:translateY(-3px)}
+.flow-step:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(0,184,92,.12);transform:translateY(-3px)}
 .flow-icon{font-size:2.5rem;margin-bottom:.5rem}
 .flow-label{font-size:1rem;font-weight:700;color:var(--text-bright);letter-spacing:.04em}
 .flow-arrow{width:48px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-glow));position:relative;flex-shrink:0}
@@ -144,8 +144,8 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .cap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem}
 @media(max-width:1000px){.cap-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.cap-grid{grid-template-columns:repeat(2,1fr)}}
-.cap-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1rem;text-align:center;transition:all .3s;cursor:default}
-.cap-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08);transform:translateY(-2px)}
+.cap-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.3rem 1rem;text-align:center;transition:all .3s;cursor:default}
+.cap-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.06);transform:translateY(-2px)}
 .cap-emoji{font-size:3rem;margin-bottom:.5rem}
 .cap-title{font-size:1rem;font-weight:700;color:var(--text-bright);margin-bottom:.25rem}
 .cap-desc{font-size:.85rem;color:var(--text-dim);line-height:1.4}
@@ -154,18 +154,18 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .cenoa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
 @media(max-width:800px){.cenoa-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:500px){.cenoa-grid{grid-template-columns:1fr}}
-.cenoa-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center;transition:all .3s;cursor:default}
-.cenoa-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08);transform:translateY(-2px)}
+.cenoa-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.2rem;text-align:center;transition:all .3s;cursor:default}
+.cenoa-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.06);transform:translateY(-2px)}
 .cenoa-emoji{font-size:2.5rem;margin-bottom:.4rem}
 .cenoa-title{font-size:1rem;font-weight:700;color:var(--text-bright);margin-bottom:.2rem}
 .cenoa-desc{font-size:.85rem;color:var(--text-dim)}
 
 /* Timeline */
 .timeline{position:relative;padding-left:2rem;max-width:600px;margin:0 auto}
-.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#fbbf24,rgba(251,191,36,.2))}
+.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#f59e0b,rgba(245,158,11,.2))}
 .timeline-item{position:relative;padding-bottom:1.5rem;padding-left:1.5rem}
 .timeline-item:last-child{padding-bottom:0}
-.timeline-dot{position:absolute;left:-2rem;top:.25rem;width:14px;height:14px;border-radius:50%;background:#fbbf24;box-shadow:0 0 10px rgba(251,191,36,.4);border:2px solid var(--surface)}
+.timeline-dot{position:absolute;left:-2rem;top:.25rem;width:14px;height:14px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.3);border:2px solid #fff}
 .timeline-title{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
 .timeline-desc{font-size:.85rem;color:var(--text-dim);margin-top:.15rem}
 
@@ -179,55 +179,55 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .ph-cat-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dim);margin:1rem 0 .4rem;padding-left:.1rem;font-weight:600}
 .ph-cat-label:first-child{margin-top:0}
 .ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.5rem}
-.ph-card{background:var(--surface);border:1px solid rgba(0,255,136,.14);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.6rem .3rem;gap:.3rem;transition:all .25s;cursor:default;position:relative}
-.ph-card:hover{border-color:var(--accent);box-shadow:0 0 12px rgba(0,255,136,.08)}
-.ph-card.planned{opacity:.45;filter:grayscale(1);border-style:dashed;border-color:rgba(255,255,255,.14)}
-.ph-card.planned:hover{border-color:rgba(255,255,255,.22);box-shadow:none}
-.ph-card.planned .ph-name{color:#555}
-.ph-cat-sub{margin:.6rem 0 .4rem;color:#444;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
-.ph-card img{height:28px;width:auto;filter:brightness(1);transition:filter .2s}
+.ph-card{background:#fff;border:1px solid rgba(0,184,92,.2);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.6rem .3rem;gap:.3rem;transition:all .25s;cursor:default;position:relative}
+.ph-card:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ph-card.planned{opacity:.45;filter:grayscale(1);border-style:dashed;border-color:rgba(0,0,0,.14)}
+.ph-card.planned:hover{border-color:rgba(0,0,0,.2);box-shadow:none}
+.ph-card.planned .ph-name{color:#999}
+.ph-cat-sub{margin:.6rem 0 .4rem;color:#aaa;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+.ph-card img{height:28px;width:auto;filter:brightness(0);transition:filter .2s}
 .ph-card .ph-text-logo{font-size:1rem;font-weight:800;color:var(--text-bright);line-height:1}
 .ph-card .ph-name{font-size:.58rem;color:var(--text-dim);text-align:center;line-height:1.2}
 .ph-card.cancelled{opacity:.3;filter:grayscale(1)}
 .ph-card.cancelled .ph-name{text-decoration:line-through}
-.ph-card .ph-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--border);color:var(--text);font-size:.65rem;padding:.35rem .6rem;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none}
+.ph-card .ph-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);color:var(--text);box-shadow:0 4px 12px rgba(0,0,0,.1);font-size:.65rem;padding:.35rem .6rem;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none}
 .ph-card:hover .ph-tooltip{display:block}
 
 /* Routing Table - Bigger Cards */
 .routing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.routing-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.6rem;transition:all .3s}
-.routing-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08);transform:translateY(-2px)}
+.routing-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.4rem 1.6rem;transition:all .3s}
+.routing-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.06);transform:translateY(-2px)}
 .routing-label{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dim);margin-bottom:.4rem;font-weight:600}
 .routing-value{font-size:1.2rem;font-weight:700;color:var(--text-bright)}
 .routing-meta{font-size:.9rem;color:var(--text-dim);margin-top:.35rem}
 
 /* Unsub Grid - Bigger */
 .unsub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
-.unsub-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:all .3s}
-.unsub-card:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,255,136,.08)}
+.unsub-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:all .3s}
+.unsub-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.06)}
 .unsub-icon{font-size:1.4rem;flex-shrink:0}
 .unsub-name{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
 .unsub-detail{font-size:.9rem;color:var(--text-dim);margin-top:.15rem}
 .unsub-card.keep{border-left:4px solid var(--accent)}
 .unsub-card.cancel{border-left:4px solid #f43f5e;opacity:.6}
-.unsub-savings{background:var(--accent-dim);border:1px solid rgba(0,255,136,.25);border-radius:14px;padding:1.5rem;text-align:center;margin-top:1rem}
+.unsub-savings{background:var(--accent-dim);border:1px solid rgba(0,184,92,.2);border-radius:14px;padding:1.5rem;text-align:center;margin-top:1rem}
 .unsub-savings .amount{font-size:2.2rem;font-weight:800;color:var(--accent)}
 .unsub-savings .label{font-size:.85rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
 
 /* Campaign Performance Table */
 .campaign-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--border);background:var(--surface)}
 .campaign-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px}
-.campaign-table thead tr{background:var(--surface2);border-bottom:2px solid var(--accent)}
+.campaign-table thead tr{background:#f0f1f3;border-bottom:2px solid var(--accent)}
 .campaign-table th{text-align:left;padding:.75rem 1rem;color:var(--text-dim);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
 .campaign-table th.num,.campaign-table td.num{text-align:right}
 .campaign-table td{padding:.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
 .campaign-table tbody tr:last-child td{border-bottom:none}
 .campaign-table tbody tr{transition:background .2s}
-.campaign-table tbody tr:hover{background:rgba(0,255,136,.04)}
+.campaign-table tbody tr:hover{background:rgba(0,184,92,.04)}
 .camp-name{font-weight:600;color:var(--text-bright)}
 .market-badge{display:inline-block;background:rgba(59,130,246,.12);color:#60a5fa;font-size:.65rem;font-weight:700;padding:.15rem .45rem;border-radius:4px;letter-spacing:.08em}
 .status-badge{display:inline-block;font-size:.72rem;font-weight:700;padding:.2rem .6rem;border-radius:10px;letter-spacing:.04em;white-space:nowrap}
-.status-scale{background:rgba(0,255,136,.12);color:#00ff88}
+.status-scale{background:rgba(0,184,92,.1);color:#00994d}
 .status-keep{background:rgba(34,197,94,.12);color:#4ade80}
 .status-optimize{background:rgba(251,191,36,.12);color:#fbbf24}
 .status-fix{background:rgba(239,68,68,.12);color:#f87171}
@@ -236,18 +236,18 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 
 /* Trend History Charts */
 .trend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
-.trend-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
+.trend-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem 1.2rem}
 .trend-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
 .trend-card-title{font-size:.82rem;font-weight:700;color:var(--text-bright);letter-spacing:.04em}
 .trend-card-delta{font-size:.72rem;font-weight:700;padding:.15rem .45rem;border-radius:6px}
 .trend-card-delta.improving{color:#22c55e;background:rgba(34,197,94,.12)}
 .trend-card-delta.declining{color:#ef4444;background:rgba(239,68,68,.12)}
-.trend-card-delta.flat{color:#777;background:rgba(255,255,255,.06)}
+.trend-card-delta.flat{color:#999;background:rgba(0,0,0,.04)}
 .trend-card canvas{max-height:120px}
 @media(max-width:600px){.trend-grid{grid-template-columns:1fr}}
 
 /* Footer */
-footer{text-align:center;padding:3rem 2rem;margin-top:4rem;border-top:1px solid var(--border);color:#444;font-size:.78rem;letter-spacing:.04em}
+footer{text-align:center;padding:3rem 2rem;margin-top:4rem;border-top:1px solid var(--border);color:#aaa;font-size:.78rem;letter-spacing:.04em}
 footer span{color:var(--accent)}
 
 /* No results */
@@ -259,8 +259,8 @@ footer span{color:var(--accent)}
 
 /* KPI Banner */
 .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem;margin-bottom:.8rem}
-.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;display:flex;align-items:flex-start;gap:.8rem;transition:border .3s}
-.kpi-card:hover{border-color:rgba(0,255,136,.2)}
+.kpi-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;display:flex;align-items:flex-start;gap:.8rem;transition:border .3s}
+.kpi-card:hover{border-color:rgba(0,184,92,.25)}
 .kpi-icon{font-size:1.6rem;line-height:1;flex-shrink:0;margin-top:.1rem}
 .kpi-data{flex:1;min-width:0}
 .kpi-value{font-size:1.5rem;font-weight:900;color:var(--text-bright);line-height:1.1;font-variant-numeric:tabular-nums}
@@ -268,28 +268,28 @@ footer span{color:var(--accent)}
 .kpi-delta{font-size:.7rem;margin-top:.3rem;font-weight:600;display:inline-block;padding:.1rem .4rem;border-radius:4px}
 .kpi-delta.up{color:#22c55e;background:rgba(34,197,94,.1)}
 .kpi-delta.down{color:#ef4444;background:rgba(239,68,68,.1)}
-.kpi-delta.neutral{color:#777;background:rgba(255,255,255,.04)}
-.kpi-footer{display:flex;justify-content:space-between;align-items:center;font-size:.65rem;color:#444;padding:0 .2rem}
+.kpi-delta.neutral{color:#999;background:rgba(0,0,0,.04)}
+.kpi-footer{display:flex;justify-content:space-between;align-items:center;font-size:.65rem;color:#aaa;padding:0 .2rem}
 .kpi-last-updated{color:#555}
 
 .kpi-spark{width:66px;height:22px;flex-shrink:0;align-self:center;opacity:.9}
 .kpi-spark svg{width:66px;height:22px;display:block}
-.kpi-spark .spark-line{fill:none;stroke:rgba(255,255,255,.28);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.kpi-spark .spark-line{fill:none;stroke:rgba(0,0,0,.25);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .kpi-spark .spark-area{stroke:none}
 .kpi-spark.up .spark-area{fill:rgba(34,197,94,.10)}
 .kpi-spark.down .spark-area{fill:rgba(239,68,68,.10)}
-.kpi-spark.neutral .spark-area{fill:rgba(255,255,255,.06)}
+.kpi-spark.neutral .spark-area{fill:rgba(0,0,0,.04)}
 .kpi-spark.up .spark-dot{fill:#22c55e}
 .kpi-spark.down .spark-dot{fill:#ef4444}
-.kpi-spark.neutral .spark-dot{fill:#777}
-.kpi-spark .spark-dot{stroke:rgba(0,0,0,.45);stroke-width:1}
+.kpi-spark.neutral .spark-dot{fill:#999}
+.kpi-spark .spark-dot{stroke:rgba(255,255,255,.6);stroke-width:1}
 @media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
 
 /* Country Breakdown */
 .country-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:.8rem}
-.country-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;transition:border .3s}
-.country-card:hover{border-color:rgba(0,255,136,.2)}
+.country-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:.9rem 1rem;transition:border .3s}
+.country-card:hover{border-color:rgba(0,184,92,.25)}
 .country-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
 .country-flag{font-size:1.6rem;line-height:1}
 .country-name{font-size:.85rem;font-weight:700;color:var(--text-bright)}
@@ -301,29 +301,29 @@ footer span{color:var(--accent)}
 @media(max-width:500px){.country-grid{grid-template-columns:1fr}}
 
 /* Analytics */
-.analytics-frame{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem}
+.analytics-frame{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1rem}
 .analytics-iframe{width:100%;height:600px;border:0;border-radius:12px;display:block}
-.amp-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-left:3px solid #fbbf24}
+.amp-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-left:3px solid #fbbf24}
 .amp-title{font-weight:800;color:var(--text-bright);margin-bottom:.2rem}
 .amp-desc{color:var(--text-dim);font-size:.9rem;line-height:1.4}
 .amp-link{color:var(--accent);text-decoration:none;font-weight:700;font-size:.9rem;white-space:nowrap}
 .amp-link:hover{text-decoration:underline}
 
 /* Doc Modal */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .modal-overlay.show{display:flex}
-.modal{width:min(560px,100%);background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,.45)}
+.modal{width:min(560px,100%);background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,.45)}
 .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1rem 1.1rem;border-bottom:1px solid var(--border);background:var(--surface2)}
 .modal-title{font-weight:900;color:var(--text-bright);line-height:1.2}
 .modal-close{background:transparent;border:1px solid var(--border);color:var(--text-dim);border-radius:10px;padding:.35rem .6rem;cursor:pointer}
 .modal-close:hover{border-color:rgba(0,255,136,.25);color:var(--text)}
 .modal-body{padding:1rem 1.1rem;color:var(--text-dim);font-size:.95rem;line-height:1.6}
-.modal-path{margin-top:.6rem;background:#0b0b0b;border:1px solid var(--border);border-radius:10px;padding:.6rem .75rem;color:#b6b6b6;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.82rem;overflow:auto}
+.modal-path{margin-top:.6rem;background:#f5f5f5;border:1px solid var(--border);border-radius:10px;padding:.6rem .75rem;color:#555;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.82rem;overflow:auto}
 
 /* Action Items */
 .action-grid{display:flex;flex-direction:column;gap:.6rem;max-width:800px;margin:0 auto}
-.action-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:flex-start;gap:.8rem;transition:all .3s}
-.action-card:hover{border-color:rgba(0,255,136,.2);transform:translateX(4px)}
+.action-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:flex-start;gap:.8rem;transition:all .3s}
+.action-card:hover{border-color:rgba(0,184,92,.25);transform:translateX(4px)}
 .action-card.p0{border-left:4px solid #ef4444}
 .action-card.p1{border-left:4px solid #fbbf24}
 .action-card.p2{border-left:4px solid #22c55e}
@@ -335,7 +335,7 @@ footer span{color:var(--accent)}
 .action-detail{font-size:.75rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4}
 
 /* Budget Pacing Gauge */
-.pacing-wrap{display:flex;align-items:center;gap:2rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem 2rem;max-width:800px;margin:0 auto}
+.pacing-wrap{display:flex;align-items:center;gap:2rem;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem 2rem;max-width:800px;margin:0 auto}
 .pacing-gauge{position:relative;width:120px;height:120px;flex-shrink:0}
 .pacing-gauge canvas{width:120px;height:120px}
 .pacing-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
@@ -349,8 +349,8 @@ footer span{color:var(--accent)}
 
 /* Channel Performance Cards */
 .channel-perf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
-.ch-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;transition:border .3s}
-.ch-card:hover{border-color:rgba(0,255,136,.2)}
+.ch-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:.9rem 1rem;transition:border .3s}
+.ch-card:hover{border-color:rgba(0,184,92,.25)}
 .ch-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
 .ch-card-name{font-size:.85rem;font-weight:700;color:var(--text-bright)}
 .ch-card-wow{font-size:.75rem;font-weight:700}
@@ -363,46 +363,46 @@ footer span{color:var(--accent)}
 
 /* Tests Cards */
 .tests-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem}
-.test-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;transition:all .3s}
-.test-card:hover{border-color:rgba(0,255,136,.2)}
+.test-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem 1.2rem;transition:all .3s}
+.test-card:hover{border-color:rgba(0,184,92,.25)}
 .test-name{font-size:.9rem;font-weight:700;color:var(--text-bright);margin-bottom:.3rem}
 .test-hypo{font-size:.78rem;color:var(--text-dim);line-height:1.4;margin-bottom:.5rem}
 .test-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
 .test-status{font-size:.65rem;font-weight:700;padding:.2rem .55rem;border-radius:8px;letter-spacing:.06em;text-transform:uppercase}
 .test-status.running{background:rgba(59,130,246,.15);color:#60a5fa}
 .test-status.planned{background:rgba(251,191,36,.12);color:#fbbf24}
-.test-status.completed{background:rgba(0,255,136,.12);color:#00ff88}
+.test-status.completed{background:rgba(0,255,136,.12);color:#00994d}
 .test-metric{font-size:.7rem;color:var(--text-dim)}
 
 /* Learnings Cards */
 .learnings-scroll{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.5rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
 .learnings-scroll::-webkit-scrollbar{height:4px}
-.learnings-scroll::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
-.learning-card{flex:0 0 260px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;transition:border .3s}
-.learning-card:hover{border-color:rgba(0,255,136,.2)}
+.learnings-scroll::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px}
+.learning-card{flex:0 0 260px;scroll-snap-align:start;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem 1.2rem;transition:border .3s}
+.learning-card:hover{border-color:rgba(0,184,92,.25)}
 .learning-emoji{font-size:1.8rem;margin-bottom:.4rem}
 .learning-finding{font-size:.85rem;font-weight:600;color:var(--text-bright);line-height:1.4;margin-bottom:.3rem}
 .learning-impact{font-size:.72rem;color:var(--text-dim);line-height:1.3}
 
 /* CAC vs Target */
-.cac-track-wrap{max-width:800px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+.cac-track-wrap{max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem}
 
 /* Platform Split Donuts */
 .platform-split-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:700px;margin:0 auto}
-.ps-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;text-align:center}
+.ps-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1rem;text-align:center}
 .ps-card h4{font-size:.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
 .ps-card canvas{max-width:120px;max-height:120px;margin:0 auto}
 @media(max-width:600px){.platform-split-grid{grid-template-columns:1fr}}
 
 /* Attribution Quality */
-.attr-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;max-width:400px}
+.attr-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;max-width:400px}
 .attr-pct{font-size:2rem;font-weight:900;line-height:1}
 .attr-label{font-size:.85rem;font-weight:600;color:var(--text-bright)}
 .attr-sub{font-size:.72rem;color:var(--text-dim);margin-top:.15rem}
 
 /* KYC Mini Funnels */
 .kyc-funnel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;max-width:900px;margin:0 auto}
-.kyc-funnel-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;text-align:center}
+.kyc-funnel-card{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1rem;text-align:center}
 .kyc-funnel-card.broken{border-color:rgba(239,68,68,.4);background:linear-gradient(180deg,rgba(239,68,68,.06),transparent)}
 .kyc-funnel-flag{font-size:1.8rem;margin-bottom:.3rem}
 .kyc-funnel-name{font-size:.8rem;font-weight:700;color:var(--text-bright);margin-bottom:.6rem}
@@ -415,8 +415,8 @@ footer span{color:var(--accent)}
 
 /* Weekly Agenda */
 .agenda-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:.4rem}
-.agenda-item{display:flex;align-items:flex-start;gap:.7rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;transition:border .3s}
-.agenda-item:hover{border-color:rgba(0,255,136,.15)}
+.agenda-item{display:flex;align-items:flex-start;gap:.7rem;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:10px;padding:.7rem 1rem;transition:border .3s}
+.agenda-item:hover{border-color:rgba(0,184,92,.2)}
 .agenda-check{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:.1rem;display:flex;align-items:center;justify-content:center;font-size:.65rem}
 .agenda-item.done .agenda-check{border-color:var(--accent);background:var(--accent-dim);color:var(--accent)}
 .agenda-item.done .agenda-text{text-decoration:line-through;opacity:.5}
@@ -476,8 +476,8 @@ footer span{color:var(--accent)}
     <a href="sprint-1-report.html" style="color:var(--accent)">📊 Sprint 1</a>
     <a href="architecture.html" style="color:var(--accent)">🏗️ Architecture</a>
     <a href="sprint-2-report.html" style="color:var(--accent)">📊 Sprint 2</a>
-    <span style="color:#333">|</span>
-    <span style="font-size:.7rem;color:#444;letter-spacing:.08em">v1.0 &middot; LIVE</span>
+    <span style="color:#ccc">|</span>
+    <span style="font-size:.7rem;color:#aaa;letter-spacing:.08em">v1.0 &middot; LIVE</span>
   </nav>
 </header>
 
@@ -726,7 +726,7 @@ footer span{color:var(--accent)}
     <div class="line"></div>
     <div class="badge">MAR 14-20</div>
   </div>
-  <div style="max-width:800px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
+  <div style="max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
     <canvas id="funnelCanvas" height="280"></canvas>
   </div>
 </section>
@@ -905,7 +905,7 @@ footer span{color:var(--accent)}
     <div class="line"></div>
     <div class="badge">6 MONTHS</div>
   </div>
-  <div style="max-width:800px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
+  <div style="max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
     <canvas id="cacTrendCanvas" height="280"></canvas>
   </div>
 </section>
@@ -917,24 +917,24 @@ footer span{color:var(--accent)}
     <div class="line"></div>
     <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">CRITICAL</div>
   </div>
-  <div style="max-width:800px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
+  <div style="max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
     <canvas id="kycDropoutCanvas" height="260"></canvas>
   </div>
   <!-- Country KYC Submit Mini Cards -->
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;max-width:800px;margin:1rem auto 0">
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:1rem 1.2rem;text-align:center">
+    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-left:4px solid var(--accent);border-radius:12px;padding:1rem 1.2rem;text-align:center">
       <div style="font-size:1.6rem;margin-bottom:.3rem">🇹🇷</div>
       <div style="font-size:1.4rem;font-weight:800;color:var(--text-bright)">170</div>
       <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem">KYC Submits</div>
       <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-top:.3rem">95% of all submits</div>
     </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid #f87171;border-radius:12px;padding:1rem 1.2rem;text-align:center">
+    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-left:4px solid #f87171;border-radius:12px;padding:1rem 1.2rem;text-align:center">
       <div style="font-size:1.6rem;margin-bottom:.3rem">🇳🇬</div>
       <div style="font-size:1.4rem;font-weight:800;color:#f87171">0</div>
       <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem">KYC Submits</div>
       <div style="font-size:.72rem;color:#f87171;font-weight:700;margin-top:.3rem">❌ BLOCKED</div>
     </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid #f87171;border-radius:12px;padding:1rem 1.2rem;text-align:center">
+    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-left:4px solid #f87171;border-radius:12px;padding:1rem 1.2rem;text-align:center">
       <div style="font-size:1.6rem;margin-bottom:.3rem">🇪🇬</div>
       <div style="font-size:1.4rem;font-weight:800;color:#f87171">0</div>
       <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem">KYC Submits</div>
@@ -953,26 +953,26 @@ footer span{color:var(--accent)}
 
   <!-- Big Dropout Callout -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-    <div style="background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.04));border:2px solid rgba(239,68,68,.4);border-radius:16px;padding:2rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
-      <div style="font-size:4rem;font-weight:900;color:#ef4444;line-height:1;text-shadow:0 0 40px rgba(239,68,68,.3)">92%</div>
+    <div style="background:linear-gradient(135deg,rgba(239,68,68,.08),rgba(239,68,68,.02));border:2px solid rgba(239,68,68,.4);border-radius:16px;padding:2rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <div style="font-size:4rem;font-weight:900;color:#ef4444;line-height:1;text-shadow:none">92%</div>
       <div style="font-size:1.1rem;font-weight:700;color:#f87171;margin-top:.4rem;letter-spacing:.08em">DROPOUT RATE</div>
       <div style="font-size:.8rem;color:var(--text-dim);margin-top:.3rem">KYC Started → KYC Submitted</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
         <div style="font-size:1.8rem;font-weight:800;color:var(--text-bright)">3,098</div>
         <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">KYC Started</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
         <div style="font-size:1.8rem;font-weight:800;color:#60a5fa">3,025</div>
         <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">Bridgexyz Shown</div>
-        <div style="font-size:.55rem;color:#444;margin-top:.15rem">TR only</div>
+        <div style="font-size:.55rem;color:#aaa;margin-top:.15rem">TR only</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
         <div style="font-size:1.8rem;font-weight:800;color:#ef4444">179</div>
         <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">KYC Submitted</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
         <div style="font-size:1.8rem;font-weight:800;color:var(--accent)">5.8%</div>
         <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">Conversion Rate</div>
       </div>
@@ -982,12 +982,12 @@ footer span{color:var(--accent)}
   <!-- Charts Row -->
   <div style="display:grid;grid-template-columns:2fr 1fr;gap:1rem">
     <!-- Funnel Bar Chart -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
+    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
       <h4 style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin-bottom:1rem;letter-spacing:.04em">KYC Funnel Flow</h4>
       <canvas id="kycDropoutCanvas" height="220"></canvas>
     </div>
     <!-- Country Breakdown Mini Bars -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
+    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
       <h4 style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin-bottom:1rem;letter-spacing:.04em">KYC Submit by Country</h4>
       <canvas id="kycCountryCanvas" height="220"></canvas>
     </div>
@@ -1065,10 +1065,10 @@ footer span{color:var(--accent)}
 
   <div class="ph-cat-label">AI Modelleri & LLM</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/anthropic/white" alt="Anthropic"><span class="ph-name">Anthropic</span><span class="ph-tooltip">Claude Opus 4.6 - Orkestrator, konusma</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/anthropic/black" alt="Anthropic"><span class="ph-name">Anthropic</span><span class="ph-tooltip">Claude Opus 4.6 - Orkestrator, konusma</span></div>
     <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">CC</span><span class="ph-name">Claude Code</span><span class="ph-tooltip">Claude Max - Agir is, kod, analiz</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/openai/white" alt="OpenAI"><span class="ph-name">OpenAI</span><span class="ph-tooltip">GPT-5.2 - Fallback LLM</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gemini</span><span class="ph-tooltip">Image gen, alternatif LLM</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/openai/black" alt="OpenAI"><span class="ph-name">OpenAI</span><span class="ph-tooltip">GPT-5.2 - Fallback LLM</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/google" alt="Google"><span class="ph-name">Gemini</span><span class="ph-tooltip">Image gen, alternatif LLM</span></div>
   </div>
 
   <div class="ph-cat-label">Image & Video Generation</div>
@@ -1081,14 +1081,14 @@ footer span{color:var(--accent)}
 
   <div class="ph-cat-label">Ses & TTS</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/elevenlabs/white" alt="ElevenLabs"><span class="ph-name">ElevenLabs</span><span class="ph-tooltip">TTS voiceover (TR+EN), kalite standardi</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/elevenlabs/black" alt="ElevenLabs"><span class="ph-name">ElevenLabs</span><span class="ph-tooltip">TTS voiceover (TR+EN), kalite standardi</span></div>
     <div class="ph-card"><span class="ph-text-logo" style="font-size:.7rem">e-tts</span><span class="ph-name">edge-tts</span><span class="ph-tooltip">Acil fallback (ucretsiz)</span></div>
   </div>
 
   <div class="ph-cat-label">Analytics & Data</div>
   <div class="ph-grid">
     <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">Amp</span><span class="ph-name">Amplitude</span><span class="ph-tooltip">MCP bagli, urun analytics</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleanalytics/white" alt="GA4"><span class="ph-name">GA4</span><span class="ph-tooltip">Web + App traffic</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleanalytics" alt="GA4"><span class="ph-name">GA4</span><span class="ph-tooltip">Web + App traffic</span></div>
     <div class="ph-card"><span class="ph-text-logo">📊</span><span class="ph-name">Looker</span><span class="ph-tooltip">Dashboard'lar</span></div>
     <div class="ph-card"><span class="ph-text-logo">🗄️</span><span class="ph-name">BigQuery</span><span class="ph-tooltip">Data warehouse</span></div>
     <div class="ph-card"><span class="ph-text-logo">📱</span><span class="ph-name">AppsFlyer</span><span class="ph-tooltip">Attribution, install tracking</span></div>
@@ -1096,22 +1096,22 @@ footer span{color:var(--accent)}
 
   <div class="ph-cat-label">Reklam & Marketing</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleads/white" alt="Google Ads"><span class="ph-name">Google Ads</span><span class="ph-tooltip">Paid search/display</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/meta/white" alt="Meta"><span class="ph-name">Meta Ads</span><span class="ph-tooltip">Facebook/Instagram ads</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleads" alt="Google Ads"><span class="ph-name">Google Ads</span><span class="ph-tooltip">Paid search/display</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/meta" alt="Meta"><span class="ph-name">Meta Ads</span><span class="ph-tooltip">Facebook/Instagram ads</span></div>
     <div class="ph-card"><span class="ph-text-logo">🔍</span><span class="ph-name">Search Console</span><span class="ph-tooltip">SEO, indexing</span></div>
   </div>
 
   <div class="ph-cat-label">Web & Deploy</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/netlify/white" alt="Netlify"><span class="ph-name">Netlify</span><span class="ph-tooltip">Static site deploy</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/vercel/white" alt="Vercel"><span class="ph-name">Vercel</span><span class="ph-tooltip">App deploy</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/netlify" alt="Netlify"><span class="ph-name">Netlify</span><span class="ph-tooltip">Static site deploy</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/vercel/black" alt="Vercel"><span class="ph-name">Vercel</span><span class="ph-tooltip">App deploy</span></div>
     <div class="ph-card"><span class="ph-text-logo">🎴</span><span class="ph-name">Gamma</span><span class="ph-tooltip">Deck/sunum olusturma</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube"><span class="ph-name">YouTube</span><span class="ph-tooltip">Video upload - Data API</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/youtube" alt="YouTube"><span class="ph-name">YouTube</span><span class="ph-tooltip">Video upload - Data API</span></div>
   </div>
 
   <div class="ph-cat-label">Arastirma & Web</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/brave/white" alt="Brave"><span class="ph-name">Brave Search</span><span class="ph-tooltip">Web arastirma (built-in)</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/brave" alt="Brave"><span class="ph-name">Brave Search</span><span class="ph-tooltip">Web arastirma (built-in)</span></div>
     <div class="ph-card"><span class="ph-text-logo">🌐</span><span class="ph-name">Web Fetch</span><span class="ph-tooltip">Sayfa icerik cekme (built-in)</span></div>
     <div class="ph-card"><span class="ph-text-logo">🖥️</span><span class="ph-name">Browser</span><span class="ph-tooltip">Web sitesi otomasyonu</span></div>
   </div>
@@ -1119,14 +1119,14 @@ footer span{color:var(--accent)}
   <div class="ph-cat-label">Mesajlasma</div>
   <div class="ph-grid">
     <div class="ph-card"><span class="ph-text-logo">💬</span><span class="ph-name">Webchat</span><span class="ph-tooltip">Ana iletisim</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/telegram/white" alt="Telegram"><span class="ph-name">Telegram</span><span class="ph-tooltip">Mobil iletisim</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/telegram" alt="Telegram"><span class="ph-name">Telegram</span><span class="ph-tooltip">Mobil iletisim</span></div>
   </div>
 
   <div class="ph-cat-label">Google Workspace & Dev</div>
   <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/google/white" alt="Google"><span class="ph-name">Gmail/Drive</span><span class="ph-tooltip">alperen@cenoa.com - Workspace</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/github/white" alt="GitHub"><span class="ph-name">GitHub</span><span class="ph-tooltip">Kod yonetimi</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/slack/white" alt="Slack"><span class="ph-name">Slack</span><span class="ph-tooltip">Ekip iletisimi</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/google" alt="Google"><span class="ph-name">Gmail/Drive</span><span class="ph-tooltip">alperen@cenoa.com - Workspace</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/github/black" alt="GitHub"><span class="ph-name">GitHub</span><span class="ph-tooltip">Kod yonetimi</span></div>
+    <div class="ph-card"><img src="https://cdn.simpleicons.org/slack" alt="Slack"><span class="ph-name">Slack</span><span class="ph-tooltip">Ekip iletisimi</span></div>
   </div>
 
   <div class="ph-cat-label" style="margin-top:1.2rem">Planned Access (Not Connected Yet)</div>
@@ -1172,7 +1172,7 @@ footer span{color:var(--accent)}
   </p>
 
   <!-- What It Does - Visual Card -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem;text-align:center">
+  <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:16px;padding:2.5rem;margin-bottom:2rem;text-align:center">
     <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem">What It Does</h3>
     <div style="display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap">
       <div style="text-align:center">
@@ -1199,7 +1199,7 @@ footer span{color:var(--accent)}
   </div>
 
   <!-- How It Works - Flow Diagram -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem">
+  <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:16px;padding:2.5rem;margin-bottom:2rem">
     <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:2rem;text-align:center">How It Works</h3>
     <div class="flow-diagram">
       <div class="flow-step">
@@ -1287,30 +1287,30 @@ footer span{color:var(--accent)}
 
     <!-- Big numbers row -->
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-bottom:1.5rem;text-align:center" class="track-numbers">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem .5rem">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
         <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">172</div>
         <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Video Clips</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem .5rem">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
         <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">2.8K</div>
         <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Images Gen'd</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem .5rem">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
         <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">26</div>
         <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Strategy Docs</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem .5rem">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
         <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">8</div>
         <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Gamma Decks</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem .5rem">
+      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
         <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">29/32</div>
         <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Growth Tasks</div>
       </div>
     </div>
 
     <!-- Agent Output Table -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;overflow:hidden">
       <table style="width:100%;border-collapse:collapse;font-size:.85rem">
         <thead>
           <tr style="border-bottom:1px solid var(--border);background:var(--surface2)">
@@ -1421,7 +1421,7 @@ footer span{color:var(--accent)}
   </div>
 
   <!-- Planned - Vertical Timeline -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem">
+  <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:16px;padding:2.5rem">
     <h3 style="font-size:1.2rem;font-weight:700;color:#fbbf24;margin-bottom:2rem;text-align:center">Planned - Coming Soon</h3>
     <div class="timeline">
       <div class="timeline-item">
@@ -2186,7 +2186,7 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
   const cacData = [126.6, 122.1, 121.5, 86.0, 119.9, 208.2];
   const cacLabels = ['Sep','Oct','Nov','Dec','Jan','Feb'];
   const maxVal = Math.max(...cacData);
-  const barColors = cacData.map(v => v === maxVal ? 'rgba(239,68,68,0.85)' : 'rgba(0,255,136,0.75)');
+  const barColors = cacData.map(v => v === maxVal ? 'rgba(239,68,68,0.85)' : 'rgba(0,184,92,0.7)');
   const borderColors = cacData.map(v => v === maxVal ? 'rgba(239,68,68,1)' : 'rgba(0,255,136,1)');
   new Chart(ctx, {
     type: 'bar',
@@ -2219,13 +2219,13 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          labels: { color: '#777', font: { size: 11 }, usePointStyle: true, pointStyle: 'rect' }
+          labels: { color: '#888', font: { size: 11 }, usePointStyle: true, pointStyle: 'rect' }
         },
         tooltip: {
-          backgroundColor: '#1a1a1a',
-          titleColor: '#fff',
-          bodyColor: '#00ff88',
-          borderColor: '#333',
+          backgroundColor: '#fff',
+          titleColor: '#1a1a1a',
+          bodyColor: '#00b85c',
+          borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
             label: function(c){ return c.dataset.label + ': $' + c.raw.toFixed(1); }
@@ -2235,11 +2235,11 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: '#fff', font: { size: 12, weight: 600 } }
+          ticks: { color: '#1a1a1a', font: { size: 12, weight: 600 } }
         },
         y: {
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#777', font: { size: 11 }, callback: function(v){ return '$' + v; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return '$' + v; } },
           beginAtZero: true,
           suggestedMax: 250
         }
@@ -2258,8 +2258,8 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       labels: ['Install','First Open','Signup','KYC Start','KYC Submit','Deposit','Withdrawal'],
       datasets: [{
         data: [1445, 1930, 1207, 3098, 179, 1546, 2227],
-        backgroundColor: 'rgba(0,255,136,0.75)',
-        borderColor: 'rgba(0,255,136,1)',
+        backgroundColor: 'rgba(0,184,92,0.7)',
+        borderColor: 'rgba(0,184,92,1)',
         borderWidth: 1,
         borderRadius: 6,
         barPercentage: 0.7
@@ -2272,10 +2272,10 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1a1a1a',
-          titleColor: '#fff',
-          bodyColor: '#00ff88',
-          borderColor: '#333',
+          backgroundColor: '#fff',
+          titleColor: '#1a1a1a',
+          bodyColor: '#00b85c',
+          borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
             label: function(c){ return c.raw.toLocaleString('en-US'); }
@@ -2284,12 +2284,12 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#777', font: { size: 11 } }
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          ticks: { color: '#888', font: { size: 11 } }
         },
         y: {
           grid: { display: false },
-          ticks: { color: '#fff', font: { size: 12, weight: 600 } }
+          ticks: { color: '#1a1a1a', font: { size: 12, weight: 600 } }
         }
       }
     }
@@ -2364,10 +2364,10 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1a1a1a',
-          titleColor: '#fff',
+          backgroundColor: '#fff',
+          titleColor: '#1a1a1a',
           bodyColor: '#f87171',
-          borderColor: '#333',
+          borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
             label: function(c){ return c.raw.toLocaleString('en-US'); }
@@ -2376,12 +2376,12 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#777', font: { size: 11 } }
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          ticks: { color: '#888', font: { size: 11 } }
         },
         y: {
           grid: { display: false },
-          ticks: { color: '#fff', font: { size: 13, weight: 700 } }
+          ticks: { color: '#1a1a1a', font: { size: 13, weight: 700 } }
         }
       }
     }
@@ -2399,7 +2399,7 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       datasets: [{
         data: [3098, 3025, 179],
         backgroundColor: [
-          'rgba(0,255,136,0.75)',
+          'rgba(0,184,92,0.7)',
           'rgba(96,165,250,0.75)',
           'rgba(239,68,68,0.85)'
         ],
@@ -2419,10 +2419,10 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1a1a1a',
-          titleColor: '#fff',
-          bodyColor: '#00ff88',
-          borderColor: '#333',
+          backgroundColor: '#fff',
+          titleColor: '#1a1a1a',
+          bodyColor: '#00b85c',
+          borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
             label: function(c) {
@@ -2435,11 +2435,11 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: '#fff', font: { size: 11, weight: 600 } }
+          ticks: { color: '#1a1a1a', font: { size: 11, weight: 600 } }
         },
         y: {
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#777', font: { size: 11 }, callback: function(v){ return v.toLocaleString(); } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return v.toLocaleString(); } },
           beginAtZero: true
         }
       }
@@ -2486,7 +2486,7 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       const size = 120, cx = size/2, cy = size/2, r = 46, lw = 10;
       ctx.clearRect(0,0,size,size);
       // bg ring
-      ctx.beginPath(); ctx.arc(cx,cy,r, -Math.PI*0.75, Math.PI*0.75); ctx.strokeStyle='#222'; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx,cy,r, -Math.PI*0.75, Math.PI*0.75); ctx.strokeStyle='#e0e0e0'; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
       // value ring
       const range = Math.PI * 1.5;
       const angle = -Math.PI*0.75 + Math.min(pct/150, 1) * range;
@@ -2556,8 +2556,8 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
           {
             label:'Actual CAC',
             data: filtered.map(c=>c.actual),
-            backgroundColor: filtered.map(c=> c.actual > c.target ? 'rgba(239,68,68,0.75)' : 'rgba(0,255,136,0.75)'),
-            borderColor: filtered.map(c=> c.actual > c.target ? '#f87171' : '#00ff88'),
+            backgroundColor: filtered.map(c=> c.actual > c.target ? 'rgba(239,68,68,0.75)' : 'rgba(0,184,92,0.7)'),
+            borderColor: filtered.map(c=> c.actual > c.target ? '#f87171' : '#00b85c'),
             borderWidth:1, borderRadius:6, barPercentage:0.6
           },
           {
@@ -2578,13 +2578,13 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         responsive:true,
         maintainAspectRatio:false,
         plugins:{
-          legend:{labels:{color:'#777',font:{size:11},usePointStyle:true}},
-          tooltip:{backgroundColor:'#1a1a1a',titleColor:'#fff',bodyColor:'#00ff88',borderColor:'#333',borderWidth:1,
+          legend:{labels:{color:'#888',font:{size:11},usePointStyle:true}},
+          tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,
             callbacks:{label:c=>`${c.dataset.label}: $${c.raw.toFixed(1)}`}}
         },
         scales:{
-          x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#777',font:{size:11},callback:v=>'$'+v}},
-          y:{grid:{display:false},ticks:{color:'#fff',font:{size:12,weight:600}}}
+          x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#888',font:{size:11},callback:v=>'$'+v}},
+          y:{grid:{display:false},ticks:{color:'#1a1a1a',font:{size:12,weight:600}}}
         }
       }
     });
@@ -2604,15 +2604,15 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         type:'doughnut',
         data:{
           labels:['iOS','Android'],
-          datasets:[{data:[iosVal,androidVal],backgroundColor:['rgba(59,130,246,0.8)','rgba(0,255,136,0.8)'],borderWidth:0}]
+          datasets:[{data:[iosVal,androidVal],backgroundColor:['rgba(59,130,246,0.8)','rgba(0,184,92,0.75)'],borderWidth:0}]
         },
         options:{
           responsive:true,
           maintainAspectRatio:true,
           cutout:'65%',
           plugins:{
-            legend:{display:true,position:'bottom',labels:{color:'#777',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:8}},
-            tooltip:{backgroundColor:'#1a1a1a',titleColor:'#fff',bodyColor:'#00ff88',borderColor:'#333',borderWidth:1,
+            legend:{display:true,position:'bottom',labels:{color:'#888',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:8}},
+            tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,
               callbacks:{label:c=>`${c.label}: ${c.raw}%`}}
           }
         }
@@ -2766,7 +2766,7 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         label: 'KYC Submitted',
         data: [170, 0, 0],
         backgroundColor: [
-          'rgba(0,255,136,0.8)',
+          'rgba(0,184,92,0.75)',
           'rgba(239,68,68,0.4)',
           'rgba(239,68,68,0.4)'
         ],
@@ -2786,21 +2786,21 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1a1a1a',
-          titleColor: '#fff',
-          bodyColor: '#00ff88',
-          borderColor: '#333',
+          backgroundColor: '#fff',
+          titleColor: '#1a1a1a',
+          bodyColor: '#00b85c',
+          borderColor: '#e0e0e0',
           borderWidth: 1
         }
       },
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: '#fff', font: { size: 12, weight: 600 } }
+          ticks: { color: '#1a1a1a', font: { size: 12, weight: 600 } }
         },
         y: {
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#777', font: { size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          ticks: { color: '#888', font: { size: 11 } },
           beginAtZero: true,
           suggestedMax: 200
         }
@@ -2896,10 +2896,10 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
           plugins: {
             legend: { display: false },
             tooltip: {
-              backgroundColor: '#1a1a1a',
-              titleColor: '#fff',
-              bodyColor: '#00ff88',
-              borderColor: '#333',
+              backgroundColor: '#fff',
+              titleColor: '#1a1a1a',
+              bodyColor: '#00b85c',
+              borderColor: '#e0e0e0',
               borderWidth: 1,
               callbacks: {
                 label: function(c) {

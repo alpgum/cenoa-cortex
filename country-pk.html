@@ -6,18 +6,18 @@
 <title>Pakistan Deep Dive — CENOA × CORTEX</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#222;--accent:#00ff88;--accent-dim:rgba(0,255,136,.12);--accent-glow:rgba(0,255,136,.3);--text:#e0e0e0;--text-dim:#777;--text-bright:#fff;--red:#f43f5e;--yellow:#fbbf24;--blue:#60a5fa}
+:root{--bg:#ffffff;--surface:#f8f9fa;--surface2:#f0f1f3;--border:#e0e0e0;--accent:#00b85c;--accent-dim:rgba(0,184,92,.08);--accent-glow:rgba(0,184,92,.2);--text:#1a1a1a;--text-dim:#666;--text-bright:#000;--red:#f43f5e;--yellow:#fbbf24;--blue:#60a5fa}
 body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh}
 a{color:var(--accent);text-decoration:none}
-::selection{background:var(--accent);color:var(--bg)}
-header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(10,10,10,.88);height:54px}
+::selection{background:var(--accent);color:#fff}
+header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);height:54px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .header-brand{display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;letter-spacing:.12em;color:var(--text-dim)}
 .header-brand span{color:var(--accent)}
 .header-pulse{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;margin-right:.4rem;flex-shrink:0}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 6px transparent}}
 .back-link{font-size:.75rem;color:var(--text-dim);letter-spacing:.08em;transition:color .2s}
 .back-link:hover{color:var(--accent)}
-.country-nav{display:flex;gap:.3rem;padding:.6rem 2rem;border-bottom:1px solid var(--border);background:var(--surface)}
+.country-nav{display:flex;gap:.3rem;padding:.6rem 2rem;border-bottom:1px solid var(--border);background:#f8f9fa}
 .country-nav a{padding:.35rem .8rem;border-radius:18px;border:1px solid var(--border);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--text-dim);transition:all .25s}
 .country-nav a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
 .country-nav a.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}

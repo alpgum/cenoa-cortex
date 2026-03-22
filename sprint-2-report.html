@@ -6,12 +6,12 @@
 <title>Sprint 2 Report — Cenoa Growth Engine</title>
 <style>
   :root {
-    --bg: #0a0a0a;
-    --card: #141414;
-    --card-hover: #1a1a1a;
-    --border: #222;
-    --text: #e5e5e5;
-    --muted: #888;
+    --bg: #ffffff;
+    --card: #ffffff;
+    --card-hover: #f8f9fa;
+    --border: #e0e0e0;
+    --text: #1a1a1a;
+    --muted: #666;
     --green: #22c55e;
     --green-dim: rgba(34,197,94,0.12);
     --red: #ef4444;
@@ -41,7 +41,7 @@
 
   /* Score bar */
   .score-section { display:flex; gap:16px; margin:32px 0; flex-wrap:wrap; }
-  .score-card { flex:1; min-width:140px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; text-align:center; }
+  .score-card { flex:1; min-width:140px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,.04); }
   .score-card .num { font-size:36px; font-weight:700; }
   .score-card .label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
   .score-card.green .num { color:var(--green); }
@@ -56,7 +56,7 @@
 
   /* Finding cards */
   .finding { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:12px; transition:background 0.15s; }
-  .finding:hover { background:var(--card-hover); }
+  .finding:hover { background:var(--card-hover); box-shadow:0 2px 8px rgba(0,0,0,.06); }
   .finding .tag { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; padding:3px 8px; border-radius:6px; display:inline-block; margin-bottom:8px; }
   .finding .tag.critical { background:var(--red-dim); color:var(--red); }
   .finding .tag.high { background:var(--orange-dim); color:var(--orange); }

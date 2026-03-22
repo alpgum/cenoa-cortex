@@ -6,15 +6,15 @@
 <title>CENOA × CORTEX — Architecture</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#222;--accent:#00ff88;--accent-dim:rgba(0,255,136,.12);--accent-glow:rgba(0,255,136,.3);--text:#e0e0e0;--text-dim:#777;--text-bright:#fff;--blue:#60a5fa;--blue-dim:rgba(59,130,246,.15);--green:#34d399;--green-dim:rgba(52,211,153,.12);--purple:#c084fc;--purple-dim:rgba(168,85,247,.15);--orange:#fbbf24;--orange-dim:rgba(251,191,36,.12);--gray:#64748b;--gray-dim:rgba(100,116,139,.12)}
+:root{--bg:#ffffff;--surface:#f8f9fa;--surface2:#f0f1f3;--border:#e0e0e0;--accent:#00b85c;--accent-dim:rgba(0,184,92,.08);--accent-glow:rgba(0,184,92,.2);--text:#1a1a1a;--text-dim:#666;--text-bright:#000;--blue:#60a5fa;--blue-dim:rgba(59,130,246,.15);--green:#34d399;--green-dim:rgba(52,211,153,.12);--purple:#c084fc;--purple-dim:rgba(168,85,247,.15);--orange:#fbbf24;--orange-dim:rgba(251,191,36,.12);--gray:#64748b;--gray-dim:rgba(100,116,139,.12)}
 body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;min-height:100vh}
 a{color:var(--accent);text-decoration:none}
-::selection{background:var(--accent);color:var(--bg)}
+::selection{background:var(--accent);color:#fff}
 ::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+::-webkit-scrollbar-track{background:#f5f5f5}
+::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
 
-header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(10,10,10,.88);height:54px}
+header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);height:54px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .header-brand{display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;letter-spacing:.12em;color:var(--text-dim)}
 .header-brand span{color:var(--accent)}
 .header-pulse{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;margin-right:.4rem;flex-shrink:0}
@@ -54,7 +54,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .orch-glow{filter:url(#glow)}
 
 /* Footer */
-.footer{text-align:center;padding:3rem 0 2rem;color:#333;font-size:.7rem;letter-spacing:.1em}
+.footer{text-align:center;padding:3rem 0 2rem;color:#999;font-size:.7rem;letter-spacing:.1em}
 
 @media(max-width:900px){
   .container{padding:1rem}
