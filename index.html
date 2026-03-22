@@ -339,6 +339,18 @@ footer span{color:var(--accent)}
 .country-metric-value{font-size:.82rem;font-weight:700;color:var(--text-bright);font-variant-numeric:tabular-nums}
 @media(max-width:900px){.country-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:500px){.country-grid{grid-template-columns:1fr}}
+.country-spend-section{margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--border)}
+.country-spend-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem}
+.country-spend-label{font-size:.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em}
+.country-spend-value{font-size:.78rem;font-weight:700;color:var(--text-bright);font-variant-numeric:tabular-nums}
+.country-pacing-bar{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;margin:.3rem 0 .15rem}
+.country-pacing-fill{height:100%;border-radius:3px;transition:width .6s}
+.country-pacing-text{font-size:.6rem;font-weight:700;letter-spacing:.04em}
+.pacing-green{color:#059669}
+.pacing-orange{color:#d97706}
+.pacing-red{color:#dc2626}
+.country-deep-link{display:inline-flex;align-items:center;gap:.25rem;margin-top:.5rem;font-size:.65rem;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.country-deep-link:hover{color:#00994d}
 
 /* Analytics */
 .analytics-frame{background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1rem}
@@ -782,59 +794,9 @@ footer span{color:var(--accent)}
     <div class="badge">W12 · BY MARKET</div>
   </div>
 
-  <div class="country-grid">
-    <a href="country-tr.html" style="text-decoration:none;color:inherit"><div class="country-card">
-      <div class="country-head">
-        <span class="country-flag">🇹🇷</span>
-        <span class="country-name">Turkey</span>
-        <span style="margin-left:auto;font-size:.55rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase">Deep Dive →</span>
-      </div>
-      <div class="country-metrics">
-        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">670</span></div>
-        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">226</span></div>
-        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">170</span></div>
-        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">1,177</span></div>
-      </div>
-    </div></a>
-    <a href="country-ng.html" style="text-decoration:none;color:inherit"><div class="country-card">
-      <div class="country-head">
-        <span class="country-flag">🇳🇬</span>
-        <span class="country-name">Nigeria</span>
-        <span style="margin-left:auto;font-size:.55rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase">Deep Dive →</span>
-      </div>
-      <div class="country-metrics">
-        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">448</span></div>
-        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">115</span></div>
-        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">0</span></div>
-        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">778</span></div>
-      </div>
-    </div></a>
-    <a href="country-eg.html" style="text-decoration:none;color:inherit"><div class="country-card">
-      <div class="country-head">
-        <span class="country-flag">🇪🇬</span>
-        <span class="country-name">Egypt</span>
-        <span style="margin-left:auto;font-size:.55rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase">Deep Dive →</span>
-      </div>
-      <div class="country-metrics">
-        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">197</span></div>
-        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">61</span></div>
-        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">0</span></div>
-        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">23</span></div>
-      </div>
-    </div></a>
-    <a href="country-pk.html" style="text-decoration:none;color:inherit"><div class="country-card">
-      <div class="country-head">
-        <span class="country-flag">🇵🇰</span>
-        <span class="country-name">Pakistan</span>
-        <span style="margin-left:auto;font-size:.55rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase">Deep Dive →</span>
-      </div>
-      <div class="country-metrics">
-        <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">23</span></div>
-        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">15</span></div>
-        <div class="country-metric"><span class="country-metric-label">KYC</span><span class="country-metric-value">0</span></div>
-        <div class="country-metric"><span class="country-metric-label">Withdrawals</span><span class="country-metric-value">0</span></div>
-      </div>
-    </div></a>
+  <div class="country-grid" id="countryGrid">
+    <!-- Populated by JS from data.json -->
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">Loading country data...</div>
   </div>
 </section>
 
@@ -2184,6 +2146,73 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       }
     }
   });
+})();
+
+// ========== COUNTRY CARDS WITH SPEND ==========
+(async function loadCountryCards(){
+  let data = {};
+  try {
+    const res = await fetch('data.json', { cache: 'no-store' });
+    if (res.ok) data = await res.json();
+  } catch(e) { console.warn('Country card data fetch failed', e); }
+
+  const countries = data.countries || {};
+  const spendArr = data.countrySpend || [
+    { code:'TR', flag:'🇹🇷', name:'Turkey', weeklySpend:5800, mtdSpend:19600, monthlyTarget:23000, cpi:8.0, trueCAC:26.79, deepDiveUrl:'country-tr.html' },
+    { code:'EG', flag:'🇪🇬', name:'Egypt', weeklySpend:320, mtdSpend:6900, monthlyTarget:8500, cpi:2.0, trueCAC:68.51, deepDiveUrl:'country-eg.html' },
+    { code:'NG', flag:'🇳🇬', name:'Nigeria', weeklySpend:33, mtdSpend:230, monthlyTarget:2200, cpi:0.07, trueCAC:7.42, deepDiveUrl:'country-ng.html' },
+    { code:'PK', flag:'🇵🇰', name:'Pakistan', weeklySpend:0, mtdSpend:0, monthlyTarget:6000, cpi:0, trueCAC:0, deepDiveUrl:'country-pk.html' }
+  ];
+
+  const grid = document.getElementById('countryGrid');
+  if (!grid) return;
+
+  function fmt$(n){ if (!n) return '$0'; return '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:0}); }
+  function fmtK(n){ if (!n) return '$0'; if (n >= 1000) return '$' + (n/1000).toFixed(1) + 'K'; return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0}); }
+  function fmtCPI(n){ if (!n) return '—'; return '$' + Number(n).toFixed(2); }
+  function fmtCAC(n){ if (!n) return '—'; return '$' + Number(n).toFixed(2); }
+
+  grid.innerHTML = spendArr.map(sp => {
+    const cd = countries[sp.code] || {};
+    const installs = cd.installs ? cd.installs.value : '—';
+    const signups = cd.signups ? cd.signups.value : '—';
+    const installDelta = cd.installs ? cd.installs.deltaPct : null;
+
+    const pacingPct = sp.monthlyTarget > 0 ? Math.round(sp.mtdSpend / sp.monthlyTarget * 100) : 0;
+    let pacingColor = 'pacing-green';
+    let pacingBarColor = '#22c55e';
+    if (pacingPct > 100) { pacingColor = 'pacing-red'; pacingBarColor = '#ef4444'; }
+    else if (pacingPct > 85) { pacingColor = 'pacing-orange'; pacingBarColor = '#f59e0b'; }
+    else if (pacingPct < 50 && sp.mtdSpend > 0) { pacingColor = 'pacing-orange'; pacingBarColor = '#f59e0b'; }
+    else if (sp.mtdSpend === 0 && sp.monthlyTarget > 0) { pacingColor = 'pacing-red'; pacingBarColor = '#ef4444'; }
+
+    const installDeltaHtml = installDelta !== null
+      ? ` <span style="font-size:.6rem;font-weight:700;color:${installDelta < 0 ? '#ef4444' : '#22c55e'}">${installDelta < 0 ? '▼' : '▲'}${Math.abs(installDelta)}%</span>`
+      : '';
+
+    return `
+      <div class="country-card">
+        <div class="country-head">
+          <span class="country-flag">${sp.flag}</span>
+          <span class="country-name">${sp.name}</span>
+        </div>
+        <div class="country-metrics">
+          <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">${typeof installs === 'number' ? installs.toLocaleString('en-US') : installs}${installDeltaHtml}</span></div>
+          <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">${typeof signups === 'number' ? signups.toLocaleString('en-US') : signups}</span></div>
+        </div>
+        <div class="country-spend-section">
+          <div class="country-spend-row"><span class="country-spend-label">Weekly (Mar 15-21)</span><span class="country-spend-value">${fmtK(sp.weeklySpend)}</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">MTD Spend</span><span class="country-spend-value">${fmtK(sp.mtdSpend)}</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">Budget Target</span><span class="country-spend-value">${fmtK(sp.monthlyTarget)}</span></div>
+          <div class="country-pacing-bar"><div class="country-pacing-fill" style="width:${Math.min(pacingPct, 100)}%;background:${pacingBarColor}"></div></div>
+          <div class="country-spend-row"><span class="country-spend-label">Pacing</span><span class="country-pacing-text ${pacingColor}">${pacingPct}%</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">CPI</span><span class="country-spend-value">${fmtCPI(sp.cpi)}</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">TRUE CAC</span><span class="country-spend-value" style="color:${sp.trueCAC > 50 ? '#ef4444' : sp.trueCAC > 30 ? '#d97706' : '#059669'}">${fmtCAC(sp.trueCAC)}</span></div>
+        </div>
+        <a href="${sp.deepDiveUrl}" class="country-deep-link">Deep Dive →</a>
+      </div>
+    `;
+  }).join('');
 })();
 
 // ========== CAMPAIGN PERFORMANCE TABLE (v2) ==========
