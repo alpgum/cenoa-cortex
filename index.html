@@ -322,6 +322,105 @@ footer span{color:var(--accent)}
 .action-text{font-size:.88rem;color:var(--text-bright);font-weight:600;line-height:1.4}
 .action-detail{font-size:.75rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4}
 
+/* Budget Pacing Gauge */
+.pacing-wrap{display:flex;align-items:center;gap:2rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem 2rem;max-width:800px;margin:0 auto}
+.pacing-gauge{position:relative;width:120px;height:120px;flex-shrink:0}
+.pacing-gauge canvas{width:120px;height:120px}
+.pacing-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.pacing-center .pct{font-size:1.6rem;font-weight:900;line-height:1}
+.pacing-center .lbl{font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em}
+.pacing-details{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.5rem .8rem}
+.pacing-detail{display:flex;flex-direction:column}
+.pacing-detail .pd-label{font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em}
+.pacing-detail .pd-value{font-size:1.1rem;font-weight:800;color:var(--text-bright)}
+@media(max-width:600px){.pacing-wrap{flex-direction:column;text-align:center}.pacing-details{justify-items:center}}
+
+/* Channel Performance Cards */
+.channel-perf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
+.ch-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;transition:border .3s}
+.ch-card:hover{border-color:rgba(0,255,136,.2)}
+.ch-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.ch-card-name{font-size:.85rem;font-weight:700;color:var(--text-bright)}
+.ch-card-wow{font-size:.75rem;font-weight:700}
+.ch-card-wow.up{color:#22c55e}
+.ch-card-wow.down{color:#ef4444}
+.ch-card-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.25rem .6rem}
+.ch-metric{display:flex;justify-content:space-between}
+.ch-metric-label{font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em}
+.ch-metric-value{font-size:.78rem;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+
+/* Tests Cards */
+.tests-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem}
+.test-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;transition:all .3s}
+.test-card:hover{border-color:rgba(0,255,136,.2)}
+.test-name{font-size:.9rem;font-weight:700;color:var(--text-bright);margin-bottom:.3rem}
+.test-hypo{font-size:.78rem;color:var(--text-dim);line-height:1.4;margin-bottom:.5rem}
+.test-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.test-status{font-size:.65rem;font-weight:700;padding:.2rem .55rem;border-radius:8px;letter-spacing:.06em;text-transform:uppercase}
+.test-status.running{background:rgba(59,130,246,.15);color:#60a5fa}
+.test-status.planned{background:rgba(251,191,36,.12);color:#fbbf24}
+.test-status.completed{background:rgba(0,255,136,.12);color:#00ff88}
+.test-metric{font-size:.7rem;color:var(--text-dim)}
+
+/* Learnings Cards */
+.learnings-scroll{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.5rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.learnings-scroll::-webkit-scrollbar{height:4px}
+.learnings-scroll::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+.learning-card{flex:0 0 260px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;transition:border .3s}
+.learning-card:hover{border-color:rgba(0,255,136,.2)}
+.learning-emoji{font-size:1.8rem;margin-bottom:.4rem}
+.learning-finding{font-size:.85rem;font-weight:600;color:var(--text-bright);line-height:1.4;margin-bottom:.3rem}
+.learning-impact{font-size:.72rem;color:var(--text-dim);line-height:1.3}
+
+/* CAC vs Target */
+.cac-track-wrap{max-width:800px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+
+/* Platform Split Donuts */
+.platform-split-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:700px;margin:0 auto}
+.ps-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;text-align:center}
+.ps-card h4{font-size:.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.ps-card canvas{max-width:120px;max-height:120px;margin:0 auto}
+@media(max-width:600px){.platform-split-grid{grid-template-columns:1fr}}
+
+/* Attribution Quality */
+.attr-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;max-width:400px}
+.attr-pct{font-size:2rem;font-weight:900;line-height:1}
+.attr-label{font-size:.85rem;font-weight:600;color:var(--text-bright)}
+.attr-sub{font-size:.72rem;color:var(--text-dim);margin-top:.15rem}
+
+/* KYC Mini Funnels */
+.kyc-funnel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;max-width:900px;margin:0 auto}
+.kyc-funnel-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;text-align:center}
+.kyc-funnel-card.broken{border-color:rgba(239,68,68,.4);background:linear-gradient(180deg,rgba(239,68,68,.06),transparent)}
+.kyc-funnel-flag{font-size:1.8rem;margin-bottom:.3rem}
+.kyc-funnel-name{font-size:.8rem;font-weight:700;color:var(--text-bright);margin-bottom:.6rem}
+.kyc-funnel-step{display:flex;justify-content:space-between;align-items:center;padding:.25rem .4rem;border-radius:4px;margin-bottom:.2rem;font-size:.72rem}
+.kyc-funnel-step .step-label{color:var(--text-dim)}
+.kyc-funnel-step .step-val{font-weight:700;color:var(--text-bright);font-variant-numeric:tabular-nums}
+.kyc-funnel-bar{height:4px;border-radius:2px;background:var(--surface2);margin-bottom:.4rem;overflow:hidden}
+.kyc-funnel-bar .fill{height:100%;border-radius:2px;transition:width .6s}
+@media(max-width:700px){.kyc-funnel-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Weekly Agenda */
+.agenda-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:.4rem}
+.agenda-item{display:flex;align-items:flex-start;gap:.7rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;transition:border .3s}
+.agenda-item:hover{border-color:rgba(0,255,136,.15)}
+.agenda-check{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:.1rem;display:flex;align-items:center;justify-content:center;font-size:.65rem}
+.agenda-item.done .agenda-check{border-color:var(--accent);background:var(--accent-dim);color:var(--accent)}
+.agenda-item.done .agenda-text{text-decoration:line-through;opacity:.5}
+.agenda-pri{font-size:.6rem;font-weight:800;padding:.15rem .45rem;border-radius:5px;letter-spacing:.08em;white-space:nowrap;flex-shrink:0}
+.agenda-pri.p0{background:rgba(239,68,68,.18);color:#f87171}
+.agenda-pri.p1{background:rgba(251,191,36,.15);color:#fbbf24}
+.agenda-pri.p2{background:rgba(34,197,94,.15);color:#4ade80}
+.agenda-text{font-size:.85rem;color:var(--text-bright);font-weight:600;line-height:1.3}
+
+/* Campaign Health Dot */
+.health-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.4rem;vertical-align:middle}
+.health-dot.healthy{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,.4)}
+.health-dot.bleeding{background:#f59e0b;box-shadow:0 0 6px rgba(245,158,11,.4)}
+.health-dot.dead{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.4)}
+.health-dot.fraud{background:#a855f7;box-shadow:0 0 6px rgba(168,85,247,.4)}
+
 /* Responsive */
 @media(max-width:768px){
   #kycDropout > div:nth-child(2){grid-template-columns:1fr !important}
@@ -348,18 +447,19 @@ footer span{color:var(--accent)}
   </div>
   <nav class="header-nav">
     <a href="#kpiBanner">KPIs</a>
-    <a href="#countryBreakdown">Countries</a>
+    <a href="#budgetPacing">Budget</a>
+    <a href="#channelPerf">Channels</a>
     <a href="#campaignTable">Campaigns</a>
-    <a href="#whatIs">About</a>
-    <a href="#kycDropout">KYC</a>
-    <a href="#actionItems">Actions</a>
+    <a href="#cacVsTarget">CAC</a>
+    <a href="#weeklyTests">Tests</a>
+    <a href="#weeklyLearnings">Learnings</a>
+    <a href="#kycMiniFunnels">KYC</a>
+    <a href="#weeklyAgenda">Agenda</a>
+    <a href="#platformSplit">Platform</a>
     <a href="#funnelChart">Funnel</a>
-    <a href="#platformHub">Platforms</a>
-    <a href="#docHub">Docs</a>
+    <a href="#actionItems">Actions</a>
     <a href="#analytics">Analytics</a>
     <a href="#agentStatus">Agents</a>
-    <a href="#marketOverview">Markets</a>
-    <a href="#openclawTaktik">OpenClaw Taktikleri</a>
     <a href="sprint-1-report.html" style="color:var(--accent)">📊 Sprint 1</a>
     <span style="color:#333">|</span>
     <span style="font-size:.7rem;color:#444;letter-spacing:.08em">v1.0 &middot; LIVE</span>
@@ -458,6 +558,46 @@ footer span{color:var(--accent)}
   <div class="kpi-footer">
     <span>Source: Amplitude + GA4 + AppsFlyer · Updated manually until API pipeline is live</span>
     <span class="kpi-last-updated" id="kpiLastUpdated">Last updated: Mar 20, 2026 23:35 TRT</span>
+  </div>
+</section>
+
+<!-- BUDGET PACING GAUGE -->
+<section class="section" id="budgetPacing" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>💵 Budget Pacing</h2>
+    <div class="line"></div>
+    <div class="badge" id="pacingBadge">MARCH 2026</div>
+  </div>
+  <div class="pacing-wrap">
+    <div class="pacing-gauge">
+      <canvas id="pacingGaugeCanvas" width="120" height="120"></canvas>
+      <div class="pacing-center">
+        <div class="pct" id="pacingPct">—%</div>
+        <div class="lbl">Pacing</div>
+      </div>
+    </div>
+    <div class="pacing-details" id="pacingDetails">
+      <div class="pacing-detail"><span class="pd-label">Target</span><span class="pd-value" id="pacingTarget">$50,000</span></div>
+      <div class="pacing-detail"><span class="pd-label">MTD Spend</span><span class="pd-value" id="pacingMtd">—</span></div>
+      <div class="pacing-detail"><span class="pd-label">Days Left</span><span class="pd-value" id="pacingDays">—</span></div>
+      <div class="pacing-detail"><span class="pd-label">Daily Avg Needed</span><span class="pd-value" id="pacingDailyNeeded">—</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ATTRIBUTION QUALITY METER -->
+<section class="section" id="attrQuality" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>🎯 Attribution Quality</h2>
+    <div class="line"></div>
+    <div class="badge">HEALTH CHECK</div>
+  </div>
+  <div class="attr-card" id="attrCard">
+    <div class="attr-pct" id="attrPct" style="color:var(--accent)">—%</div>
+    <div>
+      <div class="attr-label">Attribution Health</div>
+      <div class="attr-sub" id="attrSub">Percentage of installs with known source</div>
+    </div>
   </div>
 </section>
 
@@ -611,6 +751,92 @@ footer span{color:var(--accent)}
         </tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<!-- WEEKLY CHANNEL PERFORMANCE -->
+<section class="section" id="channelPerf" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>📡 Weekly Channel Performance</h2>
+    <div class="line"></div>
+    <div class="badge">BY CHANNEL</div>
+  </div>
+  <div class="channel-perf-grid" id="channelPerfGrid">
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">Loading channel data...</div>
+  </div>
+</section>
+
+<!-- TRUE CAC VS TARGET -->
+<section class="section" id="cacVsTarget" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>💰 True CAC vs Target</h2>
+    <div class="line"></div>
+    <div class="badge">BY CHANNEL</div>
+  </div>
+  <div class="cac-track-wrap">
+    <canvas id="cacVsTargetCanvas" height="260"></canvas>
+  </div>
+</section>
+
+<!-- PLATFORM SPLIT -->
+<section class="section" id="platformSplit" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>📱 Platform Split</h2>
+    <div class="line"></div>
+    <div class="badge">iOS vs ANDROID</div>
+  </div>
+  <div class="platform-split-grid">
+    <div class="ps-card"><h4>Installs</h4><canvas id="psInstalls"></canvas></div>
+    <div class="ps-card"><h4>Signups</h4><canvas id="psSignups"></canvas></div>
+    <div class="ps-card"><h4>Withdrawals</h4><canvas id="psWithdrawals"></canvas></div>
+  </div>
+</section>
+
+<!-- THIS WEEK'S TESTS 🧪 -->
+<section class="section" id="weeklyTests" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>🧪 This Week's Tests</h2>
+    <div class="line"></div>
+    <div class="badge">EXPERIMENTS</div>
+  </div>
+  <div class="tests-grid" id="testsGrid">
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">No tests data loaded.</div>
+  </div>
+</section>
+
+<!-- WHAT WE LEARNED 💡 -->
+<section class="section" id="weeklyLearnings" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>💡 What We Learned</h2>
+    <div class="line"></div>
+    <div class="badge">INSIGHTS</div>
+  </div>
+  <div class="learnings-scroll" id="learningsScroll">
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">No learnings data loaded.</div>
+  </div>
+</section>
+
+<!-- KYC MINI FUNNELS PER COUNTRY -->
+<section class="section" id="kycMiniFunnels" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>🔐 KYC Funnels by Country</h2>
+    <div class="line"></div>
+    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">PER MARKET</div>
+  </div>
+  <div class="kyc-funnel-grid" id="kycFunnelGrid">
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">Loading KYC data...</div>
+  </div>
+</section>
+
+<!-- THIS WEEK'S AGENDA 📋 -->
+<section class="section" id="weeklyAgenda" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>📋 This Week's Agenda</h2>
+    <div class="line"></div>
+    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">PRIORITIES</div>
+  </div>
+  <div class="agenda-list" id="agendaList">
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">No agenda data loaded.</div>
   </div>
 </section>
 
@@ -2161,6 +2387,313 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       }
     }
   });
+})();
+
+// ========== NEW WIDGETS (v2) ==========
+(async function loadV2Widgets(){
+  let data = {};
+  try {
+    const res = await fetch('data.json', { cache: 'no-store' });
+    if (res.ok) data = await res.json();
+  } catch(e) { console.warn('v2 widget data fetch failed', e); }
+
+  // Helper
+  function fmt$(n){ return '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:0}); }
+  function fmtN(n){ return Number(n).toLocaleString('en-US'); }
+
+  // ---- 1) BUDGET PACING GAUGE ----
+  (function(){
+    const bp = data.budgetPacing || { target:50000, mtdSpend:22400, daysElapsed:20, daysTotal:31 };
+    const pct = Math.round((bp.mtdSpend / bp.target) * 100);
+    const daysLeft = bp.daysTotal - bp.daysElapsed;
+    const remaining = bp.target - bp.mtdSpend;
+    const dailyNeeded = daysLeft > 0 ? remaining / daysLeft : 0;
+
+    document.getElementById('pacingPct').textContent = pct + '%';
+    document.getElementById('pacingTarget').textContent = fmt$(bp.target);
+    document.getElementById('pacingMtd').textContent = fmt$(bp.mtdSpend);
+    document.getElementById('pacingDays').textContent = daysLeft;
+    document.getElementById('pacingDailyNeeded').textContent = fmt$(Math.max(0, dailyNeeded));
+
+    // Color
+    let color = '#22c55e'; // green
+    if (pct >= 120) color = '#ef4444';
+    else if (pct >= 100) color = '#f59e0b';
+    document.getElementById('pacingPct').style.color = color;
+
+    // Draw gauge
+    const canvas = document.getElementById('pacingGaugeCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      const size = 120, cx = size/2, cy = size/2, r = 46, lw = 10;
+      ctx.clearRect(0,0,size,size);
+      // bg ring
+      ctx.beginPath(); ctx.arc(cx,cy,r, -Math.PI*0.75, Math.PI*0.75); ctx.strokeStyle='#222'; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
+      // value ring
+      const range = Math.PI * 1.5;
+      const angle = -Math.PI*0.75 + Math.min(pct/150, 1) * range;
+      ctx.beginPath(); ctx.arc(cx,cy,r, -Math.PI*0.75, angle); ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
+    }
+  })();
+
+  // ---- 2) ATTRIBUTION QUALITY ----
+  (function(){
+    const aq = data.attributionQuality || { knownPct: 62, status: 'warning' };
+    const el = document.getElementById('attrPct');
+    if (el) {
+      el.textContent = aq.knownPct + '%';
+      if (aq.knownPct >= 80) el.style.color = '#22c55e';
+      else if (aq.knownPct >= 50) el.style.color = '#f59e0b';
+      else el.style.color = '#ef4444';
+    }
+    const sub = document.getElementById('attrSub');
+    if (sub && aq.detail) sub.textContent = aq.detail;
+  })();
+
+  // ---- 3) CHANNEL PERFORMANCE ----
+  (function(){
+    const channels = data.channelPerformance || [
+      {name:'Google Ads',spend:8200,installs:320,cpi:25.6,newActives:180,trueCAC:45.6,wow:'down'},
+      {name:'Meta Ads',spend:4500,installs:210,cpi:21.4,newActives:95,trueCAC:47.4,wow:'down'},
+      {name:'Apple Search',spend:2100,installs:78,cpi:26.9,newActives:52,trueCAC:40.4,wow:'up'},
+      {name:'Organic',spend:0,installs:520,cpi:0,newActives:280,trueCAC:0,wow:'up'},
+      {name:'TikTok',spend:1800,installs:49,cpi:36.7,newActives:12,trueCAC:150,wow:'down'}
+    ];
+    const grid = document.getElementById('channelPerfGrid');
+    if (!grid) return;
+    grid.innerHTML = channels.map(ch => `
+      <div class="ch-card">
+        <div class="ch-card-head">
+          <span class="ch-card-name">${ch.name}</span>
+          <span class="ch-card-wow ${ch.wow||''}"> ${ch.wow==='up'?'↑':'↓'} WoW</span>
+        </div>
+        <div class="ch-card-metrics">
+          <div class="ch-metric"><span class="ch-metric-label">Spend</span><span class="ch-metric-value">${fmt$(ch.spend)}</span></div>
+          <div class="ch-metric"><span class="ch-metric-label">Installs</span><span class="ch-metric-value">${fmtN(ch.installs)}</span></div>
+          <div class="ch-metric"><span class="ch-metric-label">CPI</span><span class="ch-metric-value">${ch.cpi?'$'+ch.cpi.toFixed(1):'—'}</span></div>
+          <div class="ch-metric"><span class="ch-metric-label">New Actives</span><span class="ch-metric-value">${fmtN(ch.newActives)}</span></div>
+          <div class="ch-metric"><span class="ch-metric-label">True CAC</span><span class="ch-metric-value">${ch.trueCAC?'$'+ch.trueCAC.toFixed(1):'—'}</span></div>
+        </div>
+      </div>
+    `).join('');
+  })();
+
+  // ---- 4) CAC VS TARGET ----
+  (function(){
+    const ct = data.cacTracking || [
+      {channel:'Google Ads',actual:45.6,target:40},
+      {channel:'Meta Ads',actual:47.4,target:40},
+      {channel:'Apple Search',actual:40.4,target:50},
+      {channel:'TikTok',actual:150,target:60},
+      {channel:'Organic',actual:0,target:0}
+    ];
+    const ctx = document.getElementById('cacVsTargetCanvas');
+    if (!ctx || typeof Chart === 'undefined') return;
+    const filtered = ct.filter(c => c.actual > 0 || c.target > 0);
+    new Chart(ctx, {
+      type:'bar',
+      data:{
+        labels: filtered.map(c=>c.channel),
+        datasets:[
+          {
+            label:'Actual CAC',
+            data: filtered.map(c=>c.actual),
+            backgroundColor: filtered.map(c=> c.actual > c.target ? 'rgba(239,68,68,0.75)' : 'rgba(0,255,136,0.75)'),
+            borderColor: filtered.map(c=> c.actual > c.target ? '#f87171' : '#00ff88'),
+            borderWidth:1, borderRadius:6, barPercentage:0.6
+          },
+          {
+            label:'Target CAC',
+            data: filtered.map(c=>c.target),
+            type:'line',
+            borderColor:'rgba(251,191,36,0.8)',
+            borderWidth:2,
+            borderDash:[8,4],
+            pointRadius:4,
+            pointBackgroundColor:'#fbbf24',
+            fill:false
+          }
+        ]
+      },
+      options:{
+        indexAxis:'y',
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{
+          legend:{labels:{color:'#777',font:{size:11},usePointStyle:true}},
+          tooltip:{backgroundColor:'#1a1a1a',titleColor:'#fff',bodyColor:'#00ff88',borderColor:'#333',borderWidth:1,
+            callbacks:{label:c=>`${c.dataset.label}: $${c.raw.toFixed(1)}`}}
+        },
+        scales:{
+          x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#777',font:{size:11},callback:v=>'$'+v}},
+          y:{grid:{display:false},ticks:{color:'#fff',font:{size:12,weight:600}}}
+        }
+      }
+    });
+  })();
+
+  // ---- 5) PLATFORM SPLIT DONUTS ----
+  (function(){
+    const ps = data.platformSplit || {
+      installs:{ios:40,android:60},
+      signups:{ios:35,android:65},
+      withdrawals:{ios:45,android:55}
+    };
+    function miniDonut(canvasId, iosVal, androidVal){
+      const ctx = document.getElementById(canvasId);
+      if (!ctx || typeof Chart === 'undefined') return;
+      new Chart(ctx, {
+        type:'doughnut',
+        data:{
+          labels:['iOS','Android'],
+          datasets:[{data:[iosVal,androidVal],backgroundColor:['rgba(59,130,246,0.8)','rgba(0,255,136,0.8)'],borderWidth:0}]
+        },
+        options:{
+          responsive:true,
+          maintainAspectRatio:true,
+          cutout:'65%',
+          plugins:{
+            legend:{display:true,position:'bottom',labels:{color:'#777',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:8}},
+            tooltip:{backgroundColor:'#1a1a1a',titleColor:'#fff',bodyColor:'#00ff88',borderColor:'#333',borderWidth:1,
+              callbacks:{label:c=>`${c.label}: ${c.raw}%`}}
+          }
+        }
+      });
+    }
+    miniDonut('psInstalls', ps.installs.ios, ps.installs.android);
+    miniDonut('psSignups', ps.signups.ios, ps.signups.android);
+    miniDonut('psWithdrawals', ps.withdrawals.ios, ps.withdrawals.android);
+  })();
+
+  // ---- 6) THIS WEEK'S TESTS ----
+  (function(){
+    const tests = data.weeklyTests || [
+      {name:'KYC Copy A/B',hypothesis:'Shorter KYC intro increases submission rate',status:'running',metric:'KYC Submit Rate'},
+      {name:'Pmax Creative Refresh',hypothesis:'New freelancer visuals improve CTR',status:'planned',metric:'CTR'},
+      {name:'Egypt Landing Page',hypothesis:'Localized AR page increases EG signups 20%',status:'completed',metric:'Signup Rate'}
+    ];
+    const grid = document.getElementById('testsGrid');
+    if (!grid) return;
+    grid.innerHTML = tests.map(t => `
+      <div class="test-card">
+        <div class="test-name">${t.name}</div>
+        <div class="test-hypo">${t.hypothesis}</div>
+        <div class="test-footer">
+          <span class="test-status ${t.status}">${t.status}</span>
+          <span class="test-metric">📊 ${t.metric}</span>
+        </div>
+      </div>
+    `).join('');
+  })();
+
+  // ---- 7) WHAT WE LEARNED ----
+  (function(){
+    const learnings = data.weeklyLearnings || [
+      {emoji:'🔴',finding:'NG/EG KYC is completely blocked',impact:'230+ users stuck with zero conversions'},
+      {emoji:'📉',finding:'DAU crashed 46% WoW',impact:'Biggest decline across all metrics - needs root cause'},
+      {emoji:'🤖',finding:'Appnext shows fraud pattern',impact:'273 installs, near-zero downstream activity'},
+      {emoji:'✅',finding:'Google Pmax best performer',impact:'$10 CPA - should scale budget allocation'},
+      {emoji:'📱',finding:'iOS KYC 3.8x worse than Android',impact:'2.4% vs 9.2% conversion rate gap'}
+    ];
+    const scroll = document.getElementById('learningsScroll');
+    if (!scroll) return;
+    scroll.innerHTML = learnings.map(l => `
+      <div class="learning-card">
+        <div class="learning-emoji">${l.emoji}</div>
+        <div class="learning-finding">${l.finding}</div>
+        <div class="learning-impact">${l.impact}</div>
+      </div>
+    `).join('');
+  })();
+
+  // ---- 8) CAMPAIGN HEALTH INDICATORS ----
+  (function(){
+    const health = data.campaignHealth || [
+      {campaign:'Google Pmax Freelancer',health:'healthy'},
+      {campaign:'EG ENG Generic',health:'healthy'},
+      {campaign:'TR Freelancer Platform',health:'healthy'},
+      {campaign:'Apple Search Ads Brand',health:'healthy'},
+      {campaign:'TR Rakipler Payoneer',health:'bleeding'},
+      {campaign:'TR Demand Gen RTGT',health:'dead'},
+      {campaign:'Appnext CPI UA',health:'fraud'},
+      {campaign:'TikTok',health:'dead'}
+    ];
+    const healthMap = {};
+    health.forEach(h => { healthMap[h.campaign] = h.health; });
+
+    document.querySelectorAll('.campaign-table tbody tr').forEach(row => {
+      const nameCell = row.querySelector('.camp-name');
+      if (!nameCell) return;
+      const name = nameCell.textContent.trim();
+      const h = healthMap[name];
+      if (h) {
+        const dot = document.createElement('span');
+        dot.className = 'health-dot ' + h;
+        dot.title = h.toUpperCase();
+        nameCell.insertBefore(dot, nameCell.firstChild);
+      }
+    });
+  })();
+
+  // ---- 9) KYC MINI FUNNELS ----
+  (function(){
+    const kycData = data.kycByCountry || [
+      {country:'TR',flag:'🇹🇷',kycStarted:2200,bridgeShown:2150,kycSubmit:170,broken:false},
+      {country:'NG',flag:'🇳🇬',kycStarted:450,bridgeShown:0,kycSubmit:0,broken:true},
+      {country:'EG',flag:'🇪🇬',kycStarted:300,bridgeShown:0,kycSubmit:0,broken:true},
+      {country:'PK',flag:'🇵🇰',kycStarted:23,bridgeShown:0,kycSubmit:0,broken:true}
+    ];
+    const grid = document.getElementById('kycFunnelGrid');
+    if (!grid) return;
+    const maxStarted = Math.max(...kycData.map(c=>c.kycStarted), 1);
+    grid.innerHTML = kycData.map(c => {
+      const shownPct = c.kycStarted > 0 ? Math.round(c.bridgeShown / c.kycStarted * 100) : 0;
+      const submitPct = c.kycStarted > 0 ? Math.round(c.kycSubmit / c.kycStarted * 100) : 0;
+      const barW1 = Math.round(c.kycStarted / maxStarted * 100);
+      const barW2 = c.kycStarted > 0 ? Math.round(c.bridgeShown / c.kycStarted * 100) : 0;
+      const barW3 = c.kycStarted > 0 ? Math.max(Math.round(c.kycSubmit / c.kycStarted * 100), c.kycSubmit > 0 ? 3 : 0) : 0;
+      return `
+        <div class="kyc-funnel-card ${c.broken?'broken':''}">
+          <div class="kyc-funnel-flag">${c.flag}</div>
+          <div class="kyc-funnel-name">${c.country}</div>
+          <div class="kyc-funnel-step"><span class="step-label">Started</span><span class="step-val">${fmtN(c.kycStarted)}</span></div>
+          <div class="kyc-funnel-bar"><div class="fill" style="width:${barW1}%;background:var(--accent)"></div></div>
+          <div class="kyc-funnel-step"><span class="step-label">Shown</span><span class="step-val">${fmtN(c.bridgeShown)}</span></div>
+          <div class="kyc-funnel-bar"><div class="fill" style="width:${barW2}%;background:${c.broken?'#ef4444':'#60a5fa'}"></div></div>
+          <div class="kyc-funnel-step"><span class="step-label">Submit</span><span class="step-val">${fmtN(c.kycSubmit)}</span></div>
+          <div class="kyc-funnel-bar"><div class="fill" style="width:${barW3}%;background:${c.broken?'#ef4444':'var(--accent)'}"></div></div>
+          ${c.broken ? '<div style="margin-top:.4rem;font-size:.65rem;color:#f87171;font-weight:700">❌ BLOCKED</div>' : ''}
+        </div>
+      `;
+    }).join('');
+  })();
+
+  // ---- 10) THIS WEEK'S AGENDA ----
+  (function(){
+    const agenda = data.weeklyAgenda || [
+      {priority:'P0',text:'Unblock KYC for Nigeria & Egypt',done:false},
+      {priority:'P0',text:'Investigate DAU -46% crash root cause',done:false},
+      {priority:'P0',text:'Pause Appnext (fraud pattern)',done:false},
+      {priority:'P1',text:'Scale Pmax + Google Search budgets',done:false},
+      {priority:'P1',text:'Fix iOS KYC conversion gap',done:false},
+      {priority:'P1',text:'Pause TikTok (no ROI signal)',done:false},
+      {priority:'P2',text:'Launch Egypt localized landing page',done:false},
+      {priority:'P2',text:'Set up weekly automated Amplitude reports',done:false}
+    ];
+    const list = document.getElementById('agendaList');
+    if (!list) return;
+    list.innerHTML = agenda.map(a => {
+      const p = (a.priority||'P2').toLowerCase();
+      return `
+        <div class="agenda-item ${a.done?'done':''}">
+          <div class="agenda-check">${a.done?'✓':''}</div>
+          <span class="agenda-pri ${p}">${a.priority||'P2'}</span>
+          <span class="agenda-text">${a.text}</span>
+        </div>
+      `;
+    }).join('');
+  })();
+
 })();
 
 // ========== KYC COUNTRY BREAKDOWN CHART ==========
