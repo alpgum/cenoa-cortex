@@ -1866,61 +1866,56 @@ function renderKpiSparklines(data){
 
 // (sparklines rendered by unified loader)
 
-// ========== KPI BANNER (data.json) ==========
-(async function loadKpis(){
-  try {
-    const res = await fetch('data.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (!data || !data.kpis) return;
+// ========== KPI BANNER ==========
+function renderKpiBanner(data) {
+  if (!data || !data.kpis) return;
 
-    const weekEl = document.getElementById('kpiWeek');
-    if (weekEl && data.week) weekEl.textContent = data.week;
+  const weekEl = document.getElementById('kpiWeek');
+  if (weekEl) weekEl.textContent = data.week || '—';
 
-    const updatedEl = document.getElementById('kpiLastUpdated');
-    if (updatedEl && data.updated) updatedEl.textContent = `Last updated: ${data.updated}`;
+  const updatedEl = document.getElementById('kpiLastUpdated');
+  if (updatedEl) updatedEl.textContent = data.updated ? 'Last updated: ' + data.updated : 'No update info';
 
-    function fmtNum(n){
-      if (n === null || n === undefined || Number.isNaN(Number(n))) return '-';
-      const num = Number(n);
-      const rounded = Math.round(num);
-      if (Math.abs(num - rounded) < 1e-9) return rounded.toLocaleString('en-US');
-      return num.toLocaleString('en-US', { maximumFractionDigits: 1 });
-    }
-
-    function fmtDelta(p){
-      const num = Number(p);
-      if (!Number.isFinite(num)) return '0.0%';
-      const sign = num > 0 ? '+' : '';
-      return `${sign}${num.toFixed(1)}%`;
-    }
-
-    document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
-      const key = card.getAttribute('data-kpi');
-      const k = data.kpis[key];
-      if (!k) return;
-
-      const valueEl = card.querySelector('.kpi-value');
-      if (valueEl && k.value !== undefined) valueEl.textContent = fmtNum(k.value);
-
-      const deltaEl = card.querySelector('.kpi-delta');
-      if (deltaEl && k.deltaPct !== undefined) {
-        const dir = (k.direction || '').toLowerCase();
-        const cls = dir === 'up' ? 'up' : (dir === 'down' ? 'down' : 'neutral');
-        const arrow = dir === 'up' ? '▲' : (dir === 'down' ? '▼' : '→');
-        deltaEl.classList.remove('up','down','neutral');
-        deltaEl.classList.add(cls);
-        deltaEl.textContent = `${arrow} ${fmtDelta(k.deltaPct)} vs prev week`;
-      }
-    });
-    renderKpiSparklines(data);
-
-  } catch (e) {
-    // Fallback: keep hardcoded KPI values if fetch fails
-    renderKpiSparklines();
-    console.warn('KPI data.json fetch failed:', e);
+  function fmtNum(n){
+    if (n === null || n === undefined || Number.isNaN(Number(n))) return 'No data';
+    const num = Number(n);
+    const rounded = Math.round(num);
+    if (Math.abs(num - rounded) < 1e-9) return rounded.toLocaleString('en-US');
+    return num.toLocaleString('en-US', { maximumFractionDigits: 1 });
   }
-})();
+
+  function fmtDelta(p){
+    const num = Number(p);
+    if (!Number.isFinite(num)) return '0.0%';
+    const sign = num > 0 ? '+' : '';
+    return sign + num.toFixed(1) + '%';
+  }
+
+  document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
+    const key = card.getAttribute('data-kpi');
+    const k = data.kpis[key];
+
+    const valueEl = card.querySelector('.kpi-value');
+    const deltaEl = card.querySelector('.kpi-delta');
+
+    if (!k) {
+      if (valueEl) valueEl.textContent = 'No data';
+      if (deltaEl) { deltaEl.textContent = '—'; deltaEl.className = 'kpi-delta neutral'; }
+      return;
+    }
+
+    if (valueEl) valueEl.textContent = fmtNum(k.value);
+
+    if (deltaEl && k.deltaPct !== undefined) {
+      const dir = (k.direction || '').toLowerCase();
+      const cls = dir === 'up' ? 'up' : (dir === 'down' ? 'down' : 'neutral');
+      const arrow = dir === 'up' ? '▲' : (dir === 'down' ? '▼' : '→');
+      deltaEl.classList.remove('up','down','neutral');
+      deltaEl.classList.add(cls);
+      deltaEl.textContent = arrow + ' ' + fmtDelta(k.deltaPct) + ' vs prev week';
+    }
+  });
+}
 
 // ========== RENDER DOCUMENTS ========== 
 const docGrid = document.getElementById('docGrid');
@@ -2256,11 +2251,20 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         tooltip: {
           backgroundColor: '#fff',
           titleColor: '#1a1a1a',
-          bodyColor: '#f87171',
+          bodyColor: '#333',
           borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
-            label: function(c){ return c.raw.toLocaleString('en-US'); }
+            label: function(c){
+              var allData = c.chart.data.datasets[0].data;
+              var idx = c.dataIndex;
+              var v = c.raw;
+              var result = c.label + ': ' + v.toLocaleString('en-US');
+              if (idx > 0 && allData[idx-1] > 0) {
+                result += ' (' + ((v / allData[idx-1]) * 100).toFixed(1) + '% of previous)';
+              }
+              return result;
+            }
           }
         }
       },
@@ -2311,13 +2315,22 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         tooltip: {
           backgroundColor: '#fff',
           titleColor: '#1a1a1a',
-          bodyColor: '#00b85c',
+          bodyColor: '#333',
           borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
             label: function(c) {
-              const pct = ((c.raw / 3098) * 100).toFixed(1);
-              return c.raw.toLocaleString('en-US') + ' (' + pct + '%)';
+              var allData = c.chart.data.datasets[0].data;
+              var idx = c.dataIndex;
+              var v = c.raw;
+              var result = c.label + ': ' + v.toLocaleString('en-US');
+              if (idx > 0) {
+                var prev = allData[idx - 1];
+                if (prev > 0) {
+                  result += ' (' + ((v / prev) * 100).toFixed(1) + '% of previous)';
+                }
+              }
+              return result;
             }
           }
         }
@@ -2469,11 +2482,16 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         maintainAspectRatio:false,
         plugins:{
           legend:{labels:{color:'#888',font:{size:11},usePointStyle:true}},
-          tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,
-            callbacks:{label:c=>`${c.dataset.label}: $${c.raw.toFixed(1)}`}}
+          tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#333',borderColor:'#e0e0e0',borderWidth:1,
+            callbacks:{label:function(c){
+              if (c.dataset.label === 'Target CAC') return c.label + ': Target $' + c.raw.toFixed(2);
+              var targetDs = c.chart.data.datasets[1];
+              var targetVal = targetDs ? targetDs.data[c.dataIndex] : 0;
+              return c.label + ': $' + c.raw.toFixed(2) + ' CAC (target: $' + targetVal.toFixed(2) + ')';
+            }}}
         },
         scales:{
-          x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#888',font:{size:11},callback:v=>'$'+v}},
+          x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#888',font:{size:11},callback:function(v){return '$'+Number(v).toFixed(0);}}},
           y:{grid:{display:false},ticks:{color:'#1a1a1a',font:{size:12,weight:600}}}
         }
       }
@@ -2490,20 +2508,40 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
     function miniDonut(canvasId, iosVal, androidVal){
       const ctx = document.getElementById(canvasId);
       if (!ctx || typeof Chart === 'undefined') return;
+      const total = iosVal + androidVal;
+      const centerTextPlugin = {
+        id: 'centerText_' + canvasId,
+        afterDraw: function(chart) {
+          const {ctx: c, chartArea: {top, bottom, left, right}} = chart;
+          const centerX = (left + right) / 2;
+          const centerY = (top + bottom) / 2;
+          c.save();
+          c.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+          c.fillStyle = '#333';
+          c.textAlign = 'center';
+          c.textBaseline = 'middle';
+          c.fillText(total.toLocaleString('en-US'), centerX, centerY);
+          c.restore();
+        }
+      };
       new Chart(ctx, {
         type:'doughnut',
         data:{
           labels:['iOS','Android'],
           datasets:[{data:[iosVal,androidVal],backgroundColor:['rgba(59,130,246,0.8)','rgba(0,184,92,0.75)'],borderWidth:0}]
         },
+        plugins: [centerTextPlugin],
         options:{
           responsive:true,
           maintainAspectRatio:true,
           cutout:'65%',
           plugins:{
             legend:{display:true,position:'bottom',labels:{color:'#888',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:8}},
-            tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,
-              callbacks:{label:c=>`${c.label}: ${c.raw}%`}}
+            tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#333',borderColor:'#e0e0e0',borderWidth:1,
+              callbacks:{label:function(c){
+                var pct = total > 0 ? ((c.raw / total) * 100).toFixed(1) : '0.0';
+                return c.label + ': ' + pct + '% (' + c.raw.toLocaleString('en-US') + ' users)';
+              }}}
           }
         }
       });
