@@ -245,23 +245,34 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 
 /* Campaign Performance Table */
 .campaign-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--border);background:var(--surface)}
-.campaign-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px}
+.campaign-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:900px}
 .campaign-table thead tr{background:#f0f1f3;border-bottom:2px solid var(--accent)}
-.campaign-table th{text-align:left;padding:.75rem 1rem;color:var(--text-dim);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.campaign-table th{text-align:left;padding:.65rem .7rem;color:var(--text-dim);font-weight:600;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;user-select:none}
+.campaign-table th.sortable:hover{color:var(--accent);cursor:pointer}
 .campaign-table th.num,.campaign-table td.num{text-align:right}
-.campaign-table td{padding:.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+.campaign-table td{padding:.55rem .7rem;border-bottom:1px solid var(--border);color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
 .campaign-table tbody tr:last-child td{border-bottom:none}
 .campaign-table tbody tr{transition:background .2s}
 .campaign-table tbody tr:hover{background:rgba(0,184,92,.04)}
+.campaign-table tbody tr.scale-highlight{border-left:3px solid #22c55e}
+.campaign-table tbody tr.kill-highlight{border-left:3px solid #ef4444}
 .camp-name{font-weight:600;color:var(--text-bright)}
+.camp-commentary{white-space:normal;max-width:220px;font-size:.72rem;color:var(--text-dim);line-height:1.35}
 .market-badge{display:inline-block;background:rgba(59,130,246,.12);color:#60a5fa;font-size:.65rem;font-weight:700;padding:.15rem .45rem;border-radius:4px;letter-spacing:.08em}
-.status-badge{display:inline-block;font-size:.72rem;font-weight:700;padding:.2rem .6rem;border-radius:10px;letter-spacing:.04em;white-space:nowrap}
+.status-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:.18rem .5rem;border-radius:10px;letter-spacing:.04em;white-space:nowrap}
 .status-scale{background:rgba(0,184,92,.1);color:#00994d}
+.status-maintain{background:rgba(59,130,246,.1);color:#60a5fa}
+.status-watch{background:rgba(251,191,36,.12);color:#d97706}
+.status-kill{background:rgba(239,68,68,.12);color:#ef4444}
 .status-keep{background:rgba(34,197,94,.12);color:#4ade80}
 .status-optimize{background:rgba(251,191,36,.12);color:#fbbf24}
 .status-fix{background:rgba(239,68,68,.12);color:#f87171}
 .status-fraud{background:rgba(244,63,94,.15);color:#fb7185}
 .status-paused{background:rgba(148,163,184,.12);color:#94a3b8}
+.wow-arrow{font-weight:700;font-size:.75rem}
+.wow-arrow.up{color:#22c55e}
+.wow-arrow.down{color:#ef4444}
+.wow-arrow.flat{color:#94a3b8}
 
 /* Trend History Charts */
 .trend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
@@ -487,21 +498,22 @@ footer span{color:var(--accent)}
     CENOA <span>&times;</span> CORTEX - Marketing Operations Dashboard
   </div>
   <nav class="header-nav">
+    <a href="#execSummary">Summary</a>
     <a href="#kpiBanner">KPIs</a>
-    <a href="#trendHistory">Trends</a>
     <a href="#budgetPacing">Budget</a>
-    <a href="#channelPerf">Channels</a>
+    <a href="#trendHistory">Trends</a>
     <a href="#campaignTable">Campaigns</a>
+    <a href="#channelPerf">Channels</a>
     <a href="#cacVsTarget">CAC</a>
-    <a href="#weeklyTests">Tests</a>
-    <a href="#weeklyLearnings">Learnings</a>
-    <a href="#kycMiniFunnels">KYC</a>
-    <a href="#weeklyAgenda">Agenda</a>
+    <a href="#countryBreakdown">Countries</a>
     <a href="#platformSplit">Platform</a>
+    <a href="#weeklyTests">Tests</a>
+    <a href="#weeklyAgenda">Agenda</a>
+    <a href="#attrQuality">Attribution</a>
     <a href="#funnelChart">Funnel</a>
-    <a href="#actionItems">Actions</a>
     <a href="#analytics">Analytics</a>
-    <a href="#agentStatus">Agents</a>
+    <a href="#agentStatus">Team</a>
+    <a href="#docHub">Docs</a>
     <a href="sprint-1-report.html" style="color:var(--accent)">📊 Sprint 1</a>
     <a href="architecture.html" style="color:var(--accent)">🏗️ Architecture</a>
     <a href="sprint-2-report.html" style="color:var(--accent)">📊 Sprint 2</a>
@@ -509,6 +521,7 @@ footer span{color:var(--accent)}
     <span style="font-size:.7rem;color:#aaa;letter-spacing:.08em">v1.0 &middot; LIVE</span>
   </nav>
 </header>
+
 
 <!-- EXECUTIVE SUMMARY -->
 <section class="exec-summary" id="execSummary">
@@ -552,8 +565,6 @@ footer span{color:var(--accent)}
     <span id="execAttrText">81.8% unattributed — fix in progress</span>
   </div>
 </section>
-
-<div class="container">
 
 <!-- WEEKLY KPI BANNER -->
 <section class="section" id="kpiBanner" style="margin-top:2rem">
@@ -636,6 +647,30 @@ footer span{color:var(--accent)}
   </div>
 </section>
 
+<!-- BUDGET PACING GAUGE -->
+<section class="section" id="budgetPacing" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>💵 Budget Pacing</h2>
+    <div class="line"></div>
+    <div class="badge" id="pacingBadge">MARCH 2026</div>
+  </div>
+  <div class="pacing-wrap">
+    <div class="pacing-gauge">
+      <canvas id="pacingGaugeCanvas" width="120" height="120"></canvas>
+      <div class="pacing-center">
+        <div class="pct" id="pacingPct">—%</div>
+        <div class="lbl">Pacing</div>
+      </div>
+    </div>
+    <div class="pacing-details" id="pacingDetails">
+      <div class="pacing-detail"><span class="pd-label">Target</span><span class="pd-value" id="pacingTarget">$50,000</span></div>
+      <div class="pacing-detail"><span class="pd-label">MTD Spend</span><span class="pd-value" id="pacingMtd">—</span></div>
+      <div class="pacing-detail"><span class="pd-label">Days Left</span><span class="pd-value" id="pacingDays">—</span></div>
+      <div class="pacing-detail"><span class="pd-label">Daily Avg Needed</span><span class="pd-value" id="pacingDailyNeeded">—</span></div>
+    </div>
+  </div>
+</section>
+
 <!-- TREND HISTORY -->
 <section class="section" id="trendHistory" style="margin-top:1.5rem">
   <div class="section-header">
@@ -675,43 +710,67 @@ footer span{color:var(--accent)}
   </div>
 </section>
 
-<!-- BUDGET PACING GAUGE -->
-<section class="section" id="budgetPacing" style="margin-top:1.5rem">
+<!-- CAMPAIGN PERFORMANCE TABLE -->
+<section class="section" id="campaignTable" style="margin-top:1.5rem">
   <div class="section-header">
-    <h2>💵 Budget Pacing</h2>
+    <h2>🎯 Campaign Performance</h2>
     <div class="line"></div>
-    <div class="badge" id="pacingBadge">MARCH 2026</div>
+    <div class="badge" id="campTableBadge">21 CAMPAIGNS</div>
   </div>
-  <div class="pacing-wrap">
-    <div class="pacing-gauge">
-      <canvas id="pacingGaugeCanvas" width="120" height="120"></canvas>
-      <div class="pacing-center">
-        <div class="pct" id="pacingPct">—%</div>
-        <div class="lbl">Pacing</div>
-      </div>
-    </div>
-    <div class="pacing-details" id="pacingDetails">
-      <div class="pacing-detail"><span class="pd-label">Target</span><span class="pd-value" id="pacingTarget">$50,000</span></div>
-      <div class="pacing-detail"><span class="pd-label">MTD Spend</span><span class="pd-value" id="pacingMtd">—</span></div>
-      <div class="pacing-detail"><span class="pd-label">Days Left</span><span class="pd-value" id="pacingDays">—</span></div>
-      <div class="pacing-detail"><span class="pd-label">Daily Avg Needed</span><span class="pd-value" id="pacingDailyNeeded">—</span></div>
-    </div>
+
+  <!-- Filter Buttons -->
+  <div class="cat-filters" id="campFilters" style="margin-bottom:.75rem">
+    <button class="cat-btn active" data-action="all">All</button>
+    <button class="cat-btn" data-action="scale">🚀 Scale</button>
+    <button class="cat-btn" data-action="maintain">✅ Maintain</button>
+    <button class="cat-btn" data-action="watch">⚠️ Watch</button>
+    <button class="cat-btn" data-action="kill">🛑 Kill</button>
+  </div>
+
+  <div class="campaign-table-wrap">
+    <table class="campaign-table" id="campPerfTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name" style="cursor:pointer">Campaign ↕</th>
+          <th class="sortable" data-sort="country" style="cursor:pointer">Market ↕</th>
+          <th class="sortable" data-sort="channel" style="cursor:pointer">Channel ↕</th>
+          <th class="num sortable" data-sort="spend" style="cursor:pointer">Spend ↕</th>
+          <th class="num sortable" data-sort="installs" style="cursor:pointer">Installs ↕</th>
+          <th class="num sortable" data-sort="cpi" style="cursor:pointer">CPI ↕</th>
+          <th class="num sortable" data-sort="newActives" style="cursor:pointer">New Actives ↕</th>
+          <th class="num sortable" data-sort="trueCAC" style="cursor:pointer">TRUE CAC ↕</th>
+          <th class="sortable" data-sort="health" style="cursor:pointer">Health ↕</th>
+          <th>Commentary</th>
+        </tr>
+      </thead>
+      <tbody id="campPerfBody">
+        <tr><td colspan="10" style="text-align:center;color:var(--text-dim);padding:2rem">Loading campaign data...</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<!-- ATTRIBUTION QUALITY METER -->
-<section class="section" id="attrQuality" style="margin-top:1.5rem">
+<!-- WEEKLY CHANNEL PERFORMANCE -->
+<section class="section" id="channelPerf" style="margin-top:1.5rem">
   <div class="section-header">
-    <h2>🎯 Attribution Quality</h2>
+    <h2>📡 Weekly Channel Performance</h2>
     <div class="line"></div>
-    <div class="badge">HEALTH CHECK</div>
+    <div class="badge">BY CHANNEL</div>
   </div>
-  <div class="attr-card" id="attrCard">
-    <div class="attr-pct" id="attrPct" style="color:var(--accent)">—%</div>
-    <div>
-      <div class="attr-label">Attribution Health</div>
-      <div class="attr-sub" id="attrSub">Percentage of installs with known source</div>
-    </div>
+  <div class="channel-perf-grid" id="channelPerfGrid">
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">Loading channel data...</div>
+  </div>
+</section>
+
+<!-- TRUE CAC VS TARGET -->
+<section class="section" id="cacVsTarget" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>💰 True CAC vs Target</h2>
+    <div class="line"></div>
+    <div class="badge">BY CHANNEL</div>
+  </div>
+  <div class="cac-track-wrap">
+    <canvas id="cacVsTargetCanvas" height="260"></canvas>
   </div>
 </section>
 
@@ -779,120 +838,15 @@ footer span{color:var(--accent)}
   </div>
 </section>
 
-<!-- FUNNEL CHART -->
-<section class="section" id="funnelChart" style="margin-top:1.5rem">
+<!-- KYC MINI FUNNELS PER COUNTRY -->
+<section class="section" id="kycMiniFunnels" style="margin-top:1.5rem">
   <div class="section-header">
-    <h2>📊 Funnel Overview</h2>
+    <h2>🔐 KYC Funnels by Country</h2>
     <div class="line"></div>
-    <div class="badge">MAR 14-20</div>
+    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">PER MARKET</div>
   </div>
-  <div style="max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
-    <canvas id="funnelCanvas" height="280"></canvas>
-  </div>
-</section>
-
-<!-- CAMPAIGN PERFORMANCE TABLE -->
-<section class="section" id="campaignTable" style="margin-top:1.5rem">
-  <div class="section-header">
-    <h2>🎯 Campaign Performance</h2>
-    <div class="line"></div>
-    <div class="badge">TOP CAMPAIGNS</div>
-  </div>
-
-  <div class="campaign-table-wrap">
-    <table class="campaign-table">
-      <thead>
-        <tr>
-          <th>Campaign</th>
-          <th>Market</th>
-          <th class="num">Installs</th>
-          <th class="num">CPI (₺)</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="camp-name">Google Pmax Freelancer</td>
-          <td><span class="market-badge">TR</span></td>
-          <td class="num">78</td>
-          <td class="num">537</td>
-          <td><span class="status-badge status-scale">✅ Scale</span></td>
-        </tr>
-        <tr>
-          <td class="camp-name">EG ENG Generic</td>
-          <td><span class="market-badge">EG</span></td>
-          <td class="num">67</td>
-          <td class="num">325</td>
-          <td><span class="status-badge status-scale">✅ Scale</span></td>
-        </tr>
-        <tr>
-          <td class="camp-name">TR Freelancer Platform</td>
-          <td><span class="market-badge">TR</span></td>
-          <td class="num">15</td>
-          <td class="num">167</td>
-          <td><span class="status-badge status-keep">✅ Keep</span></td>
-        </tr>
-        <tr>
-          <td class="camp-name">Apple Search Ads Brand</td>
-          <td><span class="market-badge">TR</span></td>
-          <td class="num">26</td>
-          <td class="num">—</td>
-          <td><span class="status-badge status-scale">✅ Scale</span></td>
-        </tr>
-        <tr>
-          <td class="camp-name">TR Rakipler Payoneer</td>
-          <td><span class="market-badge">TR</span></td>
-          <td class="num">8</td>
-          <td class="num">938</td>
-          <td><span class="status-badge status-optimize">⚠️ Optimize</span></td>
-        </tr>
-        <tr>
-          <td class="camp-name">TR Demand Gen RTGT</td>
-          <td><span class="market-badge">TR</span></td>
-          <td class="num">0</td>
-          <td class="num">∞</td>
-          <td><span class="status-badge status-fix">🔴 Fix/Kill</span></td>
-        </tr>
-        <tr>
-          <td class="camp-name">Appnext CPI UA</td>
-          <td><span class="market-badge">TR</span></td>
-          <td class="num">273</td>
-          <td class="num">—</td>
-          <td><span class="status-badge status-fraud">🔴 Fraud</span></td>
-        </tr>
-        <tr>
-          <td class="camp-name">TikTok</td>
-          <td><span class="market-badge">TR</span></td>
-          <td class="num">49</td>
-          <td class="num">—</td>
-          <td><span class="status-badge status-paused">🔴 Paused</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- WEEKLY CHANNEL PERFORMANCE -->
-<section class="section" id="channelPerf" style="margin-top:1.5rem">
-  <div class="section-header">
-    <h2>📡 Weekly Channel Performance</h2>
-    <div class="line"></div>
-    <div class="badge">BY CHANNEL</div>
-  </div>
-  <div class="channel-perf-grid" id="channelPerfGrid">
-    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">Loading channel data...</div>
-  </div>
-</section>
-
-<!-- TRUE CAC VS TARGET -->
-<section class="section" id="cacVsTarget" style="margin-top:1.5rem">
-  <div class="section-header">
-    <h2>💰 True CAC vs Target</h2>
-    <div class="line"></div>
-    <div class="badge">BY CHANNEL</div>
-  </div>
-  <div class="cac-track-wrap">
-    <canvas id="cacVsTargetCanvas" height="260"></canvas>
+  <div class="kyc-funnel-grid" id="kycFunnelGrid">
+    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">Loading KYC data...</div>
   </div>
 </section>
 
@@ -934,18 +888,6 @@ footer span{color:var(--accent)}
   </div>
 </section>
 
-<!-- KYC MINI FUNNELS PER COUNTRY -->
-<section class="section" id="kycMiniFunnels" style="margin-top:1.5rem">
-  <div class="section-header">
-    <h2>🔐 KYC Funnels by Country</h2>
-    <div class="line"></div>
-    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">PER MARKET</div>
-  </div>
-  <div class="kyc-funnel-grid" id="kycFunnelGrid">
-    <div style="color:var(--text-dim);font-size:.85rem;padding:1rem">Loading KYC data...</div>
-  </div>
-</section>
-
 <!-- THIS WEEK'S AGENDA 📋 -->
 <section class="section" id="weeklyAgenda" style="margin-top:1.5rem">
   <div class="section-header">
@@ -958,610 +900,32 @@ footer span{color:var(--accent)}
   </div>
 </section>
 
-<!-- CAC TREND CHART -->
-<section class="section" id="cacTrend" style="margin-top:1.5rem">
+<!-- ATTRIBUTION QUALITY METER -->
+<section class="section" id="attrQuality" style="margin-top:1.5rem">
   <div class="section-header">
-    <h2>💰 CAC Trend (Turkey)</h2>
+    <h2>🎯 Attribution Quality</h2>
     <div class="line"></div>
-    <div class="badge">6 MONTHS</div>
+    <div class="badge">HEALTH CHECK</div>
+  </div>
+  <div class="attr-card" id="attrCard">
+    <div class="attr-pct" id="attrPct" style="color:var(--accent)">—%</div>
+    <div>
+      <div class="attr-label">Attribution Health</div>
+      <div class="attr-sub" id="attrSub">Percentage of installs with known source</div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNNEL CHART -->
+<section class="section" id="funnelChart" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>📊 Funnel Overview</h2>
+    <div class="line"></div>
+    <div class="badge">MAR 14-20</div>
   </div>
   <div style="max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
-    <canvas id="cacTrendCanvas" height="280"></canvas>
+    <canvas id="funnelCanvas" height="280"></canvas>
   </div>
-</section>
-
-<!-- KYC DROPOUT ANALYSIS -->
-<section class="section" id="kycDropout" style="margin-top:1.5rem">
-  <div class="section-header">
-    <h2>🔴 KYC Dropout Analysis</h2>
-    <div class="line"></div>
-    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">CRITICAL</div>
-  </div>
-  <div style="max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
-    <canvas id="kycDropoutCanvas" height="260"></canvas>
-  </div>
-  <!-- Country KYC Submit Mini Cards -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;max-width:800px;margin:1rem auto 0">
-    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-left:4px solid var(--accent);border-radius:12px;padding:1rem 1.2rem;text-align:center">
-      <div style="font-size:1.6rem;margin-bottom:.3rem">🇹🇷</div>
-      <div style="font-size:1.4rem;font-weight:800;color:var(--text-bright)">170</div>
-      <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem">KYC Submits</div>
-      <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-top:.3rem">95% of all submits</div>
-    </div>
-    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-left:4px solid #f87171;border-radius:12px;padding:1rem 1.2rem;text-align:center">
-      <div style="font-size:1.6rem;margin-bottom:.3rem">🇳🇬</div>
-      <div style="font-size:1.4rem;font-weight:800;color:#f87171">0</div>
-      <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem">KYC Submits</div>
-      <div style="font-size:.72rem;color:#f87171;font-weight:700;margin-top:.3rem">❌ BLOCKED</div>
-    </div>
-    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-left:4px solid #f87171;border-radius:12px;padding:1rem 1.2rem;text-align:center">
-      <div style="font-size:1.6rem;margin-bottom:.3rem">🇪🇬</div>
-      <div style="font-size:1.4rem;font-weight:800;color:#f87171">0</div>
-      <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem">KYC Submits</div>
-      <div style="font-size:.72rem;color:#f87171;font-weight:700;margin-top:.3rem">❌ BLOCKED</div>
-    </div>
-  </div>
-</section>
-
-<!-- KYC DROPOUT ANALYSIS -->
-<section class="section" id="kycDropout" style="margin-top:1.5rem">
-  <div class="section-header">
-    <h2>🔴 KYC Dropout Analysis</h2>
-    <div class="line"></div>
-    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">CRITICAL</div>
-  </div>
-
-  <!-- Big Dropout Callout -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-    <div style="background:linear-gradient(135deg,rgba(239,68,68,.08),rgba(239,68,68,.02));border:2px solid rgba(239,68,68,.4);border-radius:16px;padding:2rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
-      <div style="font-size:4rem;font-weight:900;color:#ef4444;line-height:1;text-shadow:none">92%</div>
-      <div style="font-size:1.1rem;font-weight:700;color:#f87171;margin-top:.4rem;letter-spacing:.08em">DROPOUT RATE</div>
-      <div style="font-size:.8rem;color:var(--text-dim);margin-top:.3rem">KYC Started → KYC Submitted</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
-        <div style="font-size:1.8rem;font-weight:800;color:var(--text-bright)">3,098</div>
-        <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">KYC Started</div>
-      </div>
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
-        <div style="font-size:1.8rem;font-weight:800;color:#60a5fa">3,025</div>
-        <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">Bridgexyz Shown</div>
-        <div style="font-size:.55rem;color:#aaa;margin-top:.15rem">TR only</div>
-      </div>
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
-        <div style="font-size:1.8rem;font-weight:800;color:#ef4444">179</div>
-        <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">KYC Submitted</div>
-      </div>
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1rem;text-align:center">
-        <div style="font-size:1.8rem;font-weight:800;color:var(--accent)">5.8%</div>
-        <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem">Conversion Rate</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Charts Row -->
-  <div style="display:grid;grid-template-columns:2fr 1fr;gap:1rem">
-    <!-- Funnel Bar Chart -->
-    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
-      <h4 style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin-bottom:1rem;letter-spacing:.04em">KYC Funnel Flow</h4>
-      <canvas id="kycDropoutCanvas" height="220"></canvas>
-    </div>
-    <!-- Country Breakdown Mini Bars -->
-    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem">
-      <h4 style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin-bottom:1rem;letter-spacing:.04em">KYC Submit by Country</h4>
-      <canvas id="kycCountryCanvas" height="220"></canvas>
-    </div>
-  </div>
-</section>
-
-<!-- ACTION ITEMS -->
-<section class="section" id="actionItems" style="margin-top:1.5rem">
-  <div class="section-header">
-    <h2>🎯 This Week's Actions</h2>
-    <div class="line"></div>
-    <div class="badge" style="background:rgba(239,68,68,.15);color:#f87171">PRIORITY</div>
-  </div>
-
-  <div class="action-grid">
-    <div class="action-card p0">
-      <span class="action-priority p0">🔴 P0</span>
-      <div>
-        <div class="action-text">Unblock KYC for Nigeria</div>
-        <div class="action-detail">Bridgexyz shown=0, 230 users stuck — zero KYC submissions this week</div>
-      </div>
-    </div>
-    <div class="action-card p0">
-      <span class="action-priority p0">🔴 P0</span>
-      <div>
-        <div class="action-text">Unblock KYC for Egypt</div>
-        <div class="action-detail">62 users stuck, ~$8 CAC wasted per user with no path to conversion</div>
-      </div>
-    </div>
-    <div class="action-card p0">
-      <span class="action-priority p0">🔴 P0</span>
-      <div>
-        <div class="action-text">Investigate DAU -46% crash</div>
-        <div class="action-detail">Biggest WoW decline across all metrics — need root cause analysis</div>
-      </div>
-    </div>
-    <div class="action-card p1">
-      <span class="action-priority p1">🟡 P1</span>
-      <div>
-        <div class="action-text">Pause Appnext</div>
-        <div class="action-detail">273 installs, near-zero downstream activity — fraud pattern detected</div>
-      </div>
-    </div>
-    <div class="action-card p1">
-      <span class="action-priority p1">🟡 P1</span>
-      <div>
-        <div class="action-text">Pause TikTok</div>
-        <div class="action-detail">49 installs, 0 withdrawals — no ROI signal at current spend</div>
-      </div>
-    </div>
-    <div class="action-card p1">
-      <span class="action-priority p1">🟡 P1</span>
-      <div>
-        <div class="action-text">Fix iOS KYC</div>
-        <div class="action-detail">2.4% conversion vs Android 9.2% — 3.8x gap needs UX investigation</div>
-      </div>
-    </div>
-    <div class="action-card p2">
-      <span class="action-priority p2">🟢 P2</span>
-      <div>
-        <div class="action-text">Scale Pmax + Google Search</div>
-        <div class="action-detail">$10 CPA, best performing channel — increase budget allocation</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PLATFORM HUB -->
-<section class="section" id="platformHub" style="margin-top:2rem">
-  <div class="section-header">
-    <h2>Platform & Tool Envanteri</h2>
-    <div class="line"></div>
-    <div class="badge">27 TOOLS</div>
-  </div>
-
-  <div class="ph-cat-label">AI Modelleri & LLM</div>
-  <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/anthropic/black" alt="Anthropic"><span class="ph-name">Anthropic</span><span class="ph-tooltip">Claude Opus 4.6 - Orkestrator, konusma</span></div>
-    <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">CC</span><span class="ph-name">Claude Code</span><span class="ph-tooltip">Claude Max - Agir is, kod, analiz</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/openai/black" alt="OpenAI"><span class="ph-name">OpenAI</span><span class="ph-tooltip">GPT-5.2 - Fallback LLM</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/google" alt="Google"><span class="ph-name">Gemini</span><span class="ph-tooltip">Image gen, alternatif LLM</span></div>
-  </div>
-
-  <div class="ph-cat-label">Image & Video Generation</div>
-  <div class="ph-grid">
-    <div class="ph-card"><span class="ph-text-logo" style="font-weight:900">fal</span><span class="ph-name">fal.ai</span><span class="ph-tooltip">ANA PLATFORM - FLUX, Kling, Veo, Sora, Wan - pay-per-use</span></div>
-    <div class="ph-card"><span class="ph-text-logo" style="color:#00e87b">R</span><span class="ph-name">Runway</span><span class="ph-tooltip">API $10 bakiye, abonelik 28 Mart bitiyor</span></div>
-    <div class="ph-card cancelled"><span class="ph-text-logo">H</span><span class="ph-name">Higgsfield</span><span class="ph-tooltip">IPTAL</span></div>
-    <div class="ph-card cancelled"><span class="ph-text-logo">F</span><span class="ph-name">Freepik</span><span class="ph-tooltip">IPTAL</span></div>
-  </div>
-
-  <div class="ph-cat-label">Ses & TTS</div>
-  <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/elevenlabs/black" alt="ElevenLabs"><span class="ph-name">ElevenLabs</span><span class="ph-tooltip">TTS voiceover (TR+EN), kalite standardi</span></div>
-    <div class="ph-card"><span class="ph-text-logo" style="font-size:.7rem">e-tts</span><span class="ph-name">edge-tts</span><span class="ph-tooltip">Acil fallback (ucretsiz)</span></div>
-  </div>
-
-  <div class="ph-cat-label">Analytics & Data</div>
-  <div class="ph-grid">
-    <div class="ph-card"><span class="ph-text-logo" style="font-size:.8rem">Amp</span><span class="ph-name">Amplitude</span><span class="ph-tooltip">MCP bagli, urun analytics</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleanalytics" alt="GA4"><span class="ph-name">GA4</span><span class="ph-tooltip">Web + App traffic</span></div>
-    <div class="ph-card"><span class="ph-text-logo">📊</span><span class="ph-name">Looker</span><span class="ph-tooltip">Dashboard'lar</span></div>
-    <div class="ph-card"><span class="ph-text-logo">🗄️</span><span class="ph-name">BigQuery</span><span class="ph-tooltip">Data warehouse</span></div>
-    <div class="ph-card"><span class="ph-text-logo">📱</span><span class="ph-name">AppsFlyer</span><span class="ph-tooltip">Attribution, install tracking</span></div>
-  </div>
-
-  <div class="ph-cat-label">Reklam & Marketing</div>
-  <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/googleads" alt="Google Ads"><span class="ph-name">Google Ads</span><span class="ph-tooltip">Paid search/display</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/meta" alt="Meta"><span class="ph-name">Meta Ads</span><span class="ph-tooltip">Facebook/Instagram ads</span></div>
-    <div class="ph-card"><span class="ph-text-logo">🔍</span><span class="ph-name">Search Console</span><span class="ph-tooltip">SEO, indexing</span></div>
-  </div>
-
-  <div class="ph-cat-label">Web & Deploy</div>
-  <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/netlify" alt="Netlify"><span class="ph-name">Netlify</span><span class="ph-tooltip">Static site deploy</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/vercel/black" alt="Vercel"><span class="ph-name">Vercel</span><span class="ph-tooltip">App deploy</span></div>
-    <div class="ph-card"><span class="ph-text-logo">🎴</span><span class="ph-name">Gamma</span><span class="ph-tooltip">Deck/sunum olusturma</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/youtube" alt="YouTube"><span class="ph-name">YouTube</span><span class="ph-tooltip">Video upload - Data API</span></div>
-  </div>
-
-  <div class="ph-cat-label">Arastirma & Web</div>
-  <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/brave" alt="Brave"><span class="ph-name">Brave Search</span><span class="ph-tooltip">Web arastirma (built-in)</span></div>
-    <div class="ph-card"><span class="ph-text-logo">🌐</span><span class="ph-name">Web Fetch</span><span class="ph-tooltip">Sayfa icerik cekme (built-in)</span></div>
-    <div class="ph-card"><span class="ph-text-logo">🖥️</span><span class="ph-name">Browser</span><span class="ph-tooltip">Web sitesi otomasyonu</span></div>
-  </div>
-
-  <div class="ph-cat-label">Mesajlasma</div>
-  <div class="ph-grid">
-    <div class="ph-card"><span class="ph-text-logo">💬</span><span class="ph-name">Webchat</span><span class="ph-tooltip">Ana iletisim</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/telegram" alt="Telegram"><span class="ph-name">Telegram</span><span class="ph-tooltip">Mobil iletisim</span></div>
-  </div>
-
-  <div class="ph-cat-label">Google Workspace & Dev</div>
-  <div class="ph-grid">
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/google" alt="Google"><span class="ph-name">Gmail/Drive</span><span class="ph-tooltip">alperen@cenoa.com - Workspace</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/github/black" alt="GitHub"><span class="ph-name">GitHub</span><span class="ph-tooltip">Kod yonetimi</span></div>
-    <div class="ph-card"><img src="https://cdn.simpleicons.org/slack" alt="Slack"><span class="ph-name">Slack</span><span class="ph-tooltip">Ekip iletisimi</span></div>
-  </div>
-
-  <div class="ph-cat-label" style="margin-top:1.2rem">Planned Access (Not Connected Yet)</div>
-  <div class="ph-cat-sub">Performance Marketing</div>
-  <div class="ph-grid">
-    <div class="ph-card planned"><span class="ph-text-logo">🎵</span><span class="ph-name">TikTok Ads</span><span class="ph-tooltip">Planned: country-level paid performance</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">in</span><span class="ph-name">LinkedIn Ads</span><span class="ph-tooltip">Planned: B2B experiments</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">X</span><span class="ph-name">X Ads</span><span class="ph-tooltip">Planned: creator + awareness</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">👻</span><span class="ph-name">Snap Ads</span><span class="ph-tooltip">Planned: MENA tests</span></div>
-  </div>
-
-  <div class="ph-cat-sub">App Growth</div>
-  <div class="ph-grid">
-    <div class="ph-card planned"><span class="ph-text-logo"></span><span class="ph-name">App Store Connect</span><span class="ph-tooltip">Planned: installs → KYC analytics</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">▶</span><span class="ph-name">Play Console</span><span class="ph-tooltip">Planned: country-level store performance</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">🔎</span><span class="ph-name">Apple Search Ads</span><span class="ph-tooltip">Planned: intent acquisition</span></div>
-  </div>
-
-  <div class="ph-cat-sub">CRM & Support</div>
-  <div class="ph-grid">
-    <div class="ph-card planned"><span class="ph-text-logo">HS</span><span class="ph-name">HubSpot</span><span class="ph-tooltip">Planned: lifecycle + segmentation</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">💬</span><span class="ph-name">Intercom</span><span class="ph-tooltip">Planned: support + activation triggers</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">📨</span><span class="ph-name">Braze</span><span class="ph-tooltip">Planned: push/email automation</span></div>
-  </div>
-
-  <div class="ph-cat-sub">Payments / Ops</div>
-  <div class="ph-grid">
-    <div class="ph-card planned"><span class="ph-text-logo">S</span><span class="ph-name">Stripe</span><span class="ph-tooltip">Planned: revenue + cohort tracking</span></div>
-    <div class="ph-card planned"><span class="ph-text-logo">🧾</span><span class="ph-name">Chargebee</span><span class="ph-tooltip">Planned: subscriptions</span></div>
-  </div>
-</section>
-
-<!-- WHAT IS CORTEX -->
-<section class="section" id="whatIs">
-  <div class="section-header">
-    <h2>🧠 What is Cortex?</h2>
-    <div class="line"></div>
-    <div class="badge">INTERNAL TOOL</div>
-  </div>
-  <p style="color:var(--text-dim);font-size:1.05rem;margin-bottom:2.5rem;max-width:800px;line-height:1.7">
-    Cenoa's <strong style="color:var(--text-bright)">AI-powered marketing ops center</strong> -
-    12 agents, 4 markets, one dashboard. Powered by <strong style="color:var(--accent)">OpenClaw</strong>.
-  </p>
-
-  <!-- What It Does - Visual Card -->
-  <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:16px;padding:2.5rem;margin-bottom:2rem;text-align:center">
-    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem">What It Does</h3>
-    <div style="display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap">
-      <div style="text-align:center">
-        <div style="font-size:2.8rem;margin-bottom:.4rem">🤖</div>
-        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">12 AI Agents</div>
-        <div style="font-size:.85rem;color:var(--text-dim)">Running 24/7</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:2.8rem;margin-bottom:.4rem">🧠</div>
-        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">Own Knowledge</div>
-        <div style="font-size:.85rem;color:var(--text-dim)">Tools & decisions</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:2.8rem;margin-bottom:.4rem">📊</div>
-        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">Full Stack</div>
-        <div style="font-size:.85rem;color:var(--text-dim)">Content to analytics</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:2.8rem;margin-bottom:.4rem">🏦</div>
-        <div style="font-size:1rem;font-weight:700;color:var(--text-bright)">Cenoa-Built</div>
-        <div style="font-size:.85rem;color:var(--text-dim)">Freelancer banking</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- How It Works - Flow Diagram -->
-  <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:16px;padding:2.5rem;margin-bottom:2rem">
-    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:2rem;text-align:center">How It Works</h3>
-    <div class="flow-diagram">
-      <div class="flow-step">
-        <div class="flow-icon">📋</div>
-        <div class="flow-label">Task In</div>
-      </div>
-      <div class="flow-arrow"></div>
-      <div class="flow-step">
-        <div class="flow-icon">⚡</div>
-        <div class="flow-label">Agent Runs</div>
-      </div>
-      <div class="flow-arrow"></div>
-      <div class="flow-step">
-        <div class="flow-icon">✅</div>
-        <div class="flow-label">QA Gate</div>
-      </div>
-      <div class="flow-arrow"></div>
-      <div class="flow-step">
-        <div class="flow-icon">🚀</div>
-        <div class="flow-label">Deploy</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Current Capabilities - Icon Grid -->
-  <div style="margin-bottom:2rem">
-    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">Current Capabilities</h3>
-    <div class="cap-grid">
-      <div class="cap-card">
-        <div class="cap-emoji">🎬</div>
-        <div class="cap-title">Video Production</div>
-        <div class="cap-desc">AI video gen + TTS + ffmpeg render</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">🖼️</div>
-        <div class="cap-title">Image Generation</div>
-        <div class="cap-desc">FLUX, thumbnails, social creatives</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">📝</div>
-        <div class="cap-title">Content Writing</div>
-        <div class="cap-desc">Blog, email, landing page copy</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">🎤</div>
-        <div class="cap-title">Voice Generation</div>
-        <div class="cap-desc">Turkish & English via ElevenLabs</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">📊</div>
-        <div class="cap-title">Presentations</div>
-        <div class="cap-desc">Auto-generated decks via Gamma</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">🔍</div>
-        <div class="cap-title">SEO Optimization</div>
-        <div class="cap-desc">Technical audits, keywords, ranking</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">📢</div>
-        <div class="cap-title">Paid Campaigns</div>
-        <div class="cap-desc">Google Ads + Meta Ads management</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">📊</div>
-        <div class="cap-title">Analytics</div>
-        <div class="cap-desc">Amplitude, GA4, BigQuery, AppsFlyer</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">🌐</div>
-        <div class="cap-title">Web Deploy</div>
-        <div class="cap-desc">Netlify, Vercel, site performance</div>
-      </div>
-      <div class="cap-card">
-        <div class="cap-emoji">🔬</div>
-        <div class="cap-title">Competitive Intel</div>
-        <div class="cap-desc">Payoneer/Wise/Deel monitoring</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Track Record -->
-  <div style="margin-bottom:2rem">
-    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">📊 Track Record</h3>
-
-    <!-- Big numbers row -->
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-bottom:1.5rem;text-align:center" class="track-numbers">
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
-        <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">172</div>
-        <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Video Clips</div>
-      </div>
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
-        <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">2.8K</div>
-        <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Images Gen'd</div>
-      </div>
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
-        <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">26</div>
-        <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Strategy Docs</div>
-      </div>
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
-        <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">8</div>
-        <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Gamma Decks</div>
-      </div>
-      <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;padding:1.2rem .5rem">
-        <div style="font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1">29/32</div>
-        <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem">Growth Tasks</div>
-      </div>
-    </div>
-
-    <!-- Agent Output Table -->
-    <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:12px;overflow:hidden">
-      <table style="width:100%;border-collapse:collapse;font-size:.85rem">
-        <thead>
-          <tr style="border-bottom:1px solid var(--border);background:var(--surface2)">
-            <th style="text-align:left;padding:.7rem 1rem;color:var(--text-dim);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em">Agent</th>
-            <th style="text-align:center;padding:.7rem .5rem;color:var(--text-dim);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em">Output</th>
-            <th style="text-align:center;padding:.7rem .5rem;color:var(--text-dim);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em">Items</th>
-            <th style="text-align:left;padding:.7rem 1rem;color:var(--text-dim);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em">Highlight</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">🎬 Producer</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">172 clips</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">3 Shorts</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">AnimalByte channel - octopus, pistol shrimp, rabbit</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">📈 Growth Manager</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">29 tasks</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">6 reports</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">12-hour marathon: full-funnel, ROI matrix, campaign perf</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">📊 Data Lead</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">6 analyses</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">Amplitude</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">Tracking audit, event taxonomy, attribution gap analysis</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">🌐 Web Ops</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">3 sites</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">Live</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">cenoa-cortex.vercel.app, alp-finans.netlify.app, cortex-freelancer</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">📊 Presentations</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">8 decks</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">PDF export</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">Org chart, agent overview, workshop tips, strategy briefs</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">🎨 Brand Manager</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">479 lines</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">Knowledge</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">Cenoa brand positioning, voice guide, visual identity</td>
-          </tr>
-          <tr>
-            <td style="padding:.6rem 1rem;color:var(--text-bright);font-weight:600">🔍 SEO + ✍️ Content</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--accent);font-weight:700">New</td>
-            <td style="padding:.6rem .5rem;text-align:center;color:var(--text)">Ready</td>
-            <td style="padding:.6rem 1rem;color:var(--text-dim)">Agents created, knowledge loaded - first tasks queued</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Cenoa-Specific Workflows - Compact Visual Cards -->
-  <div style="margin-bottom:2rem">
-    <h3 style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-align:center">Cenoa-Specific Workflows</h3>
-    <div class="cenoa-grid">
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">🇹🇷</div>
-        <div class="cenoa-title">Turkey Deepening</div>
-        <div class="cenoa-desc">Localized campaigns & TR content</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">🇪🇬</div>
-        <div class="cenoa-title">Egypt Launch</div>
-        <div class="cenoa-desc">Market entry & localized creatives</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">💳</div>
-        <div class="cenoa-title">KYC Funnel</div>
-        <div class="cenoa-desc">Dropout analysis & A/B testing</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">📲</div>
-        <div class="cenoa-title">App Installs</div>
-        <div class="cenoa-desc">Play Store + App Store optimization</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">🤝</div>
-        <div class="cenoa-title">Referral Program</div>
-        <div class="cenoa-desc">Viral loops & incentive tracking</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">📧</div>
-        <div class="cenoa-title">CRM Lifecycle</div>
-        <div class="cenoa-desc">Email flows & reactivation drips</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">🎯</div>
-        <div class="cenoa-title">Brand Voice</div>
-        <div class="cenoa-desc">Consistent tone, all channels</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">🌍</div>
-        <div class="cenoa-title">4 Markets</div>
-        <div class="cenoa-desc">TR, EG, PK, global expansion</div>
-      </div>
-      <div class="cenoa-card">
-        <div class="cenoa-emoji">📈</div>
-        <div class="cenoa-title">Growth Loops</div>
-        <div class="cenoa-desc">Install → KYC → transact funnels</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Planned - Vertical Timeline -->
-  <div style="background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:16px;padding:2.5rem">
-    <h3 style="font-size:1.2rem;font-weight:700;color:#fbbf24;margin-bottom:2rem;text-align:center">Planned - Coming Soon</h3>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-title">TikTok + YouTube Shorts</div>
-          <div class="timeline-desc">Automated AI-generated UGC pipeline</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-title">Competitor Watch</div>
-          <div class="timeline-desc">Auto Payoneer/Wise monitoring + alerts</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-title">Weekly Auto-Reports</div>
-          <div class="timeline-desc">Cron-scheduled growth reports to Telegram</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-title">A/B Test Framework</div>
-          <div class="timeline-desc">Hypothesis → experiment → results loop</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-title">Multi-Language Pipeline</div>
-          <div class="timeline-desc">EN/TR/AR auto translation & localization</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-title">Real-Time KPI Dashboard</div>
-          <div class="timeline-desc">Live Amplitude + GA4 metrics on Cortex</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-title">Podcast Pipeline</div>
-          <div class="timeline-desc">Script → multi-voice TTS → distribution</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DOCUMENT HUB -->
-<section class="section" id="docHub">
-  <div class="section-header">
-    <h2>Growth Engine Document Hub</h2>
-    <div class="line"></div>
-    <div class="badge">26 DOCS</div>
-  </div>
-
-  <div class="search-wrap">
-    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <input type="text" id="docSearch" placeholder="Search documents by name, category, or description...">
-  </div>
-
-  <div class="cat-filters" id="catFilters">
-    <button class="cat-btn active" data-cat="all">All</button>
-    <button class="cat-btn" data-cat="data">Data</button>
-    <button class="cat-btn" data-cat="analysis">Analysis</button>
-    <button class="cat-btn" data-cat="strategy">Strategy</button>
-    <button class="cat-btn" data-cat="conversion">Conversion</button>
-    <button class="cat-btn" data-cat="markets">Markets</button>
-    <button class="cat-btn" data-cat="infra">Infra</button>
-  </div>
-
-  <div class="doc-grid" id="docGrid"></div>
-  <div class="no-results" id="noResults">No documents match your search.</div>
 </section>
 
 <!-- LIVE ANALYTICS -->
@@ -1759,116 +1123,33 @@ footer span{color:var(--accent)}
   </div>
 </section>
 
-<!-- MARKET OVERVIEW -->
-<section class="section" id="marketOverview">
+<!-- DOCUMENT HUB -->
+<section class="section" id="docHub">
   <div class="section-header">
-    <h2>Market Overview</h2>
+    <h2>Growth Engine Document Hub</h2>
     <div class="line"></div>
-    <div class="badge">4 MARKETS</div>
+    <div class="badge">26 DOCS</div>
   </div>
-  <div class="market-grid" id="marketGrid"></div>
+
+  <div class="search-wrap">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" id="docSearch" placeholder="Search documents by name, category, or description...">
+  </div>
+
+  <div class="cat-filters" id="catFilters">
+    <button class="cat-btn active" data-cat="all">All</button>
+    <button class="cat-btn" data-cat="data">Data</button>
+    <button class="cat-btn" data-cat="analysis">Analysis</button>
+    <button class="cat-btn" data-cat="strategy">Strategy</button>
+    <button class="cat-btn" data-cat="conversion">Conversion</button>
+    <button class="cat-btn" data-cat="markets">Markets</button>
+    <button class="cat-btn" data-cat="infra">Infra</button>
+  </div>
+
+  <div class="doc-grid" id="docGrid"></div>
+  <div class="no-results" id="noResults">No documents match your search.</div>
 </section>
 
-<!-- OPENCLAW KULLANIM TAKTİKLERİ -->
-<section class="section" id="openclawTaktik">
-  <div class="section-header">
-    <h2>⚡ OpenClaw Kullanım Taktikleri</h2>
-    <div class="line"></div>
-    <div class="badge">PLATFORM & ROUTING</div>
-  </div>
-  <p style="color:var(--text-dim);font-size:.95rem;margin-bottom:2rem;max-width:700px">Media generation routing kararları ve abonelik optimizasyonu.</p>
-
-  <!-- Media Generation Routing -->
-  <div class="division-label" style="margin-top:2rem">Media Generation Routing (fal.ai bazli)</div>
-  <div class="routing-grid">
-    <div class="routing-card">
-      <div class="routing-label">Image Draft</div>
-      <div class="routing-value">FLUX Schnell</div>
-      <div class="routing-meta">~1s &middot; $0.003/image</div>
-    </div>
-    <div class="routing-card">
-      <div class="routing-label">Image Production</div>
-      <div class="routing-value">FLUX Pro</div>
-      <div class="routing-meta">$0.03/image</div>
-    </div>
-    <div class="routing-card">
-      <div class="routing-label">Video Draft</div>
-      <div class="routing-value">Wan</div>
-      <div class="routing-meta">$0.05/sn</div>
-    </div>
-    <div class="routing-card">
-      <div class="routing-label">Video Production</div>
-      <div class="routing-value">Kling 3.0 Pro</div>
-      <div class="routing-meta">$0.10/sn</div>
-    </div>
-    <div class="routing-card">
-      <div class="routing-label">Video Premium</div>
-      <div class="routing-value">Veo 3.1</div>
-      <div class="routing-meta">$0.20/sn &middot; audio dahil</div>
-    </div>
-    <div class="routing-card">
-      <div class="routing-label">Image-to-Video</div>
-      <div class="routing-value">Kling 3 i2v / MiniMax i2v</div>
-      <div class="routing-meta">Animasyon & motion</div>
-    </div>
-    <div class="routing-card">
-      <div class="routing-label">TTS</div>
-      <div class="routing-value">ElevenLabs</div>
-      <div class="routing-meta">Default &middot; edge-tts fallback</div>
-    </div>
-  </div>
-
-  <!-- Unsub Kararlari -->
-  <div class="division-label" style="margin-top:2rem">Unsub Kararlari - Mart 2026</div>
-  <div class="unsub-grid">
-    <div class="unsub-card cancel">
-      <div class="unsub-icon">&#10060;</div>
-      <div>
-        <div class="unsub-name">Runway Unlimited</div>
-        <div class="unsub-detail">$95/ay - IPTAL</div>
-      </div>
-    </div>
-    <div class="unsub-card cancel">
-      <div class="unsub-icon">&#10060;</div>
-      <div>
-        <div class="unsub-name">Higgsfield</div>
-        <div class="unsub-detail">IPTAL</div>
-      </div>
-    </div>
-    <div class="unsub-card cancel">
-      <div class="unsub-icon">&#10060;</div>
-      <div>
-        <div class="unsub-name">Freepik API</div>
-        <div class="unsub-detail">IPTAL</div>
-      </div>
-    </div>
-    <div class="unsub-card keep">
-      <div class="unsub-icon">&#9989;</div>
-      <div>
-        <div class="unsub-name">fal.ai</div>
-        <div class="unsub-detail">KORU - ~$20-40/ay</div>
-      </div>
-    </div>
-    <div class="unsub-card keep">
-      <div class="unsub-icon">&#9989;</div>
-      <div>
-        <div class="unsub-name">ElevenLabs</div>
-        <div class="unsub-detail">KORU - $11/ay</div>
-      </div>
-    </div>
-    <div class="unsub-card keep">
-      <div class="unsub-icon">&#9989;</div>
-      <div>
-        <div class="unsub-name">OpenAI</div>
-        <div class="unsub-detail">KORU - $20/ay</div>
-      </div>
-    </div>
-  </div>
-  <div class="unsub-savings fade-in">
-    <div class="amount">$100+/ay</div>
-    <div class="label">Tahmini Tasarruf</div>
-  </div>
-</section>
 
 </div>
 
@@ -2902,6 +2183,112 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         }
       }
     }
+  });
+})();
+
+// ========== CAMPAIGN PERFORMANCE TABLE (v2) ==========
+(async function loadCampaignTable(){
+  let data = {};
+  try {
+    const res = await fetch('data.json', { cache: 'no-store' });
+    if (res.ok) data = await res.json();
+  } catch(e) { console.warn('Campaign data fetch failed', e); }
+
+  const campaigns = data.campaignPerformance || [];
+  if (!campaigns.length) return;
+
+  const tbody = document.getElementById('campPerfBody');
+  const badge = document.getElementById('campTableBadge');
+  if (!tbody) return;
+  if (badge) badge.textContent = campaigns.length + ' CAMPAIGNS';
+
+  const healthDot = h => {
+    const map = { healthy:'🟢', bleeding:'🟡', dead:'🔴', fraud:'🟣' };
+    return map[h] || '⚪';
+  };
+  const actionBadge = a => {
+    const map = {
+      scale: '<span class="status-badge status-scale">🚀 Scale</span>',
+      maintain: '<span class="status-badge status-maintain">✅ Maintain</span>',
+      watch: '<span class="status-badge status-watch">⚠️ Watch</span>',
+      kill: '<span class="status-badge status-kill">🛑 Kill</span>'
+    };
+    return map[a] || a;
+  };
+  const fmtMoney = n => n == null ? '—' : '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:2});
+  const fmtNum = n => n == null ? '—' : Number(n).toLocaleString('en-US');
+  const wowArrow = d => {
+    if (d > 0) return '<span class="wow-arrow up">▲ ' + d.toFixed(0) + '%</span>';
+    if (d < 0) return '<span class="wow-arrow down">▼ ' + Math.abs(d).toFixed(0) + '%</span>';
+    return '<span class="wow-arrow flat">→</span>';
+  };
+
+  // Determine top 3 scale & bottom 3 kill
+  const scaleRows = campaigns.filter(c => c.action === 'scale').sort((a,b) => (a.trueCAC||9999) - (b.trueCAC||9999)).slice(0,3).map(c => c.name);
+  const killRows = campaigns.filter(c => c.action === 'kill').sort((a,b) => (b.spend||0) - (a.spend||0)).slice(0,3).map(c => c.name);
+
+  let currentFilter = 'all';
+  let sortKey = null;
+  let sortAsc = true;
+
+  function renderTable(list) {
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:var(--text-dim);padding:2rem">No campaigns match filter.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list.map(c => {
+      let rowClass = '';
+      if (scaleRows.includes(c.name)) rowClass = 'scale-highlight';
+      if (killRows.includes(c.name)) rowClass = 'kill-highlight';
+      return `<tr class="${rowClass}">
+        <td class="camp-name">${healthDot(c.health)} ${c.name}</td>
+        <td>${c.countryFlag || ''} <span class="market-badge">${c.country}</span></td>
+        <td>${c.channelIcon || ''} ${c.channel}</td>
+        <td class="num">${fmtMoney(c.spend)}</td>
+        <td class="num">${fmtNum(c.installs)}</td>
+        <td class="num">${c.cpi != null ? '$'+c.cpi.toFixed(2) : '—'}</td>
+        <td class="num">${fmtNum(c.newActives)}</td>
+        <td class="num">${fmtMoney(c.trueCAC)}</td>
+        <td>${wowArrow(c.wowDelta||0)} ${actionBadge(c.action)}</td>
+        <td class="camp-commentary">${c.commentary || ''}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function getFiltered() {
+    let list = currentFilter === 'all' ? [...campaigns] : campaigns.filter(c => c.action === currentFilter);
+    if (sortKey) {
+      list.sort((a,b) => {
+        let va = a[sortKey], vb = b[sortKey];
+        if (va == null) va = sortKey === 'name' || sortKey === 'country' || sortKey === 'channel' ? '' : 999999;
+        if (vb == null) vb = sortKey === 'name' || sortKey === 'country' || sortKey === 'channel' ? '' : 999999;
+        if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+        return sortAsc ? va - vb : vb - va;
+      });
+    }
+    return list;
+  }
+
+  renderTable(getFiltered());
+
+  // Filter buttons
+  document.getElementById('campFilters').addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    document.querySelectorAll('#campFilters .cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.action;
+    renderTable(getFiltered());
+  });
+
+  // Sortable headers
+  document.querySelectorAll('#campPerfTable th.sortable').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      if (sortKey === key) sortAsc = !sortAsc;
+      else { sortKey = key; sortAsc = true; }
+      renderTable(getFiltered());
+    });
   });
 })();
 
