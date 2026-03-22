@@ -6,7 +6,7 @@
 <title>CENOA × CORTEX - Marketing Operations Dashboard</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#ffffff;--surface:#f8f9fa;--surface2:#f0f1f3;--border:#e0e0e0;--accent:#00b85c;--accent-dim:rgba(0,184,92,.08);--accent-glow:rgba(0,184,92,.2);--text:#1a1a1a;--text-dim:#666;--text-bright:#000}
+:root{--bg:#ffffff;--surface:#f8f9fa;--surface2:#f0f1f3;--border:#e0e0e0;--accent:#00b85c;--accent-dim:rgba(0,184,92,.08);--accent-glow:rgba(0,184,92,.2);--text:#1a1a1a;--text-dim:#666;--text-bright:#000;--color-tr:#3b82f6;--color-ng:#22c55e;--color-eg:#f59e0b;--color-pk:#a855f7}
 body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden}
 html{overflow-x:hidden}
 canvas{max-width:100%}
@@ -252,7 +252,11 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .campaign-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:900px}
 .campaign-table thead tr{background:#f0f1f3;border-bottom:2px solid var(--accent)}
 .campaign-table th{text-align:left;padding:.65rem .7rem;color:var(--text-dim);font-weight:600;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;user-select:none}
-.campaign-table th.sortable:hover{color:var(--accent);cursor:pointer}
+.campaign-table th.sortable{cursor:pointer;transition:color .2s}
+.campaign-table th.sortable:hover{color:var(--accent)}
+.campaign-table th.sortable .sort-arrow{font-size:.7rem;margin-left:.25rem;opacity:.3;transition:opacity .2s}
+.campaign-table th.sortable.sort-active .sort-arrow{opacity:1;color:var(--accent)}
+.campaign-table th.sortable.sort-active{color:var(--accent)}
 .campaign-table th.num,.campaign-table td.num{text-align:right}
 .campaign-table td{padding:.55rem .7rem;border-bottom:1px solid var(--border);color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
 .campaign-table tbody tr:last-child td{border-bottom:none}
@@ -527,6 +531,24 @@ footer span{color:var(--accent)}
 .agenda-pri.p1{background:rgba(251,191,36,.15);color:#fbbf24}
 .agenda-pri.p2{background:rgba(34,197,94,.15);color:#4ade80}
 .agenda-text{font-size:.85rem;color:var(--text-bright);font-weight:600;line-height:1.3}
+
+/* Country Color Coding */
+.country-card[data-country="TR"]{border-top:3px solid var(--color-tr)}
+.country-card[data-country="NG"]{border-top:3px solid var(--color-ng)}
+.country-card[data-country="EG"]{border-top:3px solid var(--color-eg)}
+.country-card[data-country="PK"]{border-top:3px solid var(--color-pk)}
+.country-card[data-country="TR"]:hover{border-color:var(--color-tr)}
+.country-card[data-country="NG"]:hover{border-color:var(--color-ng)}
+.country-card[data-country="EG"]:hover{border-color:var(--color-eg)}
+.country-card[data-country="PK"]:hover{border-color:var(--color-pk)}
+.kyc-funnel-card[data-country="TR"]{border-top:3px solid var(--color-tr)}
+.kyc-funnel-card[data-country="NG"]{border-top:3px solid var(--color-ng)}
+.kyc-funnel-card[data-country="EG"]{border-top:3px solid var(--color-eg)}
+.kyc-funnel-card[data-country="PK"]{border-top:3px solid var(--color-pk)}
+.market-badge[data-country="TR"]{background:rgba(59,130,246,.12);color:var(--color-tr)}
+.market-badge[data-country="NG"]{background:rgba(34,197,94,.12);color:var(--color-ng)}
+.market-badge[data-country="EG"]{background:rgba(245,158,11,.12);color:var(--color-eg)}
+.market-badge[data-country="PK"]{background:rgba(168,85,247,.12);color:var(--color-pk)}
 
 /* Campaign Health Dot */
 .health-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.4rem;vertical-align:middle}
@@ -1462,6 +1484,13 @@ const markets = [
   {flag:"🇵🇰",name:"Pakistan",code:"PK",status:"Pre-Launch",cls:"prelaunch"}
 ];
 
+// ========== COUNTRY COLOR & FLAG MAPS ==========
+const COUNTRY_COLORS = { TR:'#3b82f6', NG:'#22c55e', EG:'#f59e0b', PK:'#a855f7' };
+const COUNTRY_FLAGS  = { TR:'🇹🇷', NG:'🇳🇬', EG:'🇪🇬', PK:'🇵🇰', Turkey:'🇹🇷', Nigeria:'🇳🇬', Egypt:'🇪🇬', Pakistan:'🇵🇰' };
+function countryCode(c){ const map={Turkey:'TR',Nigeria:'NG',Egypt:'EG',Pakistan:'PK'}; return map[c]||c||''; }
+function countryColor(code){ return COUNTRY_COLORS[countryCode(code)]||'var(--accent)'; }
+function countryFlag(code){ return COUNTRY_FLAGS[code]||COUNTRY_FLAGS[countryCode(code)]||''; }
+
 // ========== FORMATTING HELPERS ==========
 function fmt$(n){ return '$' + Number(n||0).toLocaleString('en-US', {maximumFractionDigits:0}); }
 function fmtMoney(n){ return n == null ? '—' : '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:2}); }
@@ -1577,7 +1606,7 @@ function renderDashboard(data) {
   if (actionsEl) {
     let chips='';
     if (killCount>0) chips+=`<a href="#campaignTable" class="exec-chip red">🛑 Pause ${killCount} campaign${killCount>1?'s':''}</a>`;
-    if (blockedKyc.length>0) { const codes=blockedKyc.map(c=>c.country||c.code||'??').join('/'); chips+=`<a href="#kycMiniFunnels" class="exec-chip amber">🔧 Fix KYC (${codes} blocked)</a>`; }
+    if (blockedKyc.length>0) { const codes=blockedKyc.map(c=>{const cc=countryCode(c.country||c.code);return (countryFlag(cc)||'')+(c.country||c.code||'??');}).join(' / '); chips+=`<a href="#kycMiniFunnels" class="exec-chip amber">🔧 Fix KYC (${codes} blocked)</a>`; }
     if (scaleTarget) chips+=`<a href="#channelPerf" class="exec-chip green">📈 Scale ${scaleTarget.name}</a>`;
     actionsEl.innerHTML = chips || '<span style="color:var(--text-dim);font-size:.82rem">No urgent actions</span>';
   }
@@ -1655,10 +1684,10 @@ function renderDashboard(data) {
   if (cacCtx && typeof Chart!=='undefined') {
     const ct = (D.cacTracking||[]).filter(c=>(c.actual_cac||c.actual||0)>0||(c.target_cac||c.target||0)>0);
     if (ct.length) new Chart(cacCtx, { type:'bar',
-      data:{ labels:ct.map(c=>c.name||c.channel), datasets:[
+      data:{ labels:ct.map(c=>{const cc=countryCode(c.country||c.code);return (countryFlag(cc)?countryFlag(cc)+' ':'')+(c.name||c.channel)}), datasets:[
         { label:'Actual CAC', data:ct.map(c=>c.actual_cac||c.actual||0),
-          backgroundColor:ct.map(c=>(c.actual_cac||c.actual||0)>(c.target_cac||c.target||0)?'rgba(239,68,68,0.75)':'rgba(0,184,92,0.7)'),
-          borderColor:ct.map(c=>(c.actual_cac||c.actual||0)>(c.target_cac||c.target||0)?'#f87171':'#00b85c'), borderWidth:1,borderRadius:6,barPercentage:0.6 },
+          backgroundColor:ct.map(c=>{const cc=countryCode(c.country||c.code);if(cc&&COUNTRY_COLORS[cc])return COUNTRY_COLORS[cc]+'cc';return (c.actual_cac||c.actual||0)>(c.target_cac||c.target||0)?'rgba(239,68,68,0.75)':'rgba(0,184,92,0.7)';}),
+          borderColor:ct.map(c=>{const cc=countryCode(c.country||c.code);if(cc&&COUNTRY_COLORS[cc])return COUNTRY_COLORS[cc];return (c.actual_cac||c.actual||0)>(c.target_cac||c.target||0)?'#f87171':'#00b85c';}), borderWidth:1,borderRadius:6,barPercentage:0.6 },
         { label:'Target CAC', data:ct.map(c=>c.target_cac||c.target||0), type:'line', borderColor:'rgba(251,191,36,0.8)', borderWidth:2, borderDash:[8,4], pointRadius:4, pointBackgroundColor:'#fbbf24', fill:false }
       ]}, options:{ indexAxis:'y',responsive:true,maintainAspectRatio:false,
         plugins:{legend:{labels:{color:'#888',font:{size:11},usePointStyle:true}},tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,callbacks:{label:c=>`${c.dataset.label}: $${(c.raw||0).toFixed(1)}`}}},
@@ -1703,11 +1732,13 @@ function renderDashboard(data) {
     }));
     if (kd.length) { const mx=Math.max(...kd.map(c=>c.kycStarted),1);
       kycGrid.innerHTML = kd.map(c=>{
+        const cc=countryCode(c.country);
+        const cClr=countryColor(cc);
         const b1=Math.round(c.kycStarted/mx*100), b2=c.kycStarted>0?Math.round(c.bridgeShown/c.kycStarted*100):0, b3=c.kycStarted>0?Math.max(Math.round(c.kycSubmit/c.kycStarted*100),c.kycSubmit>0?3:0):0;
-        return `<div class="kyc-funnel-card ${c.broken?'broken':''}"><div class="kyc-funnel-flag">${c.flag}</div><div class="kyc-funnel-name">${c.country}</div>
-          <div class="kyc-funnel-step"><span class="step-label">Started</span><span class="step-val">${fmtN(c.kycStarted)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b1}%;background:var(--accent)"></div></div>
-          <div class="kyc-funnel-step"><span class="step-label">Shown</span><span class="step-val">${fmtN(c.bridgeShown)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b2}%;background:${c.broken?'#ef4444':'#60a5fa'}"></div></div>
-          <div class="kyc-funnel-step"><span class="step-label">Submit</span><span class="step-val">${fmtN(c.kycSubmit)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b3}%;background:${c.broken?'#ef4444':'var(--accent)'}"></div></div>
+        return `<div class="kyc-funnel-card ${c.broken?'broken':''}" data-country="${cc}"><div class="kyc-funnel-flag">${countryFlag(cc)||c.flag}</div><div class="kyc-funnel-name">${c.country}</div>
+          <div class="kyc-funnel-step"><span class="step-label">Started</span><span class="step-val">${fmtN(c.kycStarted)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b1}%;background:${c.broken?'#ef4444':cClr}"></div></div>
+          <div class="kyc-funnel-step"><span class="step-label">Shown</span><span class="step-val">${fmtN(c.bridgeShown)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b2}%;background:${c.broken?'#ef4444':cClr}"></div></div>
+          <div class="kyc-funnel-step"><span class="step-label">Submit</span><span class="step-val">${fmtN(c.kycSubmit)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b3}%;background:${c.broken?'#ef4444':cClr}"></div></div>
           ${c.broken?'<div style="margin-top:.4rem;font-size:.65rem;color:#f87171;font-weight:700">❌ BLOCKED</div>':''}</div>`;
       }).join(''); }
   }
@@ -1718,13 +1749,14 @@ function renderDashboard(data) {
     const cMap=D.countries||{}, spArr=D.countrySpend||[];
     if (!spArr.length) { cGrid.innerHTML = '<div class="no-data-placeholder">No country data available</div>'; }
     if (spArr.length) cGrid.innerHTML = spArr.map(sp=>{
+      const cc=countryCode(sp.code||sp.country||sp.name);
       const cd=cMap[sp.code||sp.country]||{};
       const inst=cd.installs?cd.installs.value:'—', sign=cd.signups?cd.signups.value:'—', iDelta=cd.installs?cd.installs.deltaPct:null;
       const ws=sp.weeklySpend||sp.weekly_spend||0, ms=sp.mtdSpend||sp.mtd_spend||0, mt=sp.monthlyTarget||sp.planned_monthly||0;
       const pp=mt>0?Math.round(ms/mt*100):0; let pc='pacing-green',pb='#22c55e';
       if(pp>100){pc='pacing-red';pb='#ef4444';}else if(pp>85){pc='pacing-orange';pb='#f59e0b';}else if(pp<50&&ms>0){pc='pacing-orange';pb='#f59e0b';}else if(ms===0&&mt>0){pc='pacing-red';pb='#ef4444';}
       const idH=iDelta!==null?` <span style="font-size:.6rem;font-weight:700;color:${iDelta<0?'#ef4444':'#22c55e'}">${iDelta<0?'▼':'▲'}${Math.abs(iDelta)}%</span>`:'';
-      return `<div class="country-card"><div class="country-head"><span class="country-flag">${sp.flag||''}</span><span class="country-name">${sp.name||sp.country||''}</span></div>
+      return `<div class="country-card" data-country="${cc}"><div class="country-head"><span class="country-flag">${countryFlag(cc)||sp.flag||''}</span><span class="country-name">${sp.name||sp.country||''}</span></div>
         <div class="country-metrics"><div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">${typeof inst==='number'?inst.toLocaleString('en-US'):inst}${idH}</span></div>
         <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">${typeof sign==='number'?sign.toLocaleString('en-US'):sign}</span></div></div>
         <div class="country-spend-section">
@@ -1763,7 +1795,8 @@ function renderDashboard(data) {
     function rT(list){
       if(!list.length){ctbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--text-dim);padding:2rem">No campaigns match filter.</td></tr>';return;}
       ctbody.innerHTML=list.map(c=>{let rc='';if(sR.includes(c.name))rc='scale-highlight';if(kR.includes(c.name))rc='kill-highlight';
-        return `<tr class="${rc}"><td class="camp-name">${hDot(c.health)} ${c.name}</td><td>${c.countryFlag||''} <span class="market-badge">${c.country}</span></td><td>${c.channelIcon||''} ${c.channel}</td><td class="num">${fmtMoney(c.spend)}</td><td class="num">${fmtNum(c.installs)}</td><td class="num">${c.cpi!=null?'$'+c.cpi.toFixed(2):'—'}</td><td class="num">${fmtNum(c.newActives)}</td><td class="num">${fmtMoney(c.trueCAC)}</td><td>${wA(c.wowDelta||0)} ${aBadge(c.action)}</td><td class="camp-commentary">${c.commentary||''}</td></tr>`;}).join('');
+        const ccc=countryCode(c.country); const cflag=countryFlag(ccc)||c.countryFlag||'';
+        return `<tr class="${rc}"><td class="camp-name">${hDot(c.health)} ${c.name}</td><td>${cflag} <span class="market-badge" data-country="${ccc}">${c.country}</span></td><td>${c.channelIcon||''} ${c.channel}</td><td class="num">${fmtMoney(c.spend)}</td><td class="num">${fmtNum(c.installs)}</td><td class="num">${c.cpi!=null?'$'+c.cpi.toFixed(2):'—'}</td><td class="num">${fmtNum(c.newActives)}</td><td class="num">${fmtMoney(c.trueCAC)}</td><td>${wA(c.wowDelta||0)} ${aBadge(c.action)}</td><td class="camp-commentary">${c.commentary||''}</td></tr>`;}).join('');
     }
     function gF(){let l=cF==='all'?[...campaigns]:campaigns.filter(c=>c.action===cF);if(sK)l.sort((a,b)=>{let va=a[sK],vb=b[sK];if(va==null)va=typeof ''===typeof(a[sK])?'':999999;if(vb==null)vb=typeof ''===typeof(b[sK])?'':999999;if(typeof va==='string')return sA?va.localeCompare(vb):vb.localeCompare(va);return sA?va-vb:vb-va;});return l;}
     rT(gF());
