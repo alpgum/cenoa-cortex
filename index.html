@@ -8,6 +8,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#ffffff;--surface:#f8f9fa;--surface2:#f0f1f3;--border:#e0e0e0;--accent:#00b85c;--accent-dim:rgba(0,184,92,.08);--accent-glow:rgba(0,184,92,.2);--text:#1a1a1a;--text-dim:#666;--text-bright:#000}
 body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden}
+html{overflow-x:hidden}
+canvas{max-width:100%}
+.section{overflow:hidden}
 a{color:var(--accent);text-decoration:none}
 ::selection{background:var(--accent);color:#fff}
 ::-webkit-scrollbar{width:6px}
@@ -245,7 +248,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .unsub-savings .label{font-size:.85rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
 
 /* Campaign Performance Table */
-.campaign-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--border);background:var(--surface)}
+.campaign-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--border);background:var(--surface);max-width:100%}
 .campaign-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:900px}
 .campaign-table thead tr{background:#f0f1f3;border-bottom:2px solid var(--accent)}
 .campaign-table th{text-align:left;padding:.65rem .7rem;color:var(--text-dim);font-weight:600;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;user-select:none}
@@ -297,6 +300,32 @@ footer span{color:var(--accent)}
 /* Animations */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeUp .5s ease forwards;opacity:0}
+
+/* Skeleton Loading */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton-block{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite;border-radius:8px}
+.skeleton-row{display:flex;gap:.6rem;margin-bottom:.6rem}
+.skeleton-card{flex:1;height:90px;border-radius:12px}
+.skeleton-chart{height:180px;border-radius:12px;margin-bottom:.8rem}
+.skeleton-table{height:260px;border-radius:12px}
+.skeleton-text{height:14px;border-radius:4px;margin-bottom:.4rem}
+.skeleton-text.w60{width:60%}
+.skeleton-text.w40{width:40%}
+.skeleton-text.w80{width:80%}
+.dashboard-skeleton{padding:0 2rem;max-width:1400px;margin:0 auto}
+
+/* Error / Cache Banner */
+.data-banner{display:none;align-items:center;gap:.6rem;padding:.65rem 1.2rem;border-radius:10px;font-size:.82rem;font-weight:600;margin:0 auto 1rem;max-width:1400px;width:calc(100% - 4rem)}
+.data-banner.show{display:flex}
+.data-banner.error{background:#fef2f2;border:1px solid rgba(239,68,68,.25);color:#dc2626}
+.data-banner.cached{background:#fffbeb;border:1px solid rgba(245,158,11,.25);color:#92400e}
+.data-banner .banner-icon{font-size:1.1rem;flex-shrink:0}
+.data-banner .banner-text{flex:1}
+.data-banner .retry-btn{padding:.3rem .75rem;border-radius:6px;border:1px solid currentColor;background:transparent;color:inherit;font-size:.75rem;font-weight:700;cursor:pointer;transition:all .2s;flex-shrink:0}
+.data-banner .retry-btn:hover{background:currentColor;color:#fff}
+
+/* No-data placeholder for widgets */
+.no-data-placeholder{display:flex;align-items:center;justify-content:center;color:#aaa;font-size:.82rem;font-style:italic;padding:1.5rem;text-align:center}
 
 /* KPI Banner */
 .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem;margin-bottom:.8rem}
@@ -438,7 +467,7 @@ footer span{color:var(--accent)}
 .learning-impact{font-size:.72rem;color:var(--text-dim);line-height:1.3}
 
 /* CAC vs Target */
-.cac-track-wrap{max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem}
+.cac-track-wrap{max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);border-radius:14px;padding:1.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
 
 /* Platform Split Donuts */
 .platform-split-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:700px;margin:0 auto}
@@ -486,7 +515,7 @@ footer span{color:var(--accent)}
 .health-dot.dead{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.4)}
 .health-dot.fraud{background:#a855f7;box-shadow:0 0 6px rgba(168,85,247,.4)}
 
-/* Responsive */
+/* Responsive — 768px (iPad) */
 @media(max-width:768px){
   #kycDropout > div:nth-child(2){grid-template-columns:1fr !important}
   #kycDropout > div:nth-child(3){grid-template-columns:1fr !important}
@@ -494,12 +523,77 @@ footer span{color:var(--accent)}
   .stats{gap:1.5rem}
   .stat-num{font-size:1.8rem}
   .container{padding:0 1rem}
-  header{padding:0 1rem}
+  header{padding:0 .75rem;height:auto;min-height:54px;flex-wrap:wrap;gap:.4rem .6rem}
+  .header-brand{font-size:.72rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px;flex-shrink:1;min-width:0}
+  .header-timestamp{font-size:.58rem;margin-left:0}
+  .header-nav{gap:.4rem;flex-wrap:wrap;justify-content:center;padding:.3rem 0}
+  .header-nav a{font-size:.58rem}
   .doc-grid,.agent-grid,.market-grid,.routing-grid,.unsub-grid{grid-template-columns:1fr}
   .ph-grid{grid-template-columns:repeat(auto-fill,minmax(75px,1fr))}
   .analytics-iframe{height:400px}
-  .header-nav{gap:.6rem}
-  .header-nav a{font-size:.6rem}
+  .exec-summary{padding:1.5rem 1rem 1rem}
+  .exec-kpis{grid-template-columns:1fr}
+  .exec-actions{flex-wrap:wrap}
+  .exec-chip{flex:1 1 auto;justify-content:center;min-width:0}
+  .channel-perf-grid{grid-template-columns:1fr}
+  .tests-grid{grid-template-columns:1fr}
+  .trend-grid{grid-template-columns:1fr}
+  .platform-split-grid{grid-template-columns:1fr}
+  .campaign-table-wrap{margin:0 -1rem;border-radius:0;border-left:none;border-right:none}
+  canvas{max-width:100% !important}
+  .cac-track-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .learnings-scroll{flex-wrap:nowrap}
+  .learning-card{flex:0 0 220px}
+}
+
+/* Responsive — 480px (small phones) */
+@media(max-width:480px){
+  header{padding:0 .5rem;gap:.3rem .4rem}
+  .header-brand{font-size:.65rem;max-width:180px;letter-spacing:.06em}
+  .header-brand span{display:inline}
+  .header-nav{gap:.3rem}
+  .header-nav a{font-size:.55rem;letter-spacing:.04em}
+  .header-timestamp{font-size:.55rem;display:none}
+  .exec-summary{padding:1rem .75rem .75rem}
+  .exec-status{padding:1rem}
+  .exec-kpi{padding:1rem 1.2rem}
+  .exec-kpi-value{font-size:1.8rem}
+  .exec-actions{gap:.4rem}
+  .exec-chip{font-size:.75rem;padding:.45rem .8rem}
+  .kpi-row{grid-template-columns:1fr !important}
+  .kpi-card{padding:.8rem}
+  .kpi-value{font-size:1.2rem}
+  .country-grid{grid-template-columns:1fr !important}
+  .pacing-wrap{padding:1rem;gap:1rem}
+  .pacing-gauge{width:90px;height:90px}
+  .pacing-gauge canvas{width:90px;height:90px}
+  .pacing-center .pct{font-size:1.2rem}
+  .pacing-details{grid-template-columns:1fr 1fr;gap:.3rem .5rem}
+  .pacing-detail .pd-value{font-size:.95rem}
+  .trend-grid{grid-template-columns:1fr !important}
+  .trend-card{padding:.8rem}
+  .channel-perf-grid{grid-template-columns:1fr !important}
+  .ch-card{padding:.7rem .8rem}
+  .platform-split-grid{grid-template-columns:1fr !important}
+  .ps-card canvas{max-width:100px;max-height:100px}
+  .tests-grid{grid-template-columns:1fr !important}
+  .test-card{padding:.8rem 1rem}
+  .learnings-scroll{gap:.4rem}
+  .learning-card{flex:0 0 200px;padding:.8rem 1rem}
+  .kyc-funnel-grid{grid-template-columns:1fr !important}
+  .doc-grid{grid-template-columns:1fr !important}
+  .agent-grid{grid-template-columns:1fr !important}
+  .org-divisions{grid-template-columns:1fr !important}
+  .section{margin-top:2rem}
+  .section-header h2{font-size:1rem;white-space:normal}
+  .analytics-iframe{height:300px}
+  .hero{padding:3rem 1rem 2rem}
+  .hero-title{font-size:1.8rem;letter-spacing:.06em}
+  .hero-sub{font-size:.85rem}
+  .stat-num{font-size:1.5rem}
+  .stats{gap:1rem}
+  .campaign-table-wrap{margin:0 -.75rem}
+  .attr-card{max-width:100%}
 }
 </style>
 </head>
@@ -542,41 +636,39 @@ footer span{color:var(--accent)}
   <!-- One-line status -->
   <div class="exec-status">
     <div class="exec-status-line" id="execStatusLine">
-      <strong id="execWeekLabel">Week of Mar 14-20:</strong>
-      Installs <span class="dn" id="execInstallDelta">▼36%</span>, but New Actives only <span class="dn" id="execActiveDelta">▼5%</span> — <strong>downstream quality improving</strong>
+      <strong id="execWeekLabel">Loading…</strong>
+      Installs <span class="dn" id="execInstallDelta">—</span>, but New Actives only <span class="dn" id="execActiveDelta">—</span> — <strong>downstream quality improving</strong>
     </div>
   </div>
 
   <!-- 3 key numbers -->
   <div class="exec-kpis">
     <div class="exec-kpi">
-      <div class="exec-kpi-value" id="execNewActives">1,028</div>
+      <div class="exec-kpi-value" id="execNewActives">—</div>
       <div class="exec-kpi-label">New Actives</div>
-      <div class="exec-kpi-delta down" id="execActivesDelta">▼ 5.2%</div>
+      <div class="exec-kpi-delta neutral" id="execActivesDelta">—</div>
     </div>
     <div class="exec-kpi">
-      <div class="exec-kpi-value" id="execTrueCAC">$33.67</div>
+      <div class="exec-kpi-value" id="execTrueCAC">—</div>
       <div class="exec-kpi-label">TRUE CAC</div>
       <div class="exec-kpi-delta neutral" id="execCACDelta">blended</div>
     </div>
     <div class="exec-kpi">
-      <div class="exec-kpi-value" id="execBudgetPace">38.4%</div>
+      <div class="exec-kpi-value" id="execBudgetPace">—</div>
       <div class="exec-kpi-label">Budget Pace</div>
-      <div class="exec-kpi-delta warn" id="execBudgetDelta">underspending</div>
+      <div class="exec-kpi-delta neutral" id="execBudgetDelta">—</div>
     </div>
   </div>
 
   <!-- 3 action chips -->
-  <div class="exec-actions">
-    <a href="#campaignTable" class="exec-chip red">🛑 Pause 4 campaigns</a>
-    <a href="#kycMiniFunnels" class="exec-chip amber">🔧 Fix KYC (NG/EG blocked)</a>
-    <a href="#channelPerf" class="exec-chip green">📈 Scale Pmax +50%</a>
+  <div class="exec-actions" id="execActions">
+    <span style="color:var(--text-dim);font-size:.82rem">Loading actions…</span>
   </div>
 
   <!-- Attribution health badge -->
   <div class="exec-attr" id="execAttrBadge">
     <span class="attr-icon">⚠️</span>
-    <span id="execAttrText">81.8% unattributed — fix in progress</span>
+    <span id="execAttrText">Loading attribution data…</span>
   </div>
 </section>
 
@@ -592,65 +684,65 @@ footer span{color:var(--accent)}
     <div class="kpi-card" data-kpi="installs">
       <div class="kpi-icon">📲</div>
       <div class="kpi-data">
-        <div class="kpi-value">1,448</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">App Installs</div>
-        <div class="kpi-delta down">▼ 36.3% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
     <div class="kpi-card" data-kpi="signups">
       <div class="kpi-icon">📝</div>
       <div class="kpi-data">
-        <div class="kpi-value">1,211</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">Sign-ups</div>
-        <div class="kpi-delta down">▼ 27.5% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
     <div class="kpi-card" data-kpi="kycSubmits">
       <div class="kpi-icon">✅</div>
       <div class="kpi-data">
-        <div class="kpi-value">179</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">KYC Submissions</div>
-        <div class="kpi-delta down">▼ 41.7% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
     <div class="kpi-card" data-kpi="virtualAccountOpened">
       <div class="kpi-icon">🏦</div>
       <div class="kpi-data">
-        <div class="kpi-value">434</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">Virtual Accounts Opened</div>
-        <div class="kpi-delta down">▼ 31.3% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
     <div class="kpi-card" data-kpi="dauAvg">
       <div class="kpi-icon">👤</div>
       <div class="kpi-data">
-        <div class="kpi-value">3,065</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">Active Users (DAU avg)</div>
-        <div class="kpi-delta down">▼ 46.0% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
     <div class="kpi-card" data-kpi="depositCompleted">
       <div class="kpi-icon">💰</div>
       <div class="kpi-data">
-        <div class="kpi-value">1,550</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">Deposits</div>
-        <div class="kpi-delta down">▼ 5.6% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
     <div class="kpi-card" data-kpi="transferCompleted">
       <div class="kpi-icon">🔄</div>
       <div class="kpi-data">
-        <div class="kpi-value">784</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">Transfers</div>
-        <div class="kpi-delta down">▼ 1.5% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
     <div class="kpi-card" data-kpi="withdrawCompleted">
       <div class="kpi-icon">💸</div>
       <div class="kpi-data">
-        <div class="kpi-value">2,229</div>
+        <div class="kpi-value">—</div>
         <div class="kpi-label">Withdrawals</div>
-        <div class="kpi-delta up">▲ 0.7% vs prev week</div>
+        <div class="kpi-delta neutral">—</div>
       </div>
     </div>
   </div>
@@ -677,7 +769,7 @@ footer span{color:var(--accent)}
       </div>
     </div>
     <div class="pacing-details" id="pacingDetails">
-      <div class="pacing-detail"><span class="pd-label">Target</span><span class="pd-value" id="pacingTarget">$50,000</span></div>
+      <div class="pacing-detail"><span class="pd-label">Target</span><span class="pd-value" id="pacingTarget">—</span></div>
       <div class="pacing-detail"><span class="pd-label">MTD Spend</span><span class="pd-value" id="pacingMtd">—</span></div>
       <div class="pacing-detail"><span class="pd-label">Days Left</span><span class="pd-value" id="pacingDays">—</span></div>
       <div class="pacing-detail"><span class="pd-label">Daily Avg Needed</span><span class="pd-value" id="pacingDailyNeeded">—</span></div>
@@ -1140,6 +1232,125 @@ footer span{color:var(--accent)}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
+/*
+ * =====================================================================
+ *  ELEMENT ID → data.json FIELD PATH MAPPING
+ * =====================================================================
+ *
+ *  HEADER
+ *    #headerTimestamp           → lastUpdated (ISO date string)
+ *
+ *  EXECUTIVE SUMMARY
+ *    #execWeekLabel             → week
+ *    #execInstallDelta          → kpis.installs.deltaPct
+ *    #execActiveDelta           → computed: channelPerformance sum delta
+ *    #execNewActives            → computed: sum(channelPerformance[].new_active)
+ *    #execActivesDelta          → computed: new actives WoW delta
+ *    #execTrueCAC               → computed: sum(spend) / sum(new_active)
+ *    #execCACDelta              → "blended" (static label)
+ *    #execBudgetPace            → budgetPacing.pacing_pct
+ *    #execBudgetDelta           → budgetPacing.status
+ *    #execActions               → computed from campaignPerformance[].action counts
+ *    #execAttrText              → attributionQuality.none_pct
+ *
+ *  WEEKLY PULSE KPIs
+ *    #kpiWeek                   → week
+ *    #kpiLastUpdated            → updated
+ *    [data-kpi="installs"]      → kpis.installs.{value,deltaPct,direction}
+ *    [data-kpi="signups"]       → kpis.signups.{value,deltaPct,direction}
+ *    [data-kpi="kycSubmits"]    → kpis.kycSubmits.{value,deltaPct,direction}
+ *    [data-kpi="virtualAccountOpened"] → kpis.virtualAccountOpened.{value,deltaPct,direction}
+ *    [data-kpi="dauAvg"]        → kpis.dauAvg.{value,deltaPct,direction}
+ *    [data-kpi="depositCompleted"]     → kpis.depositCompleted.{value,deltaPct,direction}
+ *    [data-kpi="transferCompleted"]    → kpis.transferCompleted.{value,deltaPct,direction}
+ *    [data-kpi="withdrawCompleted"]    → kpis.withdrawCompleted.{value,deltaPct,direction}
+ *
+ *  BUDGET PACING
+ *    #pacingPct                 → budgetPacing.pacing_pct
+ *    #pacingTarget              → budgetPacing.target
+ *    #pacingMtd                 → budgetPacing.mtd_spend
+ *    #pacingDays                → budgetPacing.days_total - budgetPacing.days_elapsed
+ *    #pacingDailyNeeded         → computed: remaining / daysLeft
+ *    #pacingBadge               → "MARCH 2026" (derived from week)
+ *    #pacingGaugeCanvas         → budgetPacing.pacing_pct (drawn)
+ *
+ *  TREND HISTORY
+ *    #trendInstalls             → trendHistory[].installs
+ *    #trendSignups              → trendHistory[].signups
+ *    #trendActives              → trendHistory[].new_actives
+ *    #trendCAC                  → trendHistory[].true_cac
+ *    #trendDelta*               → computed from trendHistory last 2 entries
+ *
+ *  CAMPAIGN TABLE
+ *    #campPerfBody              → campaignPerformance[]
+ *    #campTableBadge            → campaignPerformance.length
+ *
+ *  CHANNEL PERFORMANCE
+ *    #channelPerfGrid           → channelPerformance[]
+ *
+ *  CAC VS TARGET
+ *    #cacVsTargetCanvas         → cacTracking[]
+ *
+ *  COUNTRY BREAKDOWN
+ *    #countryGrid               → countries{} + countrySpend[]
+ *
+ *  KYC FUNNELS
+ *    #kycFunnelGrid             → kycByCountry[]
+ *
+ *  PLATFORM SPLIT
+ *    #psInstalls                → platformSplit.installs
+ *    #psSignups                 → platformSplit.signups
+ *    #psWithdrawals             → platformSplit.withdrawals
+ *
+ *  TESTS / LEARNINGS / AGENDA
+ *    #testsGrid                 → weeklyTests[]
+ *    #learningsScroll           → weeklyLearnings[]
+ *    #agendaList                → weeklyAgenda[]
+ *
+ *  ATTRIBUTION
+ *    #attrPct                   → attributionQuality.known_pct
+ *    #attrSub                   → attributionQuality detail text
+ *
+ *  FUNNEL CHART
+ *    #funnelCanvas              → kpis (installs, signups, kycSubmits, etc.)
+ *
+ * =====================================================================
+ */
+
+// ========== FALLBACK DEFAULTS ==========
+const DEFAULTS = {
+  week: '—',
+  updated: '—',
+  lastUpdated: null,
+  kpis: {
+    installs:             { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' },
+    signups:              { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' },
+    kycSubmits:           { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' },
+    virtualAccountOpened: { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' },
+    dauAvg:               { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' },
+    depositCompleted:     { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' },
+    transferCompleted:    { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' },
+    withdrawCompleted:    { value: 0, prev: 0, deltaPct: 0, direction: 'neutral' }
+  },
+  budgetPacing: { target: 50000, mtd_spend: 0, pacing_pct: 0, days_elapsed: 0, days_total: 31, status: 'UNDERSPENDING' },
+  attributionQuality: { known_pct: 0, none_pct: 100, correction_factor: 1, trend: 'unknown' },
+  channelPerformance: [],
+  campaignPerformance: [],
+  cacTracking: [],
+  countries: {},
+  countrySpend: [],
+  kycByCountry: [],
+  platformSplit: { installs: { ios: 0, android: 0 }, signups: { ios: 0, android: 0 }, withdrawals: { ios: 0, android: 0 } },
+  weeklyTests: [],
+  weeklyLearnings: [],
+  weeklyAgenda: [],
+  campaignHealth: [],
+  trendHistory: []
+};
+
+// ========== GLOBAL DATA (populated by renderDashboard) ==========
+let DATA = JSON.parse(JSON.stringify(DEFAULTS));
+
 // ========== HEADER TIMESTAMP ==========
 (async function loadHeaderTimestamp(){
   const el = document.getElementById('headerTimestamp');
