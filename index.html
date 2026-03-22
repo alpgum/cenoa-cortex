@@ -1791,17 +1791,40 @@ function renderDashboard(data) {
     const wA=d=>{if(d>0) return '<span class="wow-arrow up">▲ '+d.toFixed(0)+'%</span>'; if(d<0) return '<span class="wow-arrow down">▼ '+Math.abs(d).toFixed(0)+'%</span>'; return '<span class="wow-arrow flat">→</span>';};
     const sR=campaigns.filter(c=>c.action==='scale').sort((a,b)=>(a.trueCAC||9999)-(b.trueCAC||9999)).slice(0,3).map(c=>c.name);
     const kR=campaigns.filter(c=>c.action==='kill').sort((a,b)=>(b.spend||0)-(a.spend||0)).slice(0,3).map(c=>c.name);
-    let cF='all',sK=null,sA=true;
+    // Load persisted sort preference or default to trueCAC ascending
+    const SORT_STORAGE_KEY='cortex_campaign_sort';
+    let savedSort; try{savedSort=JSON.parse(localStorage.getItem(SORT_STORAGE_KEY));}catch(e){}
+    let cF='all';
+    let sK=(savedSort&&savedSort.key)?savedSort.key:'trueCAC';
+    let sA=(savedSort&&savedSort.dir!==undefined)?savedSort.dir==='asc':true;
+
+    // Add sort arrow spans to sortable headers (replace trailing ↕)
+    document.querySelectorAll('#campPerfTable th.sortable').forEach(th=>{
+      th.textContent=th.textContent.replace(/\s*↕\s*$/,'').trim();
+      const arrow=document.createElement('span');arrow.className='sort-arrow';arrow.textContent=' ↕';th.appendChild(arrow);
+    });
+    function updateSortIndicators(){
+      document.querySelectorAll('#campPerfTable th.sortable').forEach(th=>{
+        const key=th.dataset.sort,arrow=th.querySelector('.sort-arrow');
+        if(key===sK){th.classList.add('sort-active');if(arrow)arrow.textContent=sA?' ▲':' ▼';}
+        else{th.classList.remove('sort-active');if(arrow)arrow.textContent=' ↕';}
+      });
+    }
+    function persistSort(){try{localStorage.setItem(SORT_STORAGE_KEY,JSON.stringify({key:sK,dir:sA?'asc':'desc'}));}catch(e){}}
+
     function rT(list){
-      if(!list.length){ctbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--text-dim);padding:2rem">No campaigns match filter.</td></tr>';return;}
-      ctbody.innerHTML=list.map(c=>{let rc='';if(sR.includes(c.name))rc='scale-highlight';if(kR.includes(c.name))rc='kill-highlight';
-        const ccc=countryCode(c.country); const cflag=countryFlag(ccc)||c.countryFlag||'';
-        return `<tr class="${rc}"><td class="camp-name">${hDot(c.health)} ${c.name}</td><td>${cflag} <span class="market-badge" data-country="${ccc}">${c.country}</span></td><td>${c.channelIcon||''} ${c.channel}</td><td class="num">${fmtMoney(c.spend)}</td><td class="num">${fmtNum(c.installs)}</td><td class="num">${c.cpi!=null?'$'+c.cpi.toFixed(2):'—'}</td><td class="num">${fmtNum(c.newActives)}</td><td class="num">${fmtMoney(c.trueCAC)}</td><td>${wA(c.wowDelta||0)} ${aBadge(c.action)}</td><td class="camp-commentary">${c.commentary||''}</td></tr>`;}).join('');
+      if(!list.length){ctbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--text-dim);padding:2rem">No campaigns match filter.</td></tr>';updateSortIndicators();return;}
+      requestAnimationFrame(()=>{
+        ctbody.innerHTML=list.map(c=>{let rc='';if(sR.includes(c.name))rc='scale-highlight';if(kR.includes(c.name))rc='kill-highlight';
+          const ccc=countryCode(c.country); const cflag=countryFlag(ccc)||c.countryFlag||'';
+          return `<tr class="${rc}"><td class="camp-name">${hDot(c.health)} ${c.name}</td><td>${cflag} <span class="market-badge" data-country="${ccc}">${c.country}</span></td><td>${c.channelIcon||''} ${c.channel}</td><td class="num">${fmtMoney(c.spend)}</td><td class="num">${fmtNum(c.installs)}</td><td class="num">${c.cpi!=null?'$'+c.cpi.toFixed(2):'—'}</td><td class="num">${fmtNum(c.newActives)}</td><td class="num">${fmtMoney(c.trueCAC)}</td><td>${wA(c.wowDelta||0)} ${aBadge(c.action)}</td><td class="camp-commentary">${c.commentary||''}</td></tr>`;}).join('');
+        updateSortIndicators();
+      });
     }
     function gF(){let l=cF==='all'?[...campaigns]:campaigns.filter(c=>c.action===cF);if(sK)l.sort((a,b)=>{let va=a[sK],vb=b[sK];if(va==null)va=typeof ''===typeof(a[sK])?'':999999;if(vb==null)vb=typeof ''===typeof(b[sK])?'':999999;if(typeof va==='string')return sA?va.localeCompare(vb):vb.localeCompare(va);return sA?va-vb:vb-va;});return l;}
     rT(gF());
     document.getElementById('campFilters').addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#campFilters .cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');cF=btn.dataset.action;rT(gF());});
-    document.querySelectorAll('#campPerfTable th.sortable').forEach(th=>{th.addEventListener('click',()=>{const key=th.dataset.sort;if(sK===key)sA=!sA;else{sK=key;sA=true;}rT(gF());});});
+    document.querySelectorAll('#campPerfTable th.sortable').forEach(th=>{th.addEventListener('click',()=>{const key=th.dataset.sort;if(sK===key)sA=!sA;else{sK=key;sA=true;}persistSort();rT(gF());});});
   }
 
   // --- TREND HISTORY → trendHistory[] ---
