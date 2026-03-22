@@ -1546,7 +1546,7 @@ function renderDashboard(data) {
   const totalSpend = channels.reduce((s,c) => s+(c.spend||0), 0);
 
   const execNA = document.getElementById('execNewActives');
-  if (execNA) execNA.textContent = totalNewActives > 0 ? totalNewActives.toLocaleString('en-US') : '—';
+  if (execNA) execNA.textContent = totalNewActives > 0 ? totalNewActives.toLocaleString('en-US') : 'No data';
 
   const activeDeltaEl = document.getElementById('execActiveDelta');
   if (activeDeltaEl && kpis.installs) {
@@ -1555,7 +1555,7 @@ function renderDashboard(data) {
   }
 
   const cacTopEl = document.getElementById('execTrueCAC');
-  if (cacTopEl) cacTopEl.textContent = (totalNewActives>0&&totalSpend>0) ? '$'+(totalSpend/totalNewActives).toFixed(2) : '—';
+  if (cacTopEl) cacTopEl.textContent = (totalNewActives>0&&totalSpend>0) ? '$'+(totalSpend/totalNewActives).toFixed(2) : 'No data';
 
   const bp = D.budgetPacing || DEFAULTS.budgetPacing;
   const pacePct = bp.pacing_pct || (bp.target>0 ? ((bp.mtd_spend||bp.mtdSpend||0)/bp.target*100) : 0);
@@ -1593,7 +1593,8 @@ function renderDashboard(data) {
   if (kpiUpdated && D.updated) kpiUpdated.textContent = 'Last updated: '+D.updated;
 
   document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
-    const key = card.getAttribute('data-kpi'), k = kpis[key]; if (!k) return;
+    const key = card.getAttribute('data-kpi'), k = kpis[key];
+    if (!k) { const ve = card.querySelector('.kpi-value'); if (ve) ve.textContent = 'No data'; const de = card.querySelector('.kpi-delta'); if (de) { de.textContent = '—'; de.className = 'kpi-delta neutral'; } return; }
     const valueEl = card.querySelector('.kpi-value');
     if (valueEl && k.value !== undefined) valueEl.textContent = fmtNum(k.value);
     const deltaEl = card.querySelector('.kpi-delta');
@@ -1634,6 +1635,7 @@ function renderDashboard(data) {
 
   // --- CHANNEL PERFORMANCE → channelPerformance[] ---
   const chGrid = document.getElementById('channelPerfGrid');
+  if (chGrid && !channels.length) { chGrid.innerHTML = '<div class="no-data-placeholder">No channel data available</div>'; }
   if (chGrid && channels.length) {
     chGrid.innerHTML = channels.map(ch => {
       const wd = (ch.wow_delta||ch.wowDelta||0)>=0?'up':'down';
@@ -1676,23 +1678,24 @@ function renderDashboard(data) {
   // --- TESTS → weeklyTests[] ---
   const tg = document.getElementById('testsGrid');
   if (tg) { const tests=D.weeklyTests||[];
-    tg.innerHTML = tests.length ? tests.map(t=>`<div class="test-card"><div class="test-name">${t.name}</div><div class="test-hypo">${t.hypothesis}</div><div class="test-footer"><span class="test-status ${t.status}">${t.status}</span><span class="test-metric">📊 ${t.metric}</span></div></div>`).join('') : '<div style="color:var(--text-dim);font-size:.85rem;padding:1rem">No tests data.</div>'; }
+    tg.innerHTML = tests.length ? tests.map(t=>`<div class="test-card"><div class="test-name">${t.name||'Unnamed'}</div><div class="test-hypo">${t.hypothesis||'No hypothesis'}</div><div class="test-footer"><span class="test-status ${t.status||'planned'}">${t.status||'planned'}</span><span class="test-metric">📊 ${t.metric||'—'}</span></div></div>`).join('') : '<div class="no-data-placeholder">No tests data available</div>'; }
 
   // --- LEARNINGS → weeklyLearnings[] ---
   const ls = document.getElementById('learningsScroll');
   if (ls) { const lr=D.weeklyLearnings||[];
-    ls.innerHTML = lr.length ? lr.map(l=>`<div class="learning-card"><div class="learning-emoji">${l.emoji}</div><div class="learning-finding">${l.finding}</div><div class="learning-impact">${l.impact}</div></div>`).join('') : '<div style="color:var(--text-dim)">No learnings.</div>'; }
+    ls.innerHTML = lr.length ? lr.map(l=>`<div class="learning-card"><div class="learning-emoji">${l.emoji||'💡'}</div><div class="learning-finding">${l.finding||'No finding'}</div><div class="learning-impact">${l.impact||''}</div></div>`).join('') : '<div class="no-data-placeholder">No learnings data available</div>'; }
 
   // --- AGENDA → weeklyAgenda[] ---
   const al = document.getElementById('agendaList');
   if (al) { const ag=D.weeklyAgenda||[];
     al.innerHTML = ag.length ? ag.map(a=>{ const p=(a.priority||'P2').toLowerCase(), text=a.text||a.task||'', done=a.done||a.status==='done';
-      return `<div class="agenda-item ${done?'done':''}"><div class="agenda-check">${done?'✓':''}</div><span class="agenda-pri ${p}">${a.priority||'P2'}</span><span class="agenda-text">${text}</span></div>`; }).join('') : '<div style="color:var(--text-dim)">No agenda.</div>'; }
+      return `<div class="agenda-item ${done?'done':''}"><div class="agenda-check">${done?'✓':''}</div><span class="agenda-pri ${p}">${a.priority||'P2'}</span><span class="agenda-text">${text}</span></div>`; }).join('') : '<div class="no-data-placeholder">No agenda items available</div>'; }
 
   // --- KYC MINI FUNNELS → kycByCountry[] ---
   const kycGrid = document.getElementById('kycFunnelGrid');
   if (kycGrid) {
     const flagMap={'Turkey':'🇹🇷','Nigeria':'🇳🇬','Egypt':'🇪🇬','Pakistan':'🇵🇰','TR':'🇹🇷','NG':'🇳🇬','EG':'🇪🇬','PK':'🇵🇰'};
+    if (!(D.kycByCountry||[]).length) { kycGrid.innerHTML = '<div class="no-data-placeholder">No KYC funnel data available</div>'; }
     const kd = (D.kycByCountry||[]).map(c=>({
       country:c.country||c.code||'??', flag:c.flag||flagMap[c.country||c.code]||'🏳️',
       kycStarted:c.kyc_started||c.kycStarted||0, bridgeShown:c.kyc_shown||c.bridgeShown||0,
@@ -1713,6 +1716,7 @@ function renderDashboard(data) {
   const cGrid = document.getElementById('countryGrid');
   if (cGrid) {
     const cMap=D.countries||{}, spArr=D.countrySpend||[];
+    if (!spArr.length) { cGrid.innerHTML = '<div class="no-data-placeholder">No country data available</div>'; }
     if (spArr.length) cGrid.innerHTML = spArr.map(sp=>{
       const cd=cMap[sp.code||sp.country]||{};
       const inst=cd.installs?cd.installs.value:'—', sign=cd.signups?cd.signups.value:'—', iDelta=cd.installs?cd.installs.deltaPct:null;
@@ -1823,18 +1827,74 @@ function renderAgents(id,list){document.getElementById(id).innerHTML=list.map((a
 renderAgents('cenoaAgents',agents.cenoa); renderAgents('videoAgents',agents.video);
 
 // Markets (static)
-document.getElementById('marketGrid').innerHTML=markets.map((m,i)=>`<div class="market-card fade-in" style="animation-delay:${i*0.06}s"><span class="market-flag">${m.flag}</span><div class="market-name">${m.name}</div><div class="market-code">${m.code}</div><div class="market-status ${m.cls}">${m.status}</div></div>`).join('');
+const _marketGrid=document.getElementById('marketGrid'); if(_marketGrid) _marketGrid.innerHTML=markets.map((m,i)=>`<div class="market-card fade-in" style="animation-delay:${i*0.06}s"><span class="market-flag">${m.flag}</span><div class="market-name">${m.name}</div><div class="market-code">${m.code}</div><div class="market-status ${m.cls}">${m.status}</div></div>`).join('');
 
-// ========== BOOT: Fetch data.json and render everything ==========
-(async function boot(){
-  let data = {};
+// ========== CACHE & LOADING LAYER ==========
+const CACHE_KEY = 'cortex_data_cache';
+const CACHE_TS_KEY = 'cortex_data_cache_ts';
+const FETCH_TIMEOUT = 10000;
+
+function saveToCache(data) {
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)); localStorage.setItem(CACHE_TS_KEY, new Date().toISOString()); } catch(e) {}
+}
+function loadFromCache() {
+  try { const r = localStorage.getItem(CACHE_KEY), t = localStorage.getItem(CACHE_TS_KEY); if (r) return { data: JSON.parse(r), timestamp: t }; } catch(e) {} return null;
+}
+function showBanner(id, show) { const el = document.getElementById(id); if (el) { if (show) el.classList.add('show'); else el.classList.remove('show'); } }
+function setCachedText(ts) {
+  const el = document.getElementById('cachedDateText');
+  if (!el || !ts) return;
+  const dt = new Date(ts), m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  el.textContent = 'Cached data from ' + m[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear() + ' ' + String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0');
+}
+
+async function bootDashboard() {
+  // Show skeleton, hide banners
+  document.body.classList.add('dashboard-loading');
+  showBanner('dataBannerError', false);
+  showBanner('dataBannerCached', false);
+
+  let data = null;
+  let fromCache = false;
+
   try {
-    const res = await fetch('data.json', { cache: 'no-store' });
-    if (res.ok) data = await res.json();
-    else console.warn('data.json fetch failed:', res.status);
-  } catch(e) { console.warn('data.json fetch error:', e); }
-  renderDashboard(data);
-})();
+    const controller = new AbortController();
+    const tid = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+    const res = await fetch('data.json', { cache: 'no-store', signal: controller.signal });
+    clearTimeout(tid);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+    saveToCache(data);
+  } catch(e) {
+    console.warn('data.json fetch failed:', e);
+    const cached = loadFromCache();
+    if (cached) {
+      data = cached.data;
+      fromCache = true;
+      showBanner('dataBannerError', true);
+      setCachedText(cached.timestamp);
+      showBanner('dataBannerCached', true);
+    } else {
+      showBanner('dataBannerError', true);
+    }
+  }
+
+  renderDashboard(data || {});
+
+  // Hide skeleton, show dashboard
+  document.body.classList.remove('dashboard-loading');
+  const sk = document.getElementById('skeletonLoader');
+  if (sk) sk.style.display = 'none';
+}
+
+// Retry button handler
+window.__fetchDashboardData = function() {
+  // Re-run boot to re-fetch and re-render
+  bootDashboard();
+};
+
+// ========== BOOT ==========
+bootDashboard();
 </script>
 </body>
 </html>
