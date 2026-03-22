@@ -234,6 +234,18 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .status-fraud{background:rgba(244,63,94,.15);color:#fb7185}
 .status-paused{background:rgba(148,163,184,.12);color:#94a3b8}
 
+/* Trend History Charts */
+.trend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+.trend-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
+.trend-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.trend-card-title{font-size:.82rem;font-weight:700;color:var(--text-bright);letter-spacing:.04em}
+.trend-card-delta{font-size:.72rem;font-weight:700;padding:.15rem .45rem;border-radius:6px}
+.trend-card-delta.improving{color:#22c55e;background:rgba(34,197,94,.12)}
+.trend-card-delta.declining{color:#ef4444;background:rgba(239,68,68,.12)}
+.trend-card-delta.flat{color:#777;background:rgba(255,255,255,.06)}
+.trend-card canvas{max-height:120px}
+@media(max-width:600px){.trend-grid{grid-template-columns:1fr}}
+
 /* Footer */
 footer{text-align:center;padding:3rem 2rem;margin-top:4rem;border-top:1px solid var(--border);color:#444;font-size:.78rem;letter-spacing:.04em}
 footer span{color:var(--accent)}
@@ -447,6 +459,7 @@ footer span{color:var(--accent)}
   </div>
   <nav class="header-nav">
     <a href="#kpiBanner">KPIs</a>
+    <a href="#trendHistory">Trends</a>
     <a href="#budgetPacing">Budget</a>
     <a href="#channelPerf">Channels</a>
     <a href="#campaignTable">Campaigns</a>
@@ -558,6 +571,45 @@ footer span{color:var(--accent)}
   <div class="kpi-footer">
     <span>Source: Amplitude + GA4 + AppsFlyer · Updated manually until API pipeline is live</span>
     <span class="kpi-last-updated" id="kpiLastUpdated">Last updated: Mar 20, 2026 23:35 TRT</span>
+  </div>
+</section>
+
+<!-- TREND HISTORY -->
+<section class="section" id="trendHistory" style="margin-top:1.5rem">
+  <div class="section-header">
+    <h2>📈 Trend History</h2>
+    <div class="line"></div>
+    <div class="badge">LAST 4 WEEKS</div>
+  </div>
+  <div class="trend-grid">
+    <div class="trend-card">
+      <div class="trend-card-head">
+        <span class="trend-card-title">📲 Installs</span>
+        <span class="trend-card-delta" id="trendDeltaInstalls"></span>
+      </div>
+      <canvas id="trendInstalls" height="120"></canvas>
+    </div>
+    <div class="trend-card">
+      <div class="trend-card-head">
+        <span class="trend-card-title">📝 Signups</span>
+        <span class="trend-card-delta" id="trendDeltaSignups"></span>
+      </div>
+      <canvas id="trendSignups" height="120"></canvas>
+    </div>
+    <div class="trend-card">
+      <div class="trend-card-head">
+        <span class="trend-card-title">👤 New Actives</span>
+        <span class="trend-card-delta" id="trendDeltaActives"></span>
+      </div>
+      <canvas id="trendActives" height="120"></canvas>
+    </div>
+    <div class="trend-card">
+      <div class="trend-card-head">
+        <span class="trend-card-title">💰 TRUE CAC</span>
+        <span class="trend-card-delta" id="trendDeltaCAC"></span>
+      </div>
+      <canvas id="trendCAC" height="120"></canvas>
+    </div>
   </div>
 </section>
 
@@ -2749,6 +2801,147 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       }
     }
   });
+})();
+
+// ========== TREND HISTORY CHARTS ==========
+(function(){
+  if (typeof Chart === 'undefined') return;
+
+  // Fallback data from Sprint 1 findings
+  const defaultTrend = [
+    { week: 'W9', installs: 2234, signups: 1609, new_actives: 1084, true_cac: 32.5 },
+    { week: 'W10', installs: 1445, signups: 1207, new_actives: 1028, true_cac: 38.2 },
+    { week: 'W11', installs: 1366, signups: 1223, new_actives: 1028, true_cac: 36.8 },
+    { week: 'W12', installs: 1366, signups: 1223, new_actives: 1028, true_cac: 36.8 }
+  ];
+
+  // Try to load from data.json trendHistory if available
+  let trendData = defaultTrend;
+  try {
+    // data already fetched earlier; check global or re-parse
+    fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
+      if (d && d.trendHistory && d.trendHistory.length >= 2) {
+        trendData = d.trendHistory;
+        renderTrendCharts(trendData);
+      }
+    }).catch(() => {});
+  } catch(e) {}
+
+  renderTrendCharts(trendData);
+
+  function renderTrendCharts(data) {
+    const labels = data.map(d => d.week);
+
+    function getDelta(values) {
+      if (values.length < 2) return { pct: 0, dir: 'flat' };
+      const last = values[values.length - 1];
+      const prev = values[values.length - 2];
+      if (prev === 0) return { pct: 0, dir: 'flat' };
+      const pct = ((last - prev) / prev * 100);
+      return { pct, dir: pct > 1 ? 'improving' : pct < -1 ? 'declining' : 'flat' };
+    }
+
+    function setDelta(elId, delta, invertColor) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      const arrow = delta.dir === 'improving' ? '▲' : delta.dir === 'declining' ? '▼' : '→';
+      const cls = invertColor
+        ? (delta.dir === 'improving' ? 'declining' : delta.dir === 'declining' ? 'improving' : 'flat')
+        : delta.dir;
+      el.className = 'trend-card-delta ' + cls;
+      el.textContent = `${arrow} ${Math.abs(delta.pct).toFixed(1)}%`;
+    }
+
+    function trendColor(delta, invert) {
+      const dir = invert
+        ? (delta.dir === 'improving' ? 'declining' : delta.dir === 'declining' ? 'improving' : 'flat')
+        : delta.dir;
+      if (dir === 'improving') return { line: 'rgba(34,197,94,0.9)', fill: 'rgba(34,197,94,0.08)', point: '#22c55e' };
+      if (dir === 'declining') return { line: 'rgba(239,68,68,0.9)', fill: 'rgba(239,68,68,0.08)', point: '#ef4444' };
+      return { line: 'rgba(148,163,184,0.7)', fill: 'rgba(148,163,184,0.05)', point: '#94a3b8' };
+    }
+
+    function makeTrendChart(canvasId, values, colors) {
+      const ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+      // Destroy existing chart if re-rendering
+      if (ctx._trendChart) ctx._trendChart.destroy();
+      ctx._trendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: values,
+            borderColor: colors.line,
+            backgroundColor: colors.fill,
+            borderWidth: 2.5,
+            pointRadius: 4,
+            pointBackgroundColor: colors.point,
+            pointBorderColor: 'rgba(0,0,0,0.3)',
+            pointBorderWidth: 1,
+            pointHoverRadius: 6,
+            tension: 0.35,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1a1a1a',
+              titleColor: '#fff',
+              bodyColor: '#00ff88',
+              borderColor: '#333',
+              borderWidth: 1,
+              callbacks: {
+                label: function(c) {
+                  const v = c.raw;
+                  return typeof v === 'number' && v % 1 !== 0 ? '$' + v.toFixed(1) : v.toLocaleString('en-US');
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#555', font: { size: 11, weight: 600 } }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: { color: '#555', font: { size: 10 }, maxTicksLimit: 4 },
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    }
+
+    // Installs
+    const installs = data.map(d => d.installs);
+    const dInstalls = getDelta(installs);
+    setDelta('trendDeltaInstalls', dInstalls);
+    makeTrendChart('trendInstalls', installs, trendColor(dInstalls));
+
+    // Signups
+    const signups = data.map(d => d.signups);
+    const dSignups = getDelta(signups);
+    setDelta('trendDeltaSignups', dSignups);
+    makeTrendChart('trendSignups', signups, trendColor(dSignups));
+
+    // New Actives
+    const actives = data.map(d => d.new_actives);
+    const dActives = getDelta(actives);
+    setDelta('trendDeltaActives', dActives);
+    makeTrendChart('trendActives', actives, trendColor(dActives));
+
+    // TRUE CAC (inverted: lower is better)
+    const cac = data.map(d => d.true_cac);
+    const dCAC = getDelta(cac);
+    setDelta('trendDeltaCAC', dCAC, true); // invert color
+    makeTrendChart('trendCAC', cac, trendColor(dCAC, true));
+  }
 })();
 </script>
 </body>
