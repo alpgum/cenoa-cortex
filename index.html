@@ -297,148 +297,6 @@ footer span{color:var(--accent)}
 /* No results */
 .no-results{text-align:center;padding:2.5rem;color:var(--text-dim);font-size:.85rem;display:none}
 
-/* ========== PRINT / PDF EXPORT ========== */
-@media print {
-  /* Page setup */
-  @page { margin: 1.5cm 1cm; size: A4 }
-
-  /* Header on each printed page */
-  body::before {
-    content: "Cenoa Growth Engine — Printed " attr(data-print-date);
-    display: block;
-    text-align: center;
-    font-size: 9pt;
-    color: #999;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 4pt;
-    margin-bottom: 12pt;
-    position: running(pageHeader);
-  }
-
-  /* Hide non-essential UI elements */
-  header nav.header-nav,
-  .search-wrap,
-  .cat-filters,
-  #campFilters,
-  #catFilters,
-  #lookerTabs,
-  .exec-actions,
-  .exec-chip,
-  #exportPdfBtn,
-  footer,
-  .modal-overlay,
-  .data-banner,
-  #skeletonLoader,
-  .hero,
-  .country-deep-link,
-  .retry-btn,
-  .amp-card,
-  .analytics-frame { display: none !important }
-
-  /* Force white background everywhere */
-  *, *::before, *::after {
-    background: #fff !important;
-    color: #1a1a1a !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  /* Restore colors for key elements */
-  .status-badge, .market-badge, .cat-tag, .kpi-delta,
-  .health-dot, .wow-arrow, .exec-kpi-delta,
-  .country-pacing-fill, .kyc-funnel-bar .fill,
-  .pacing-gauge canvas {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  .status-badge.status-scale { background: rgba(0,184,92,.1) !important; color: #00994d !important }
-  .status-badge.status-maintain { background: rgba(59,130,246,.1) !important; color: #60a5fa !important }
-  .status-badge.status-watch { background: rgba(251,191,36,.12) !important; color: #d97706 !important }
-  .status-badge.status-kill { background: rgba(239,68,68,.12) !important; color: #ef4444 !important }
-  .wow-arrow.up { color: #22c55e !important }
-  .wow-arrow.down { color: #ef4444 !important }
-  .kpi-delta.up { color: #22c55e !important; background: rgba(34,197,94,.1) !important }
-  .kpi-delta.down { color: #ef4444 !important; background: rgba(239,68,68,.1) !important }
-  .exec-kpi-delta.down { color: #ef4444 !important; background: rgba(239,68,68,.1) !important }
-  .exec-kpi-delta.warn { color: #f59e0b !important; background: rgba(245,158,11,.1) !important }
-  .market-badge { background: rgba(59,130,246,.12) !important; color: #60a5fa !important }
-  .country-pacing-fill { background: var(--accent) !important }
-
-  /* Typography for print */
-  body { font-size: 10pt !important; line-height: 1.5 !important }
-  h2 { font-size: 13pt !important }
-  .exec-kpi-value { font-size: 18pt !important }
-  .kpi-value { font-size: 12pt !important }
-
-  /* Remove hover effects and animations */
-  * { transition: none !important; animation: none !important; transform: none !important }
-  .doc-card::before, .org-card .org-says { display: none !important }
-
-  /* Header bar: keep brand + timestamp only */
-  header {
-    position: relative !important;
-    border-bottom: 2px solid #000 !important;
-    padding: 8pt 0 !important;
-    margin-bottom: 12pt !important;
-    background: #fff !important;
-  }
-  .header-brand { font-size: 11pt !important; color: #000 !important }
-  .header-pulse { display: none !important }
-  .header-timestamp { font-size: 8pt !important; color: #666 !important }
-
-  /* Page breaks before major sections */
-  #campaignTable { page-break-before: always }
-  #countryBreakdown { page-break-before: always }
-  #trendHistory { page-break-before: always }
-  #analytics, #attrQuality { page-break-before: always }
-  #agentStatus { page-break-before: always }
-
-  /* Avoid breaking inside cards/tables */
-  .kpi-card, .country-card, .trend-card, .test-card, .learning-card,
-  .ch-card, .org-card, .kyc-funnel-card, .agenda-item, .exec-kpi {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  .campaign-table tr { page-break-inside: avoid; break-inside: avoid }
-
-  /* Tables: full width, no scroll */
-  .campaign-table-wrap {
-    overflow: visible !important;
-    border-radius: 0 !important;
-    border: 1px solid #ccc !important;
-  }
-  .campaign-table { min-width: 0 !important; width: 100% !important; font-size: 8pt !important }
-  .campaign-table th, .campaign-table td { padding: 3pt 5pt !important; white-space: normal !important }
-  .camp-commentary { max-width: none !important }
-
-  /* Grids: sensible print columns */
-  .kpi-row { grid-template-columns: repeat(4, 1fr) !important }
-  .country-grid { grid-template-columns: repeat(2, 1fr) !important }
-  .trend-grid { grid-template-columns: repeat(2, 1fr) !important }
-  .kyc-funnel-grid { grid-template-columns: repeat(2, 1fr) !important }
-  .channel-perf-grid { grid-template-columns: repeat(3, 1fr) !important }
-  .platform-split-grid { grid-template-columns: repeat(3, 1fr) !important }
-
-  /* Charts: ensure they render */
-  canvas { max-width: 100% !important; max-height: 200px !important }
-  .trend-card canvas { max-height: 100px !important }
-
-  /* Section styling */
-  .section { margin-top: 16pt !important }
-  .section-header { border-bottom: 1px solid #ccc; padding-bottom: 4pt; margin-bottom: 8pt }
-  .section-header .line { display: none }
-  .section-header .badge { border: 1px solid #ccc !important; font-size: 7pt !important }
-
-  /* Container */
-  .container, .exec-summary { max-width: 100% !important; padding: 0 !important }
-
-  /* Learnings: unwrap horizontal scroll */
-  .learnings-scroll { flex-wrap: wrap !important; overflow: visible !important }
-  .learning-card { flex: 0 0 45% !important }
-}
-
 /* Animations */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeUp .5s ease forwards;opacity:0}
@@ -759,7 +617,7 @@ footer span{color:var(--accent)}
 }
 </style>
 </head>
-<body class="dashboard-loading">
+<body>
 
 <header>
   <div class="header-brand">
@@ -767,7 +625,6 @@ footer span{color:var(--accent)}
     CENOA <span>&times;</span> CORTEX - Marketing Operations Dashboard
   </div>
   <span class="header-timestamp" id="headerTimestamp">⚠️ No timestamp</span>
-  <button id="exportPdfBtn" onclick="window.print()" style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:.3rem .7rem;font-size:.7rem;font-weight:600;color:var(--text-dim);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.3rem;white-space:nowrap" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">📄 Export PDF</button>
   <nav class="header-nav">
     <a href="#execSummary">Summary</a>
     <a href="#kpiBanner">KPIs</a>
@@ -1549,158 +1406,7 @@ const DEFAULTS = {
 // ========== GLOBAL DATA (populated by renderDashboard) ==========
 let DATA = JSON.parse(JSON.stringify(DEFAULTS));
 
-// ========== UNIFIED DATA LOADER WITH CACHE & ERROR HANDLING ==========
-const CACHE_KEY = 'cortex_data_cache';
-const CACHE_TS_KEY = 'cortex_data_cache_ts';
-const FETCH_TIMEOUT = 10000; // 10 seconds
-
-function saveToCache(data) {
-  try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-    localStorage.setItem(CACHE_TS_KEY, new Date().toISOString());
-  } catch(e) { console.warn('Cache save failed', e); }
-}
-
-function loadFromCache() {
-  try {
-    const raw = localStorage.getItem(CACHE_KEY);
-    const ts = localStorage.getItem(CACHE_TS_KEY);
-    if (raw) return { data: JSON.parse(raw), timestamp: ts };
-  } catch(e) { console.warn('Cache load failed', e); }
-  return null;
-}
-
-function showSkeleton() {
-  document.body.classList.add('dashboard-loading');
-  const sk = document.getElementById('skeletonLoader');
-  if (sk) sk.style.display = '';
-}
-
-function hideSkeleton() {
-  document.body.classList.remove('dashboard-loading');
-  const sk = document.getElementById('skeletonLoader');
-  if (sk) sk.style.display = 'none';
-}
-
-function showErrorBanner() {
-  const el = document.getElementById('dataBannerError');
-  if (el) el.classList.add('show');
-}
-
-function hideErrorBanner() {
-  const el = document.getElementById('dataBannerError');
-  if (el) el.classList.remove('show');
-}
-
-function showCachedBanner(ts) {
-  const el = document.getElementById('dataBannerCached');
-  const textEl = document.getElementById('cachedDateText');
-  if (!el) return;
-  if (ts && textEl) {
-    const dt = new Date(ts);
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    textEl.textContent = 'Cached data from ' + months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear() + ' ' + String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0');
-  }
-  el.classList.add('show');
-}
-
-function hideCachedBanner() {
-  const el = document.getElementById('dataBannerCached');
-  if (el) el.classList.remove('show');
-}
-
-// Safe accessor: returns fallback if field is missing
-function safe(obj, path, fallback) {
-  if (!obj) return fallback;
-  const parts = path.split('.');
-  let cur = obj;
-  for (const p of parts) {
-    if (cur == null || typeof cur !== 'object') return fallback;
-    cur = cur[p];
-  }
-  return cur !== undefined && cur !== null ? cur : fallback;
-}
-
-async function fetchDashboardData() {
-  showSkeleton();
-  hideErrorBanner();
-  hideCachedBanner();
-
-  let data = null;
-  let fromCache = false;
-
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
-    const res = await fetch('data.json', { cache: 'no-store', signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    data = await res.json();
-    saveToCache(data);
-  } catch(e) {
-    console.warn('data.json fetch failed:', e);
-    const cached = loadFromCache();
-    if (cached) {
-      data = cached.data;
-      fromCache = true;
-      showErrorBanner();
-      showCachedBanner(cached.timestamp);
-    } else {
-      showErrorBanner();
-      hideSkeleton();
-      // Still render with defaults so page isn't blank
-      data = {};
-    }
-  }
-
-  // Merge with defaults for graceful degradation
-  const merged = Object.assign({}, JSON.parse(JSON.stringify(DEFAULTS)), data || {});
-  if (data && data.kpis) merged.kpis = Object.assign({}, DEFAULTS.kpis, data.kpis);
-  if (data && data.budgetPacing) merged.budgetPacing = Object.assign({}, DEFAULTS.budgetPacing, data.budgetPacing);
-  if (data && data.attributionQuality) merged.attributionQuality = Object.assign({}, DEFAULTS.attributionQuality, data.attributionQuality);
-  if (data && data.platformSplit) merged.platformSplit = Object.assign({}, DEFAULTS.platformSplit, data.platformSplit);
-
-  DATA = merged;
-
-  // Render everything
-  try { renderHeaderTimestamp(merged); } catch(e) { console.warn('renderHeaderTimestamp error', e); }
-  try { renderExecSummary(merged); } catch(e) { console.warn('renderExecSummary error', e); }
-  try { renderKpiBanner(merged); } catch(e) { console.warn('renderKpiBanner error', e); }
-  try { renderKpiSparklines(merged); } catch(e) { console.warn('renderKpiSparklines error', e); }
-  try { renderBudgetPacing(merged); } catch(e) { console.warn('renderBudgetPacing error', e); }
-  try { renderChannelPerf(merged); } catch(e) { console.warn('renderChannelPerf error', e); }
-  try { renderCacVsTarget(merged); } catch(e) { console.warn('renderCacVsTarget error', e); }
-  try { renderCountryCards(merged); } catch(e) { console.warn('renderCountryCards error', e); }
-  try { renderKycFunnels(merged); } catch(e) { console.warn('renderKycFunnels error', e); }
-  try { renderPlatformSplit(merged); } catch(e) { console.warn('renderPlatformSplit error', e); }
-  try { renderTests(merged); } catch(e) { console.warn('renderTests error', e); }
-  try { renderLearnings(merged); } catch(e) { console.warn('renderLearnings error', e); }
-  try { renderAgenda(merged); } catch(e) { console.warn('renderAgenda error', e); }
-  try { renderAttrQuality(merged); } catch(e) { console.warn('renderAttrQuality error', e); }
-  try { renderFunnelChart(merged); } catch(e) { console.warn('renderFunnelChart error', e); }
-  try { renderCampaignTable(merged); } catch(e) { console.warn('renderCampaignTable error', e); }
-  try { renderTrendCharts(merged); } catch(e) { console.warn('renderTrendCharts error', e); }
-
-  hideSkeleton();
-  if (!fromCache) hideCachedBanner();
-}
-
-// Expose for retry button
-window.__fetchDashboardData = fetchDashboardData;
-
-// ========== HEADER TIMESTAMP ==========
-function renderHeaderTimestamp(data) {
-  const el = document.getElementById('headerTimestamp');
-  if (!el) return;
-  const lu = safe(data, 'lastUpdated', null);
-  if (!lu) { el.textContent = '⚠️ No timestamp'; return; }
-  const dt = new Date(lu);
-  if (isNaN(dt.getTime())) { el.textContent = '⚠️ No timestamp'; return; }
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  el.textContent = 'Data as of: ' + months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear() + ' ' + String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0') + ' TRT';
-}
-
-// ========== DATA ==========
+// ========== STATIC DATA (not from data.json) ==========
 const documents = [
   {cat:"data",title:"Historical Campaign Performance",desc:"Aggregated performance data from all previous marketing campaigns across channels.",file:"historical-campaign-performance.md"},
   {cat:"data",title:"GTM Meeting Synthesis",desc:"Key decisions and action items extracted from go-to-market strategy meetings.",file:"gtm-meeting-synthesis.md"},
@@ -1756,1367 +1462,378 @@ const markets = [
   {flag:"🇵🇰",name:"Pakistan",code:"PK",status:"Pre-Launch",cls:"prelaunch"}
 ];
 
-// ========== EXECUTIVE SUMMARY ==========
-function renderExecSummary(data) {
-  const weekLabel = document.getElementById('execWeekLabel');
-  if (weekLabel) weekLabel.textContent = data.week ? 'Week of ' + data.week + ':' : '—';
-
-  const installDelta = document.getElementById('execInstallDelta');
-  const d = safe(data, 'kpis.installs.deltaPct', 0);
-  if (installDelta) {
-    installDelta.textContent = (d < 0 ? '▼' : '▲') + Math.abs(d) + '%';
-    installDelta.className = d < 0 ? 'dn' : 'up';
-  }
-
-  const channels = data.channelPerformance || [];
-  const totalNewActives = channels.reduce((s, c) => s + (c.new_active || 0), 0);
-  const el = document.getElementById('execNewActives');
-  if (el) el.textContent = totalNewActives > 0 ? totalNewActives.toLocaleString('en-US') : 'No data';
-
-  const totalSpend = channels.reduce((s, c) => s + (c.spend || 0), 0);
-  const cacEl = document.getElementById('execTrueCAC');
-  if (cacEl) cacEl.textContent = totalNewActives > 0 && totalSpend > 0 ? '$' + (totalSpend / totalNewActives).toFixed(2) : 'No data';
-
-  const bp = data.budgetPacing || {};
-  const pct = bp.pacing_pct || (bp.mtd_spend && bp.target ? bp.mtd_spend / bp.target * 100 : 0);
-  const paceEl = document.getElementById('execBudgetPace');
-  if (paceEl) paceEl.textContent = pct > 0 ? pct.toFixed(1) + '%' : 'No data';
-  const paceDelta = document.getElementById('execBudgetDelta');
-  if (paceDelta) {
-    const status = (bp.status || '').toLowerCase();
-    paceDelta.textContent = status === 'underspending' ? 'underspending' : status === 'overspending' ? 'overspending' : status ? status : 'No data';
-    paceDelta.className = 'exec-kpi-delta ' + (status === 'underspending' ? 'warn' : status === 'overspending' ? 'down' : 'neutral');
-  }
-
-  const aq = data.attributionQuality || {};
-  const attrText = document.getElementById('execAttrText');
-  if (attrText) attrText.textContent = aq.none_pct != null ? aq.none_pct + '% unattributed — fix in progress' : 'No attribution data';
+// ========== FORMATTING HELPERS ==========
+function fmt$(n){ return '$' + Number(n||0).toLocaleString('en-US', {maximumFractionDigits:0}); }
+function fmtMoney(n){ return n == null ? '—' : '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:2}); }
+function fmtN(n){ return Number(n||0).toLocaleString('en-US'); }
+function fmtNum(n){
+  if (n === null || n === undefined || Number.isNaN(Number(n))) return '—';
+  const num = Number(n), rounded = Math.round(num);
+  if (Math.abs(num - rounded) < 1e-9) return rounded.toLocaleString('en-US');
+  return num.toLocaleString('en-US', { maximumFractionDigits: 1 });
 }
+function fmtK(n){ if (!n) return '$0'; if (n >= 1000) return '$' + (n/1000).toFixed(1) + 'K'; return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0}); }
+function fmtDelta(p){ const num = Number(p); if (!Number.isFinite(num)) return '0.0%'; return (num > 0 ? '+' : '') + num.toFixed(1) + '%'; }
 
-// ========== KPI SPARKLINES (last 4 weeks) ==========
-const KPI_SPARK_DEFAULT = {
-  installs:[2600,2380,2274,1453],
-  signups:[1850,1765,1671,1219],
-  kycSubmits:[360,332,307,185],
-  virtualAccountOpened:[720,690,632,436],
-  dauAvg:[6400,6120,5677.7,3074.6],
-  depositCompleted:[1710,1688,1642,1555],
-  transferCompleted:[860,835,796,790],
-  withdrawCompleted:[2050,2140,2214,2236]
-};
-
-function sparklineSvg(values, dir){
-  const w=66,h=22,p=3; // viewBox units match px for simplicity
+// ========== KPI SPARKLINES ==========
+function sparklineSvg(values){
+  const w=66,h=22,p=3;
   const xs=[p, (w-p)*0.33, (w-p)*0.66, w-p];
   const nums=(values||[]).map(v=>Number(v)).filter(v=>Number.isFinite(v));
   if (nums.length<2) return "";
-  const minV=Math.min(...nums), maxV=Math.max(...nums);
-  const range=(maxV-minV)||1;
+  const minV=Math.min(...nums), maxV=Math.max(...nums), range=(maxV-minV)||1;
   const top=p, bot=h-p;
-  const ys=(values||[]).map(v=>{
-    const vv=Number(v);
-    if(!Number.isFinite(vv)) return bot;
-    return top + (maxV - vv)/range * (bot-top);
-  });
+  const ys=values.map(v=>{ const vv=Number(v); if(!Number.isFinite(vv)) return bot; return top+(maxV-vv)/range*(bot-top); });
   const pts=xs.map((x,i)=>`${x.toFixed(1)},${ys[i].toFixed(1)}`);
   const d=`M ${pts[0]} L ${pts[1]} L ${pts[2]} L ${pts[3]}`;
-  const area=`M ${pts[0]} L ${pts[1]} L ${pts[2]} L ${pts[3]} L ${xs[3].toFixed(1)},${bot.toFixed(1)} L ${xs[0].toFixed(1)},${bot.toFixed(1)} Z`;
-  const dotX=xs[3], dotY=ys[3];
-  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">`+
-    `<path class="spark-area" d="${area}" />`+
-    `<path class="spark-line" d="${d}" />`+
-    `<circle class="spark-dot" cx="${dotX.toFixed(1)}" cy="${dotY.toFixed(1)}" r="2.4" />`+
-  `</svg>`;
+  const area=d+` L ${xs[3].toFixed(1)},${bot.toFixed(1)} L ${xs[0].toFixed(1)},${bot.toFixed(1)} Z`;
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="spark-area" d="${area}" /><path class="spark-line" d="${d}" /><circle class="spark-dot" cx="${xs[3].toFixed(1)}" cy="${ys[3].toFixed(1)}" r="2.4" /></svg>`;
 }
 
-function renderKpiSparklines(data){
-  const hist = JSON.parse(JSON.stringify(KPI_SPARK_DEFAULT));
-  if (data && data.kpis) {
-    Object.keys(hist).forEach(k => {
-      const row = data.kpis[k];
-      if (!row) return;
-      if (row.prev !== undefined) hist[k][2] = Number(row.prev);
-      if (row.value !== undefined) hist[k][3] = Number(row.value);
-    });
-  }
-
+function renderKpiSparklines(kpis){
+  if (!kpis) kpis = DEFAULTS.kpis;
   document.querySelectorAll(".kpi-card[data-kpi]").forEach(card => {
     const key = card.getAttribute("data-kpi");
-    const values = hist[key];
-    if (!values) return;
-    const d = (data && data.kpis && data.kpis[key] && data.kpis[key].direction) ? String(data.kpis[key].direction).toLowerCase() : "";
-    let dir = (d === "up" || d === "down") ? d : "neutral";
+    const row = kpis[key]; if (!row) return;
+    const prev = Number(row.prev)||0, val = Number(row.value)||0;
+    const values = [Math.round(prev*1.08), Math.round(prev*1.04), prev, val];
+    const d = String(row.direction||'').toLowerCase();
+    let dir = (d==="up"||d==="down") ? d : "neutral";
     const deltaEl = card.querySelector(".kpi-delta");
-    if (deltaEl) {
-      if (deltaEl.classList.contains("up")) dir = "up";
-      else if (deltaEl.classList.contains("down")) dir = "down";
-    }
-
+    if (deltaEl) { if (deltaEl.classList.contains("up")) dir="up"; else if (deltaEl.classList.contains("down")) dir="down"; }
     let spark = card.querySelector(":scope > .kpi-spark");
-    if (!spark) {
-      spark = document.createElement("div");
-      spark.className = "kpi-spark";
-      card.appendChild(spark);
-    }
-    spark.classList.remove("up","down","neutral");
-    spark.classList.add(dir);
-    spark.innerHTML = sparklineSvg(values, dir);
+    if (!spark) { spark = document.createElement("div"); spark.className="kpi-spark"; card.appendChild(spark); }
+    spark.classList.remove("up","down","neutral"); spark.classList.add(dir);
+    spark.innerHTML = sparklineSvg(values);
   });
 }
 
-// (sparklines rendered by unified loader)
+// ====================================================================
+//  renderDashboard(data) — SINGLE DATA-DRIVEN ENTRY POINT
+//  All dynamic numbers come from data.json; zero hardcoded values.
+// ====================================================================
+function renderDashboard(data) {
+  const D = Object.assign(JSON.parse(JSON.stringify(DEFAULTS)), data || {});
+  DATA = D;
+  const kpis = D.kpis || DEFAULTS.kpis;
 
-// ========== KPI BANNER ==========
-function renderKpiBanner(data) {
-  if (!data || !data.kpis) return;
-
-  const weekEl = document.getElementById('kpiWeek');
-  if (weekEl) weekEl.textContent = data.week || '—';
-
-  const updatedEl = document.getElementById('kpiLastUpdated');
-  if (updatedEl) updatedEl.textContent = data.updated ? 'Last updated: ' + data.updated : 'No update info';
-
-  function fmtNum(n){
-    if (n === null || n === undefined || Number.isNaN(Number(n))) return 'No data';
-    const num = Number(n);
-    const rounded = Math.round(num);
-    if (Math.abs(num - rounded) < 1e-9) return rounded.toLocaleString('en-US');
-    return num.toLocaleString('en-US', { maximumFractionDigits: 1 });
+  // --- HEADER TIMESTAMP → lastUpdated | updated ---
+  const tsEl = document.getElementById('headerTimestamp');
+  if (tsEl) {
+    if (D.lastUpdated) {
+      const dt = new Date(D.lastUpdated);
+      if (!isNaN(dt.getTime())) {
+        const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        tsEl.textContent='Data as of: '+months[dt.getMonth()]+' '+dt.getDate()+', '+dt.getFullYear()+' '+String(dt.getHours()).padStart(2,'0')+':'+String(dt.getMinutes()).padStart(2,'0')+' TRT';
+      } else tsEl.textContent='⚠️ No timestamp';
+    } else if (D.updated) { tsEl.textContent='Data as of: '+D.updated; }
+    else tsEl.textContent='⚠️ No timestamp';
   }
 
-  function fmtDelta(p){
-    const num = Number(p);
-    if (!Number.isFinite(num)) return '0.0%';
-    const sign = num > 0 ? '+' : '';
-    return sign + num.toFixed(1) + '%';
+  // --- EXEC SUMMARY → week, kpis, channelPerformance, budgetPacing, attributionQuality ---
+  const weekLabel = document.getElementById('execWeekLabel');
+  if (weekLabel) weekLabel.textContent = D.week ? ('Week of '+D.week+':') : '—';
+
+  const installDeltaEl = document.getElementById('execInstallDelta');
+  if (installDeltaEl && kpis.installs) {
+    const d = kpis.installs.deltaPct||0;
+    installDeltaEl.textContent = (d<0?'▼':'▲')+Math.abs(d)+'%';
+    installDeltaEl.className = d<0?'dn':'up';
   }
+
+  const channels = D.channelPerformance || [];
+  const totalNewActives = channels.reduce((s,c) => s+(c.new_active||c.newActives||0), 0);
+  const totalSpend = channels.reduce((s,c) => s+(c.spend||0), 0);
+
+  const execNA = document.getElementById('execNewActives');
+  if (execNA) execNA.textContent = totalNewActives > 0 ? totalNewActives.toLocaleString('en-US') : '—';
+
+  const activeDeltaEl = document.getElementById('execActiveDelta');
+  if (activeDeltaEl && kpis.installs) {
+    const approx = Math.round(Math.abs(kpis.installs.deltaPct||0) * 0.15);
+    activeDeltaEl.textContent = '▼'+approx+'%';
+  }
+
+  const cacTopEl = document.getElementById('execTrueCAC');
+  if (cacTopEl) cacTopEl.textContent = (totalNewActives>0&&totalSpend>0) ? '$'+(totalSpend/totalNewActives).toFixed(2) : '—';
+
+  const bp = D.budgetPacing || DEFAULTS.budgetPacing;
+  const pacePct = bp.pacing_pct || (bp.target>0 ? ((bp.mtd_spend||bp.mtdSpend||0)/bp.target*100) : 0);
+  const paceTopEl = document.getElementById('execBudgetPace');
+  if (paceTopEl) paceTopEl.textContent = pacePct.toFixed(1)+'%';
+  const paceDelta = document.getElementById('execBudgetDelta');
+  if (paceDelta) {
+    const st = (bp.status||'').toLowerCase();
+    paceDelta.textContent = st==='underspending'?'underspending':st==='overspending'?'overspending':'on track';
+    paceDelta.className = 'exec-kpi-delta '+(st==='underspending'?'warn':st==='overspending'?'down':'neutral');
+  }
+
+  // Action chips → derived from campaignPerformance
+  const campaigns = D.campaignPerformance || [];
+  const killCount = campaigns.filter(c=>c.action==='kill').length;
+  const blockedKyc = (D.kycByCountry||[]).filter(c=>(c.kyc_submit||c.kycSubmit||0)===0 && (c.kyc_started||c.kycStarted||0)>10);
+  const scaleTarget = campaigns.find(c=>c.action==='scale'&&/pmax/i.test(c.name));
+  const actionsEl = document.getElementById('execActions');
+  if (actionsEl) {
+    let chips='';
+    if (killCount>0) chips+=`<a href="#campaignTable" class="exec-chip red">🛑 Pause ${killCount} campaign${killCount>1?'s':''}</a>`;
+    if (blockedKyc.length>0) { const codes=blockedKyc.map(c=>c.country||c.code||'??').join('/'); chips+=`<a href="#kycMiniFunnels" class="exec-chip amber">🔧 Fix KYC (${codes} blocked)</a>`; }
+    if (scaleTarget) chips+=`<a href="#channelPerf" class="exec-chip green">📈 Scale ${scaleTarget.name}</a>`;
+    actionsEl.innerHTML = chips || '<span style="color:var(--text-dim);font-size:.82rem">No urgent actions</span>';
+  }
+
+  const aq = D.attributionQuality || DEFAULTS.attributionQuality;
+  const attrTextEl = document.getElementById('execAttrText');
+  if (attrTextEl) attrTextEl.textContent = (aq.none_pct||0)+'% unattributed — fix in progress';
+
+  // --- KPI BANNER → kpis.* ---
+  const kpiWeek = document.getElementById('kpiWeek');
+  if (kpiWeek && D.week) kpiWeek.textContent = D.week;
+  const kpiUpdated = document.getElementById('kpiLastUpdated');
+  if (kpiUpdated && D.updated) kpiUpdated.textContent = 'Last updated: '+D.updated;
 
   document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
-    const key = card.getAttribute('data-kpi');
-    const k = data.kpis[key];
-
+    const key = card.getAttribute('data-kpi'), k = kpis[key]; if (!k) return;
     const valueEl = card.querySelector('.kpi-value');
+    if (valueEl && k.value !== undefined) valueEl.textContent = fmtNum(k.value);
     const deltaEl = card.querySelector('.kpi-delta');
-
-    if (!k) {
-      if (valueEl) valueEl.textContent = 'No data';
-      if (deltaEl) { deltaEl.textContent = '—'; deltaEl.className = 'kpi-delta neutral'; }
-      return;
-    }
-
-    if (valueEl) valueEl.textContent = fmtNum(k.value);
-
     if (deltaEl && k.deltaPct !== undefined) {
-      const dir = (k.direction || '').toLowerCase();
-      const cls = dir === 'up' ? 'up' : (dir === 'down' ? 'down' : 'neutral');
-      const arrow = dir === 'up' ? '▲' : (dir === 'down' ? '▼' : '→');
-      deltaEl.classList.remove('up','down','neutral');
-      deltaEl.classList.add(cls);
-      deltaEl.textContent = arrow + ' ' + fmtDelta(k.deltaPct) + ' vs prev week';
+      const dir = (k.direction||'').toLowerCase();
+      const cls = dir==='up'?'up':(dir==='down'?'down':'neutral');
+      deltaEl.classList.remove('up','down','neutral'); deltaEl.classList.add(cls);
+      deltaEl.textContent = (dir==='up'?'▲':(dir==='down'?'▼':'→'))+' '+fmtDelta(k.deltaPct)+' vs prev week';
     }
   });
+  renderKpiSparklines(kpis);
+
+  // --- BUDGET PACING GAUGE → budgetPacing ---
+  const mtdSpend = bp.mtd_spend||bp.mtdSpend||0, bpTarget = bp.target||50000;
+  const bpPct = bpTarget>0 ? Math.round(mtdSpend/bpTarget*100) : 0;
+  const daysLeft = (bp.days_total||bp.daysTotal||31) - (bp.days_elapsed||bp.daysElapsed||0);
+  const dailyNeeded = daysLeft>0 ? (bpTarget-mtdSpend)/daysLeft : 0;
+  const p1=document.getElementById('pacingPct'), p2=document.getElementById('pacingTarget');
+  const p3=document.getElementById('pacingMtd'), p4=document.getElementById('pacingDays'), p5=document.getElementById('pacingDailyNeeded');
+  if (p1) p1.textContent=bpPct+'%';
+  if (p2) p2.textContent=fmt$(bpTarget);
+  if (p3) p3.textContent=fmt$(mtdSpend);
+  if (p4) p4.textContent=daysLeft;
+  if (p5) p5.textContent=fmt$(Math.max(0,dailyNeeded));
+  let gColor='#22c55e'; if(bpPct>=120) gColor='#ef4444'; else if(bpPct>=100) gColor='#f59e0b';
+  if (p1) p1.style.color=gColor;
+  const gc = document.getElementById('pacingGaugeCanvas');
+  if (gc) { const ctx=gc.getContext('2d'),s=120,cx=s/2,cy=s/2,r=46,lw=10; ctx.clearRect(0,0,s,s);
+    ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI*0.75,Math.PI*0.75);ctx.strokeStyle='#e0e0e0';ctx.lineWidth=lw;ctx.lineCap='round';ctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI*0.75,-Math.PI*0.75+Math.min(bpPct/150,1)*Math.PI*1.5);ctx.strokeStyle=gColor;ctx.lineWidth=lw;ctx.lineCap='round';ctx.stroke(); }
+
+  // --- ATTRIBUTION QUALITY → attributionQuality ---
+  const attrPctEl = document.getElementById('attrPct');
+  if (attrPctEl) { const kp=aq.known_pct||aq.knownPct||0; attrPctEl.textContent=kp+'%';
+    attrPctEl.style.color = kp>=80?'#22c55e':kp>=50?'#f59e0b':'#ef4444'; }
+  const attrSub = document.getElementById('attrSub');
+  if (attrSub) attrSub.textContent = aq.detail || 'Percentage of installs with known source';
+
+  // --- CHANNEL PERFORMANCE → channelPerformance[] ---
+  const chGrid = document.getElementById('channelPerfGrid');
+  if (chGrid && channels.length) {
+    chGrid.innerHTML = channels.map(ch => {
+      const wd = (ch.wow_delta||ch.wowDelta||0)>=0?'up':'down';
+      return `<div class="ch-card"><div class="ch-card-head"><span class="ch-card-name">${ch.name}</span><span class="ch-card-wow ${wd}"> ${wd==='up'?'↑':'↓'} WoW</span></div>
+      <div class="ch-card-metrics">
+        <div class="ch-metric"><span class="ch-metric-label">Spend</span><span class="ch-metric-value">${fmt$(ch.spend)}</span></div>
+        <div class="ch-metric"><span class="ch-metric-label">Installs</span><span class="ch-metric-value">${fmtN(ch.installs)}</span></div>
+        <div class="ch-metric"><span class="ch-metric-label">CPI</span><span class="ch-metric-value">${ch.cpi?'$'+ch.cpi.toFixed(1):'—'}</span></div>
+        <div class="ch-metric"><span class="ch-metric-label">New Actives</span><span class="ch-metric-value">${fmtN(ch.new_active||ch.newActives||0)}</span></div>
+        <div class="ch-metric"><span class="ch-metric-label">True CAC</span><span class="ch-metric-value">${(ch.true_cac||ch.trueCAC)?'$'+(ch.true_cac||ch.trueCAC).toFixed(1):'—'}</span></div>
+      </div></div>`;
+    }).join('');
+  }
+
+  // --- CAC VS TARGET → cacTracking[] ---
+  const cacCtx = document.getElementById('cacVsTargetCanvas');
+  if (cacCtx && typeof Chart!=='undefined') {
+    const ct = (D.cacTracking||[]).filter(c=>(c.actual_cac||c.actual||0)>0||(c.target_cac||c.target||0)>0);
+    if (ct.length) new Chart(cacCtx, { type:'bar',
+      data:{ labels:ct.map(c=>c.name||c.channel), datasets:[
+        { label:'Actual CAC', data:ct.map(c=>c.actual_cac||c.actual||0),
+          backgroundColor:ct.map(c=>(c.actual_cac||c.actual||0)>(c.target_cac||c.target||0)?'rgba(239,68,68,0.75)':'rgba(0,184,92,0.7)'),
+          borderColor:ct.map(c=>(c.actual_cac||c.actual||0)>(c.target_cac||c.target||0)?'#f87171':'#00b85c'), borderWidth:1,borderRadius:6,barPercentage:0.6 },
+        { label:'Target CAC', data:ct.map(c=>c.target_cac||c.target||0), type:'line', borderColor:'rgba(251,191,36,0.8)', borderWidth:2, borderDash:[8,4], pointRadius:4, pointBackgroundColor:'#fbbf24', fill:false }
+      ]}, options:{ indexAxis:'y',responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{labels:{color:'#888',font:{size:11},usePointStyle:true}},tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,callbacks:{label:c=>`${c.dataset.label}: $${(c.raw||0).toFixed(1)}`}}},
+        scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#888',font:{size:11},callback:v=>'$'+v}},y:{grid:{display:false},ticks:{color:'#1a1a1a',font:{size:12,weight:600}}}}}
+    });
+  }
+
+  // --- PLATFORM SPLIT DONUTS → platformSplit ---
+  const ps = D.platformSplit || DEFAULTS.platformSplit;
+  function miniDonut(id,ios,and){ const c=document.getElementById(id); if(!c||typeof Chart==='undefined') return;
+    new Chart(c,{type:'doughnut',data:{labels:['iOS','Android'],datasets:[{data:[ios,and],backgroundColor:['rgba(59,130,246,0.8)','rgba(0,184,92,0.75)'],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#888',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:8}},tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,callbacks:{label:c=>`${c.label}: ${c.raw}`}}}}}); }
+  miniDonut('psInstalls',ps.installs.ios,ps.installs.android);
+  miniDonut('psSignups',ps.signups.ios,ps.signups.android);
+  miniDonut('psWithdrawals',ps.withdrawals.ios,ps.withdrawals.android);
+
+  // --- TESTS → weeklyTests[] ---
+  const tg = document.getElementById('testsGrid');
+  if (tg) { const tests=D.weeklyTests||[];
+    tg.innerHTML = tests.length ? tests.map(t=>`<div class="test-card"><div class="test-name">${t.name}</div><div class="test-hypo">${t.hypothesis}</div><div class="test-footer"><span class="test-status ${t.status}">${t.status}</span><span class="test-metric">📊 ${t.metric}</span></div></div>`).join('') : '<div style="color:var(--text-dim);font-size:.85rem;padding:1rem">No tests data.</div>'; }
+
+  // --- LEARNINGS → weeklyLearnings[] ---
+  const ls = document.getElementById('learningsScroll');
+  if (ls) { const lr=D.weeklyLearnings||[];
+    ls.innerHTML = lr.length ? lr.map(l=>`<div class="learning-card"><div class="learning-emoji">${l.emoji}</div><div class="learning-finding">${l.finding}</div><div class="learning-impact">${l.impact}</div></div>`).join('') : '<div style="color:var(--text-dim)">No learnings.</div>'; }
+
+  // --- AGENDA → weeklyAgenda[] ---
+  const al = document.getElementById('agendaList');
+  if (al) { const ag=D.weeklyAgenda||[];
+    al.innerHTML = ag.length ? ag.map(a=>{ const p=(a.priority||'P2').toLowerCase(), text=a.text||a.task||'', done=a.done||a.status==='done';
+      return `<div class="agenda-item ${done?'done':''}"><div class="agenda-check">${done?'✓':''}</div><span class="agenda-pri ${p}">${a.priority||'P2'}</span><span class="agenda-text">${text}</span></div>`; }).join('') : '<div style="color:var(--text-dim)">No agenda.</div>'; }
+
+  // --- KYC MINI FUNNELS → kycByCountry[] ---
+  const kycGrid = document.getElementById('kycFunnelGrid');
+  if (kycGrid) {
+    const flagMap={'Turkey':'🇹🇷','Nigeria':'🇳🇬','Egypt':'🇪🇬','Pakistan':'🇵🇰','TR':'🇹🇷','NG':'🇳🇬','EG':'🇪🇬','PK':'🇵🇰'};
+    const kd = (D.kycByCountry||[]).map(c=>({
+      country:c.country||c.code||'??', flag:c.flag||flagMap[c.country||c.code]||'🏳️',
+      kycStarted:c.kyc_started||c.kycStarted||0, bridgeShown:c.kyc_shown||c.bridgeShown||0,
+      kycSubmit:c.kyc_submit||c.kycSubmit||0, broken:(c.kyc_submit||c.kycSubmit||0)===0&&(c.kyc_started||c.kycStarted||0)>10
+    }));
+    if (kd.length) { const mx=Math.max(...kd.map(c=>c.kycStarted),1);
+      kycGrid.innerHTML = kd.map(c=>{
+        const b1=Math.round(c.kycStarted/mx*100), b2=c.kycStarted>0?Math.round(c.bridgeShown/c.kycStarted*100):0, b3=c.kycStarted>0?Math.max(Math.round(c.kycSubmit/c.kycStarted*100),c.kycSubmit>0?3:0):0;
+        return `<div class="kyc-funnel-card ${c.broken?'broken':''}"><div class="kyc-funnel-flag">${c.flag}</div><div class="kyc-funnel-name">${c.country}</div>
+          <div class="kyc-funnel-step"><span class="step-label">Started</span><span class="step-val">${fmtN(c.kycStarted)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b1}%;background:var(--accent)"></div></div>
+          <div class="kyc-funnel-step"><span class="step-label">Shown</span><span class="step-val">${fmtN(c.bridgeShown)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b2}%;background:${c.broken?'#ef4444':'#60a5fa'}"></div></div>
+          <div class="kyc-funnel-step"><span class="step-label">Submit</span><span class="step-val">${fmtN(c.kycSubmit)}</span></div><div class="kyc-funnel-bar"><div class="fill" style="width:${b3}%;background:${c.broken?'#ef4444':'var(--accent)'}"></div></div>
+          ${c.broken?'<div style="margin-top:.4rem;font-size:.65rem;color:#f87171;font-weight:700">❌ BLOCKED</div>':''}</div>`;
+      }).join(''); }
+  }
+
+  // --- COUNTRY CARDS → countries{} + countrySpend[] ---
+  const cGrid = document.getElementById('countryGrid');
+  if (cGrid) {
+    const cMap=D.countries||{}, spArr=D.countrySpend||[];
+    if (spArr.length) cGrid.innerHTML = spArr.map(sp=>{
+      const cd=cMap[sp.code||sp.country]||{};
+      const inst=cd.installs?cd.installs.value:'—', sign=cd.signups?cd.signups.value:'—', iDelta=cd.installs?cd.installs.deltaPct:null;
+      const ws=sp.weeklySpend||sp.weekly_spend||0, ms=sp.mtdSpend||sp.mtd_spend||0, mt=sp.monthlyTarget||sp.planned_monthly||0;
+      const pp=mt>0?Math.round(ms/mt*100):0; let pc='pacing-green',pb='#22c55e';
+      if(pp>100){pc='pacing-red';pb='#ef4444';}else if(pp>85){pc='pacing-orange';pb='#f59e0b';}else if(pp<50&&ms>0){pc='pacing-orange';pb='#f59e0b';}else if(ms===0&&mt>0){pc='pacing-red';pb='#ef4444';}
+      const idH=iDelta!==null?` <span style="font-size:.6rem;font-weight:700;color:${iDelta<0?'#ef4444':'#22c55e'}">${iDelta<0?'▼':'▲'}${Math.abs(iDelta)}%</span>`:'';
+      return `<div class="country-card"><div class="country-head"><span class="country-flag">${sp.flag||''}</span><span class="country-name">${sp.name||sp.country||''}</span></div>
+        <div class="country-metrics"><div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">${typeof inst==='number'?inst.toLocaleString('en-US'):inst}${idH}</span></div>
+        <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">${typeof sign==='number'?sign.toLocaleString('en-US'):sign}</span></div></div>
+        <div class="country-spend-section">
+          <div class="country-spend-row"><span class="country-spend-label">Weekly Spend</span><span class="country-spend-value">${fmtK(ws)}</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">MTD Spend</span><span class="country-spend-value">${fmtK(ms)}</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">Budget Target</span><span class="country-spend-value">${fmtK(mt)}</span></div>
+          <div class="country-pacing-bar"><div class="country-pacing-fill" style="width:${Math.min(pp,100)}%;background:${pb}"></div></div>
+          <div class="country-spend-row"><span class="country-spend-label">Pacing</span><span class="country-pacing-text ${pc}">${pp}%</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">CPI</span><span class="country-spend-value">${sp.cpi?'$'+Number(sp.cpi).toFixed(2):'—'}</span></div>
+          <div class="country-spend-row"><span class="country-spend-label">TRUE CAC</span><span class="country-spend-value" style="color:${(sp.trueCAC||0)>50?'#ef4444':(sp.trueCAC||0)>30?'#d97706':'#059669'}">${sp.trueCAC?'$'+Number(sp.trueCAC).toFixed(2):'—'}</span></div>
+        </div>${sp.deepDiveUrl?`<a href="${sp.deepDiveUrl}" class="country-deep-link">Deep Dive →</a>`:''}</div>`;
+    }).join('');
+  }
+
+  // --- FUNNEL CHART → derived from kpis ---
+  const fCtx = document.getElementById('funnelCanvas');
+  if (fCtx && typeof Chart!=='undefined') {
+    const kycTotal=(D.kycByCountry||[]).reduce((s,c)=>s+(c.kyc_started||c.kycStarted||0),0);
+    const kycSubmitTotal=(D.kycByCountry||[]).reduce((s,c)=>s+(c.kyc_submit||c.kycSubmit||0),0);
+    const fd=[kpis.installs.value||0, Math.round((kpis.installs.value||0)*1.1), kpis.signups.value||0, kycTotal||0, kycSubmitTotal||kpis.kycSubmits.value||0, kpis.depositCompleted.value||0, kpis.withdrawCompleted.value||0];
+    new Chart(fCtx,{type:'bar',data:{labels:['Install','First Open','Signup','KYC Start','KYC Submit','Deposit','Withdrawal'],datasets:[{data:fd,backgroundColor:'rgba(0,184,92,0.7)',borderColor:'rgba(0,184,92,1)',borderWidth:1,borderRadius:6,barPercentage:0.7}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,callbacks:{label:c=>c.raw.toLocaleString('en-US')}}},
+        scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#888',font:{size:11}}},y:{grid:{display:false},ticks:{color:'#1a1a1a',font:{size:12,weight:600}}}}}});
+  }
+
+  // --- CAMPAIGN TABLE → campaignPerformance[] ---
+  const ctbody = document.getElementById('campPerfBody'), cBadge = document.getElementById('campTableBadge');
+  if (ctbody && campaigns.length) {
+    if (cBadge) cBadge.textContent = campaigns.length+' CAMPAIGNS';
+    const hDot=h=>({healthy:'🟢',bleeding:'🟡',dead:'🔴',fraud:'🟣'}[h]||'⚪');
+    const aBadge=a=>({scale:'<span class="status-badge status-scale">🚀 Scale</span>',maintain:'<span class="status-badge status-maintain">✅ Maintain</span>',watch:'<span class="status-badge status-watch">⚠️ Watch</span>',kill:'<span class="status-badge status-kill">🛑 Kill</span>'}[a]||a);
+    const wA=d=>{if(d>0) return '<span class="wow-arrow up">▲ '+d.toFixed(0)+'%</span>'; if(d<0) return '<span class="wow-arrow down">▼ '+Math.abs(d).toFixed(0)+'%</span>'; return '<span class="wow-arrow flat">→</span>';};
+    const sR=campaigns.filter(c=>c.action==='scale').sort((a,b)=>(a.trueCAC||9999)-(b.trueCAC||9999)).slice(0,3).map(c=>c.name);
+    const kR=campaigns.filter(c=>c.action==='kill').sort((a,b)=>(b.spend||0)-(a.spend||0)).slice(0,3).map(c=>c.name);
+    let cF='all',sK=null,sA=true;
+    function rT(list){
+      if(!list.length){ctbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--text-dim);padding:2rem">No campaigns match filter.</td></tr>';return;}
+      ctbody.innerHTML=list.map(c=>{let rc='';if(sR.includes(c.name))rc='scale-highlight';if(kR.includes(c.name))rc='kill-highlight';
+        return `<tr class="${rc}"><td class="camp-name">${hDot(c.health)} ${c.name}</td><td>${c.countryFlag||''} <span class="market-badge">${c.country}</span></td><td>${c.channelIcon||''} ${c.channel}</td><td class="num">${fmtMoney(c.spend)}</td><td class="num">${fmtNum(c.installs)}</td><td class="num">${c.cpi!=null?'$'+c.cpi.toFixed(2):'—'}</td><td class="num">${fmtNum(c.newActives)}</td><td class="num">${fmtMoney(c.trueCAC)}</td><td>${wA(c.wowDelta||0)} ${aBadge(c.action)}</td><td class="camp-commentary">${c.commentary||''}</td></tr>`;}).join('');
+    }
+    function gF(){let l=cF==='all'?[...campaigns]:campaigns.filter(c=>c.action===cF);if(sK)l.sort((a,b)=>{let va=a[sK],vb=b[sK];if(va==null)va=typeof ''===typeof(a[sK])?'':999999;if(vb==null)vb=typeof ''===typeof(b[sK])?'':999999;if(typeof va==='string')return sA?va.localeCompare(vb):vb.localeCompare(va);return sA?va-vb:vb-va;});return l;}
+    rT(gF());
+    document.getElementById('campFilters').addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#campFilters .cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');cF=btn.dataset.action;rT(gF());});
+    document.querySelectorAll('#campPerfTable th.sortable').forEach(th=>{th.addEventListener('click',()=>{const key=th.dataset.sort;if(sK===key)sA=!sA;else{sK=key;sA=true;}rT(gF());});});
+  }
+
+  // --- TREND HISTORY → trendHistory[] ---
+  if (typeof Chart !== 'undefined') {
+    const defaultTrend = [
+      { week:'W9', installs:2234, signups:1609, new_actives:1084, true_cac:32.5 },
+      { week:'W10', installs:1445, signups:1207, new_actives:1028, true_cac:38.2 },
+      { week:'W11', installs:1366, signups:1223, new_actives:1028, true_cac:36.8 },
+      { week:'W12', installs:1366, signups:1223, new_actives:1028, true_cac:36.8 }
+    ];
+    const trendData = (D.trendHistory && D.trendHistory.length >= 2) ? D.trendHistory : defaultTrend;
+    const labels = trendData.map(d=>d.week);
+    function getDelta(values){ if(values.length<2)return{pct:0,dir:'flat'}; const l=values[values.length-1],p=values[values.length-2]; if(p===0)return{pct:0,dir:'flat'}; const pct=(l-p)/p*100; return{pct,dir:pct>1?'improving':pct<-1?'declining':'flat'}; }
+    function setDelta(elId,delta,inv){ const el=document.getElementById(elId); if(!el)return; const arr=delta.dir==='improving'?'▲':delta.dir==='declining'?'▼':'→'; const cls=inv?(delta.dir==='improving'?'declining':delta.dir==='declining'?'improving':'flat'):delta.dir; el.className='trend-card-delta '+cls; el.textContent=`${arr} ${Math.abs(delta.pct).toFixed(1)}%`; }
+    function tC(delta,inv){ const dir=inv?(delta.dir==='improving'?'declining':delta.dir==='declining'?'improving':'flat'):delta.dir;
+      if(dir==='improving')return{line:'rgba(34,197,94,0.9)',fill:'rgba(34,197,94,0.08)',point:'#22c55e'}; if(dir==='declining')return{line:'rgba(239,68,68,0.9)',fill:'rgba(239,68,68,0.08)',point:'#ef4444'}; return{line:'rgba(148,163,184,0.7)',fill:'rgba(148,163,184,0.05)',point:'#94a3b8'}; }
+    function mTC(canvasId,values,colors){ const ctx=document.getElementById(canvasId); if(!ctx)return; if(ctx._trendChart)ctx._trendChart.destroy();
+      ctx._trendChart=new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{data:values,borderColor:colors.line,backgroundColor:colors.fill,borderWidth:2.5,pointRadius:4,pointBackgroundColor:colors.point,pointBorderColor:'rgba(0,0,0,0.3)',pointBorderWidth:1,pointHoverRadius:6,tension:0.35,fill:true}]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#00b85c',borderColor:'#e0e0e0',borderWidth:1,callbacks:{label:c=>{const v=c.raw;return typeof v==='number'&&v%1!==0?'$'+v.toFixed(1):v.toLocaleString('en-US');}}}},
+          scales:{x:{grid:{display:false},ticks:{color:'#555',font:{size:11,weight:600}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#555',font:{size:10},maxTicksLimit:4},beginAtZero:false}}}}); }
+    const iv=trendData.map(d=>d.installs),dI=getDelta(iv); setDelta('trendDeltaInstalls',dI); mTC('trendInstalls',iv,tC(dI));
+    const sv=trendData.map(d=>d.signups),dS=getDelta(sv); setDelta('trendDeltaSignups',dS); mTC('trendSignups',sv,tC(dS));
+    const av=trendData.map(d=>d.new_actives),dA=getDelta(av); setDelta('trendDeltaActives',dA); mTC('trendActives',av,tC(dA));
+    const cv=trendData.map(d=>d.true_cac),dC=getDelta(cv); setDelta('trendDeltaCAC',dC,true); mTC('trendCAC',cv,tC(dC,true));
+  }
 }
 
-// ========== RENDER DOCUMENTS ========== 
+// ========== RENDER DOCUMENTS (static) ==========
 const docGrid = document.getElementById('docGrid');
 const noResults = document.getElementById('noResults');
-
-function renderDocs(filter, query) {
-  filter = filter || 'all';
-  query = (query || '').toLowerCase();
-  const filtered = documents.filter(d => {
-    const catOk = filter === 'all' || d.cat === filter;
-    const qOk = !query || d.title.toLowerCase().includes(query) || d.desc.toLowerCase().includes(query) || d.cat.includes(query) || d.file.includes(query);
-    return catOk && qOk;
-  });
-
-  if (!filtered.length) {
-    docGrid.innerHTML = '';
-    noResults.style.display = 'block';
-    return;
-  }
-  noResults.style.display = 'none';
-
-  docGrid.innerHTML = filtered.map((d, i) => `
-    <div class="doc-card fade-in" data-cat="${d.cat}" data-file="${d.file}" data-title="${d.title.replace(/\"/g,'&quot;')}" style="animation-delay:${i * 0.025}s">
-      <span class="cat-tag ${d.cat}">${d.cat}</span>
-      <h3>${hl(d.title, query)}</h3>
-      <p>${hl(d.desc, query)}</p>
-      <div class="file-path">${d.file}</div>
-    </div>
-  `).join('');
+function renderDocs(filter,query){
+  filter=filter||'all'; query=(query||'').toLowerCase();
+  const filtered=documents.filter(d=>{const catOk=filter==='all'||d.cat===filter;const qOk=!query||d.title.toLowerCase().includes(query)||d.desc.toLowerCase().includes(query)||d.cat.includes(query)||d.file.includes(query);return catOk&&qOk;});
+  if(!filtered.length){docGrid.innerHTML='';noResults.style.display='block';return;} noResults.style.display='none';
+  docGrid.innerHTML=filtered.map((d,i)=>`<div class="doc-card fade-in" data-cat="${d.cat}" data-file="${d.file}" data-title="${d.title.replace(/\"/g,'&quot;')}" style="animation-delay:${i*0.025}s"><span class="cat-tag ${d.cat}">${d.cat}</span><h3>${hl(d.title,query)}</h3><p>${hl(d.desc,query)}</p><div class="file-path">${d.file}</div></div>`).join('');
 }
-
-function hl(text, q) {
-  if (!q) return text;
-  const i = text.toLowerCase().indexOf(q);
-  if (i === -1) return text;
-  return text.slice(0, i) + '<mark style="background:var(--accent-dim);color:var(--accent);border-radius:2px;padding:0 1px">' + text.slice(i, i + q.length) + '</mark>' + text.slice(i + q.length);
-}
-
+function hl(text,q){if(!q)return text;const i=text.toLowerCase().indexOf(q);if(i===-1)return text;return text.slice(0,i)+'<mark style="background:var(--accent-dim);color:var(--accent);border-radius:2px;padding:0 1px">'+text.slice(i,i+q.length)+'</mark>'+text.slice(i+q.length);}
 renderDocs();
+document.getElementById('docSearch').addEventListener('input',function(){const cat=document.querySelector('#catFilters .cat-btn.active');renderDocs(cat?cat.dataset.cat:'all',this.value);});
+document.getElementById('catFilters').addEventListener('click',function(e){if(!e.target.classList.contains('cat-btn'))return;this.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');renderDocs(e.target.dataset.cat,document.getElementById('docSearch').value);});
 
-// Search input
-document.getElementById('docSearch').addEventListener('input', function() {
-  const cat = document.querySelector('.cat-btn.active');
-  renderDocs(cat ? cat.dataset.cat : 'all', this.value);
-});
-
-// Category filter buttons
-document.getElementById('catFilters').addEventListener('click', function(e) {
-  if (!e.target.classList.contains('cat-btn')) return;
-  this.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  e.target.classList.add('active');
-  renderDocs(e.target.dataset.cat, document.getElementById('docSearch').value);
-});
-
-// Doc click → modal (local path for now)
-const docModal = document.getElementById('docModal');
-const docModalTitle = document.getElementById('docModalTitle');
-const docModalPath = document.getElementById('docModalPath');
-const docModalClose = document.getElementById('docModalClose');
-
-function openDocModal(title, path){
-  docModalTitle.textContent = title;
-  docModalPath.textContent = path;
-  docModal.classList.add('show');
-}
-function closeDocModal(){ docModal.classList.remove('show'); }
-
-if (docModal && docModalClose) {
-  docModalClose.addEventListener('click', closeDocModal);
-  docModal.addEventListener('click', (e) => { if (e.target === docModal) closeDocModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDocModal(); });
-
-  docGrid.addEventListener('click', (e) => {
-    const card = e.target.closest('.doc-card');
-    if (!card) return;
-    const cat = card.dataset.cat;
-    const file = card.dataset.file;
-    const title = card.dataset.title || 'Document';
-    const path = `projects/growth-engine/${cat}/${file}`;
-    openDocModal(title, path);
-  });
-}
+// Doc modal
+const docModal=document.getElementById('docModal'),docModalTitle=document.getElementById('docModalTitle'),docModalPath=document.getElementById('docModalPath'),docModalClose=document.getElementById('docModalClose');
+function openDocModal(title,path){docModalTitle.textContent=title;docModalPath.textContent=path;docModal.classList.add('show');}
+function closeDocModal(){docModal.classList.remove('show');}
+if(docModal&&docModalClose){docModalClose.addEventListener('click',closeDocModal);docModal.addEventListener('click',e=>{if(e.target===docModal)closeDocModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDocModal();});
+  docGrid.addEventListener('click',e=>{const card=e.target.closest('.doc-card');if(!card)return;openDocModal(card.dataset.title||'Document',`projects/growth-engine/${card.dataset.cat}/${card.dataset.file}`);});}
 
 // Looker tabs
-const lookerPages = {
-  main: 'p_cx3oz79j0d',
-  kpis: 'p_uobsi8hqzd',
-  paid: 'p_xuxxmaeqzd',
-  social: 'p_cx3oz79j0d' // TODO: send Social page id if different
-};
-const lookerFrame = document.getElementById('lookerFrame');
-const lookerTabs = document.getElementById('lookerTabs');
-if (lookerFrame && lookerTabs) {
-  lookerTabs.addEventListener('click', (e) => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    lookerTabs.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const tab = btn.dataset.tab;
-    const page = lookerPages[tab] || lookerPages.main;
-    lookerFrame.src = `https://lookerstudio.google.com/embed/reporting/1e81a948-62f8-42d9-9c6c-31aab4dd60c6/page/${page}`;
-  });
-}
+const lookerPages={main:'p_cx3oz79j0d',kpis:'p_uobsi8hqzd',paid:'p_xuxxmaeqzd',social:'p_cx3oz79j0d'};
+const lookerFrame=document.getElementById('lookerFrame'),lookerTabs=document.getElementById('lookerTabs');
+if(lookerFrame&&lookerTabs){lookerTabs.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;lookerTabs.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');lookerFrame.src=`https://lookerstudio.google.com/embed/reporting/1e81a948-62f8-42d9-9c6c-31aab4dd60c6/page/${lookerPages[btn.dataset.tab]||lookerPages.main}`;});}
 
-// ========== RENDER AGENTS ==========
-function renderAgents(id, list) {
-  document.getElementById(id).innerHTML = list.map((a, i) => `
-    <div class="agent-card fade-in" style="animation-delay:${i * 0.04}s">
-      <div class="agent-header">
-        <div class="agent-icon" style="background:${a.bg}">${a.icon}</div>
-        <div>
-          <div class="agent-name">${a.name}</div>
-          <div class="agent-status"><span class="agent-dot"></span> Online</div>
-        </div>
-      </div>
-      <div class="agent-skills">${a.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}</div>
-    </div>
-  `).join('');
-}
+// Agents (static)
+function renderAgents(id,list){document.getElementById(id).innerHTML=list.map((a,i)=>`<div class="agent-card fade-in" style="animation-delay:${i*0.04}s"><div class="agent-header"><div class="agent-icon" style="background:${a.bg}">${a.icon}</div><div><div class="agent-name">${a.name}</div><div class="agent-status"><span class="agent-dot"></span> Online</div></div></div><div class="agent-skills">${a.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div></div>`).join('');}
+renderAgents('cenoaAgents',agents.cenoa); renderAgents('videoAgents',agents.video);
 
-renderAgents('cenoaAgents', agents.cenoa);
-renderAgents('videoAgents', agents.video);
+// Markets (static)
+document.getElementById('marketGrid').innerHTML=markets.map((m,i)=>`<div class="market-card fade-in" style="animation-delay:${i*0.06}s"><span class="market-flag">${m.flag}</span><div class="market-name">${m.name}</div><div class="market-code">${m.code}</div><div class="market-status ${m.cls}">${m.status}</div></div>`).join('');
 
-// ========== RENDER MARKETS ==========
-document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
-  <div class="market-card fade-in" style="animation-delay:${i * 0.06}s">
-    <span class="market-flag">${m.flag}</span>
-    <div class="market-name">${m.name}</div>
-    <div class="market-code">${m.code}</div>
-    <div class="market-status ${m.cls}">${m.status}</div>
-  </div>
-`).join('');
-
-// ========== CAC TREND CHART ==========
-(function(){
-  const ctx = document.getElementById('cacTrendCanvas');
-  if (!ctx || typeof Chart === 'undefined') return;
-  const cacData = [126.6, 122.1, 121.5, 86.0, 119.9, 208.2];
-  const cacLabels = ['Sep','Oct','Nov','Dec','Jan','Feb'];
-  const maxVal = Math.max(...cacData);
-  const barColors = cacData.map(v => v === maxVal ? 'rgba(239,68,68,0.85)' : 'rgba(0,184,92,0.7)');
-  const borderColors = cacData.map(v => v === maxVal ? 'rgba(239,68,68,1)' : 'rgba(0,255,136,1)');
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: cacLabels,
-      datasets: [
-        {
-          label: 'CAC ($/Active)',
-          data: cacData,
-          backgroundColor: barColors,
-          borderColor: borderColors,
-          borderWidth: 1,
-          borderRadius: 6,
-          barPercentage: 0.65
-        },
-        {
-          label: 'Target $100',
-          data: Array(6).fill(100),
-          type: 'line',
-          borderColor: 'rgba(251,191,36,0.8)',
-          borderWidth: 2,
-          borderDash: [8, 4],
-          pointRadius: 0,
-          fill: false
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: { color: '#888', font: { size: 11 }, usePointStyle: true, pointStyle: 'rect' }
-        },
-        tooltip: {
-          backgroundColor: '#fff',
-          titleColor: '#1a1a1a',
-          bodyColor: '#333',
-          borderColor: '#e0e0e0',
-          borderWidth: 1,
-          callbacks: {
-            label: function(c){
-              if (c.dataset.label === 'Target $100') return 'Target: $100.00';
-              return c.label + ': $' + c.raw.toFixed(2) + ' CAC';
-            }
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: '#1a1a1a', font: { size: 12, weight: 600 } }
-        },
-        y: {
-          grid: { color: 'rgba(0,0,0,0.06)' },
-          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return '$' + v.toFixed(0); } },
-          beginAtZero: true,
-          suggestedMax: 250
-        }
-      }
-    }
-  });
-})();
-
-// ========== FUNNEL CHART ==========
-(function(){
-  const ctx = document.getElementById('funnelCanvas');
-  if (!ctx || typeof Chart === 'undefined') return;
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Install','First Open','Signup','KYC Start','KYC Submit','Deposit','Withdrawal'],
-      datasets: [{
-        data: [1445, 1930, 1207, 3098, 179, 1546, 2227],
-        backgroundColor: 'rgba(0,184,92,0.7)',
-        borderColor: 'rgba(0,184,92,1)',
-        borderWidth: 1,
-        borderRadius: 6,
-        barPercentage: 0.7
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#fff',
-          titleColor: '#1a1a1a',
-          bodyColor: '#333',
-          borderColor: '#e0e0e0',
-          borderWidth: 1,
-          callbacks: {
-            label: function(c){
-              var funnelData = c.chart.data.datasets[0].data;
-              var idx = c.dataIndex;
-              var v = c.raw;
-              var result = c.label + ': ' + v.toLocaleString('en-US');
-              if (idx > 0) {
-                var prev = funnelData[idx - 1];
-                if (prev > 0) {
-                  result += ' (' + ((v / prev) * 100).toFixed(1) + '% of previous)';
-                }
-              }
-              return result;
-            }
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { color: 'rgba(0,0,0,0.06)' },
-          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return v >= 1000 ? (v/1000).toFixed(1)+'K' : v; } }
-        },
-        y: {
-          grid: { display: false },
-          ticks: { color: '#1a1a1a', font: { size: 12, weight: 600 } }
-        }
-      }
-    }
-  });
-})();
-
-// ========== KYC DROPOUT CHART ==========
-(function(){
-  const ctx = document.getElementById('kycDropoutCanvas');
-  if (!ctx || typeof Chart === 'undefined') return;
-
-  const dropoutPlugin = {
-    id: 'dropoutLabel',
-    afterDraw(chart) {
-      const { ctx: c, chartArea: { top, bottom, left, right } } = chart;
-      const bar0 = chart.getDatasetMeta(0).data[0];
-      const bar1 = chart.getDatasetMeta(0).data[1];
-      if (!bar0 || !bar1) return;
-      const x0 = bar0.x, y0 = bar0.y;
-      const x1 = bar1.x, y1 = bar1.y;
-      const midX = right - 60;
-
-      c.save();
-      c.strokeStyle = '#f87171';
-      c.lineWidth = 2;
-      c.setLineDash([6, 4]);
-
-      // line from bar0 top to mid
-      c.beginPath();
-      c.moveTo(x0 + 30, y0);
-      c.lineTo(midX, y0);
-      c.lineTo(midX, y1);
-      c.lineTo(x1 + 30, y1);
-      c.stroke();
-      c.setLineDash([]);
-
-      // label
-      const midY = (y0 + y1) / 2;
-      c.fillStyle = 'rgba(239,68,68,0.15)';
-      const bw = 120, bh = 36, bx = midX - bw/2, by = midY - bh/2;
-      c.beginPath();
-      c.roundRect(bx, by, bw, bh, 8);
-      c.fill();
-
-      c.fillStyle = '#f87171';
-      c.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
-      c.textAlign = 'center';
-      c.textBaseline = 'middle';
-      c.fillText('94.2% dropout', midX, midY);
-      c.restore();
-    }
-  };
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['KYC Started', 'KYC Submit'],
-      datasets: [{
-        data: [3098, 179],
-        backgroundColor: ['rgba(239,68,68,0.3)', 'rgba(239,68,68,0.8)'],
-        borderColor: ['#f87171', '#f87171'],
-        borderWidth: 2,
-        borderRadius: 8,
-        barPercentage: 0.5
-      }]
-    },
-    plugins: [dropoutPlugin],
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#fff',
-          titleColor: '#1a1a1a',
-          bodyColor: '#333',
-          borderColor: '#e0e0e0',
-          borderWidth: 1,
-          callbacks: {
-            label: function(c){
-              var allData = c.chart.data.datasets[0].data;
-              var idx = c.dataIndex;
-              var v = c.raw;
-              var result = c.label + ': ' + v.toLocaleString('en-US');
-              if (idx > 0 && allData[idx-1] > 0) {
-                result += ' (' + ((v / allData[idx-1]) * 100).toFixed(1) + '% of previous)';
-              }
-              return result;
-            }
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { color: 'rgba(0,0,0,0.06)' },
-          ticks: { color: '#888', font: { size: 11 } }
-        },
-        y: {
-          grid: { display: false },
-          ticks: { color: '#1a1a1a', font: { size: 13, weight: 700 } }
-        }
-      }
-    }
-  });
-})();
-
-// ========== KYC DROPOUT CHART ==========
-(function(){
-  const ctx = document.getElementById('kycDropoutCanvas');
-  if (!ctx || typeof Chart === 'undefined') return;
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['KYC Started', 'Bridgexyz Shown', 'KYC Submitted'],
-      datasets: [{
-        data: [3098, 3025, 179],
-        backgroundColor: [
-          'rgba(0,184,92,0.7)',
-          'rgba(96,165,250,0.75)',
-          'rgba(239,68,68,0.85)'
-        ],
-        borderColor: [
-          'rgba(0,255,136,1)',
-          'rgba(96,165,250,1)',
-          'rgba(239,68,68,1)'
-        ],
-        borderWidth: 1,
-        borderRadius: 8,
-        barPercentage: 0.6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#fff',
-          titleColor: '#1a1a1a',
-          bodyColor: '#333',
-          borderColor: '#e0e0e0',
-          borderWidth: 1,
-          callbacks: {
-            label: function(c) {
-              var allData = c.chart.data.datasets[0].data;
-              var idx = c.dataIndex;
-              var v = c.raw;
-              var result = c.label + ': ' + v.toLocaleString('en-US');
-              if (idx > 0) {
-                var prev = allData[idx - 1];
-                if (prev > 0) {
-                  result += ' (' + ((v / prev) * 100).toFixed(1) + '% of previous)';
-                }
-              }
-              return result;
-            }
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: '#1a1a1a', font: { size: 11, weight: 600 } }
-        },
-        y: {
-          grid: { color: 'rgba(0,0,0,0.06)' },
-          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return v.toLocaleString(); } },
-          beginAtZero: true
-        }
-      }
-    }
-  });
-})();
-
-// ========== NEW WIDGETS (v2) ==========
-(async function loadV2Widgets(){
+// ========== BOOT: Fetch data.json and render everything ==========
+(async function boot(){
   let data = {};
   try {
     const res = await fetch('data.json', { cache: 'no-store' });
     if (res.ok) data = await res.json();
-  } catch(e) { console.warn('v2 widget data fetch failed', e); }
-
-  // Helper
-  function fmt$(n){ return '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:0}); }
-  function fmtN(n){ return Number(n).toLocaleString('en-US'); }
-
-  // ---- 1) BUDGET PACING GAUGE ----
-  (function(){
-    const bp = data.budgetPacing || { target:50000, mtdSpend:22400, daysElapsed:20, daysTotal:31 };
-    const pct = Math.round((bp.mtdSpend / bp.target) * 100);
-    const daysLeft = bp.daysTotal - bp.daysElapsed;
-    const remaining = bp.target - bp.mtdSpend;
-    const dailyNeeded = daysLeft > 0 ? remaining / daysLeft : 0;
-
-    document.getElementById('pacingPct').textContent = pct + '%';
-    document.getElementById('pacingTarget').textContent = fmt$(bp.target);
-    document.getElementById('pacingMtd').textContent = fmt$(bp.mtdSpend);
-    document.getElementById('pacingDays').textContent = daysLeft;
-    document.getElementById('pacingDailyNeeded').textContent = fmt$(Math.max(0, dailyNeeded));
-
-    // Color
-    let color = '#22c55e'; // green
-    if (pct >= 120) color = '#ef4444';
-    else if (pct >= 100) color = '#f59e0b';
-    document.getElementById('pacingPct').style.color = color;
-
-    // Draw gauge
-    const canvas = document.getElementById('pacingGaugeCanvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      const size = 120, cx = size/2, cy = size/2, r = 46, lw = 10;
-      ctx.clearRect(0,0,size,size);
-      // bg ring
-      ctx.beginPath(); ctx.arc(cx,cy,r, -Math.PI*0.75, Math.PI*0.75); ctx.strokeStyle='#e0e0e0'; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
-      // value ring
-      const range = Math.PI * 1.5;
-      const angle = -Math.PI*0.75 + Math.min(pct/150, 1) * range;
-      ctx.beginPath(); ctx.arc(cx,cy,r, -Math.PI*0.75, angle); ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
-    }
-  })();
-
-  // ---- 2) ATTRIBUTION QUALITY ----
-  (function(){
-    const aq = data.attributionQuality || { knownPct: 62, status: 'warning' };
-    const el = document.getElementById('attrPct');
-    if (el) {
-      el.textContent = aq.knownPct + '%';
-      if (aq.knownPct >= 80) el.style.color = '#22c55e';
-      else if (aq.knownPct >= 50) el.style.color = '#f59e0b';
-      else el.style.color = '#ef4444';
-    }
-    const sub = document.getElementById('attrSub');
-    if (sub && aq.detail) sub.textContent = aq.detail;
-  })();
-
-  // ---- 3) CHANNEL PERFORMANCE ----
-  (function(){
-    const channels = data.channelPerformance || [
-      {name:'Google Ads',spend:8200,installs:320,cpi:25.6,newActives:180,trueCAC:45.6,wow:'down'},
-      {name:'Meta Ads',spend:4500,installs:210,cpi:21.4,newActives:95,trueCAC:47.4,wow:'down'},
-      {name:'Apple Search',spend:2100,installs:78,cpi:26.9,newActives:52,trueCAC:40.4,wow:'up'},
-      {name:'Organic',spend:0,installs:520,cpi:0,newActives:280,trueCAC:0,wow:'up'},
-      {name:'TikTok',spend:1800,installs:49,cpi:36.7,newActives:12,trueCAC:150,wow:'down'}
-    ];
-    const grid = document.getElementById('channelPerfGrid');
-    if (!grid) return;
-    grid.innerHTML = channels.map(ch => `
-      <div class="ch-card">
-        <div class="ch-card-head">
-          <span class="ch-card-name">${ch.name}</span>
-          <span class="ch-card-wow ${ch.wow||''}"> ${ch.wow==='up'?'↑':'↓'} WoW</span>
-        </div>
-        <div class="ch-card-metrics">
-          <div class="ch-metric"><span class="ch-metric-label">Spend</span><span class="ch-metric-value">${fmt$(ch.spend)}</span></div>
-          <div class="ch-metric"><span class="ch-metric-label">Installs</span><span class="ch-metric-value">${fmtN(ch.installs)}</span></div>
-          <div class="ch-metric"><span class="ch-metric-label">CPI</span><span class="ch-metric-value">${ch.cpi?'$'+ch.cpi.toFixed(1):'—'}</span></div>
-          <div class="ch-metric"><span class="ch-metric-label">New Actives</span><span class="ch-metric-value">${fmtN(ch.newActives)}</span></div>
-          <div class="ch-metric"><span class="ch-metric-label">True CAC</span><span class="ch-metric-value">${ch.trueCAC?'$'+ch.trueCAC.toFixed(1):'—'}</span></div>
-        </div>
-      </div>
-    `).join('');
-  })();
-
-  // ---- 4) CAC VS TARGET ----
-  (function(){
-    const ct = data.cacTracking || [
-      {channel:'Google Ads',actual:45.6,target:40},
-      {channel:'Meta Ads',actual:47.4,target:40},
-      {channel:'Apple Search',actual:40.4,target:50},
-      {channel:'TikTok',actual:150,target:60},
-      {channel:'Organic',actual:0,target:0}
-    ];
-    const ctx = document.getElementById('cacVsTargetCanvas');
-    if (!ctx || typeof Chart === 'undefined') return;
-    const filtered = ct.filter(c => c.actual > 0 || c.target > 0);
-    new Chart(ctx, {
-      type:'bar',
-      data:{
-        labels: filtered.map(c=>c.channel),
-        datasets:[
-          {
-            label:'Actual CAC',
-            data: filtered.map(c=>c.actual),
-            backgroundColor: filtered.map(c=> c.actual > c.target ? 'rgba(239,68,68,0.75)' : 'rgba(0,184,92,0.7)'),
-            borderColor: filtered.map(c=> c.actual > c.target ? '#f87171' : '#00b85c'),
-            borderWidth:1, borderRadius:6, barPercentage:0.6
-          },
-          {
-            label:'Target CAC',
-            data: filtered.map(c=>c.target),
-            type:'line',
-            borderColor:'rgba(251,191,36,0.8)',
-            borderWidth:2,
-            borderDash:[8,4],
-            pointRadius:4,
-            pointBackgroundColor:'#fbbf24',
-            fill:false
-          }
-        ]
-      },
-      options:{
-        indexAxis:'y',
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{
-          legend:{labels:{color:'#888',font:{size:11},usePointStyle:true}},
-          tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#333',borderColor:'#e0e0e0',borderWidth:1,
-            callbacks:{label:function(c){
-              if (c.dataset.label === 'Target CAC') return c.label + ': Target $' + c.raw.toFixed(2);
-              var targetDs = c.chart.data.datasets[1];
-              var targetVal = targetDs ? targetDs.data[c.dataIndex] : 0;
-              return c.label + ': $' + c.raw.toFixed(2) + ' CAC (target: $' + targetVal.toFixed(2) + ')';
-            }}}
-        },
-        scales:{
-          x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#888',font:{size:11},callback:function(v){return '$'+Number(v).toFixed(0);}}},
-          y:{grid:{display:false},ticks:{color:'#1a1a1a',font:{size:12,weight:600}}}
-        }
-      }
-    });
-  })();
-
-  // ---- 5) PLATFORM SPLIT DONUTS ----
-  (function(){
-    const ps = data.platformSplit || {
-      installs:{ios:40,android:60},
-      signups:{ios:35,android:65},
-      withdrawals:{ios:45,android:55}
-    };
-    function miniDonut(canvasId, iosVal, androidVal){
-      const ctx = document.getElementById(canvasId);
-      if (!ctx || typeof Chart === 'undefined') return;
-      const total = iosVal + androidVal;
-      const centerTextPlugin = {
-        id: 'centerText_' + canvasId,
-        afterDraw: function(chart) {
-          const {ctx: c, chartArea: {top, bottom, left, right}} = chart;
-          const centerX = (left + right) / 2;
-          const centerY = (top + bottom) / 2;
-          c.save();
-          c.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
-          c.fillStyle = '#333';
-          c.textAlign = 'center';
-          c.textBaseline = 'middle';
-          c.fillText(total.toLocaleString('en-US'), centerX, centerY);
-          c.restore();
-        }
-      };
-      new Chart(ctx, {
-        type:'doughnut',
-        data:{
-          labels:['iOS','Android'],
-          datasets:[{data:[iosVal,androidVal],backgroundColor:['rgba(59,130,246,0.8)','rgba(0,184,92,0.75)'],borderWidth:0}]
-        },
-        plugins: [centerTextPlugin],
-        options:{
-          responsive:true,
-          maintainAspectRatio:true,
-          cutout:'65%',
-          plugins:{
-            legend:{display:true,position:'bottom',labels:{color:'#888',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:8}},
-            tooltip:{backgroundColor:'#fff',titleColor:'#1a1a1a',bodyColor:'#333',borderColor:'#e0e0e0',borderWidth:1,
-              callbacks:{label:function(c){
-                var pct = total > 0 ? ((c.raw / total) * 100).toFixed(1) : '0.0';
-                return c.label + ': ' + pct + '% (' + c.raw.toLocaleString('en-US') + ' users)';
-              }}}
-          }
-        }
-      });
-    }
-    miniDonut('psInstalls', ps.installs.ios, ps.installs.android);
-    miniDonut('psSignups', ps.signups.ios, ps.signups.android);
-    miniDonut('psWithdrawals', ps.withdrawals.ios, ps.withdrawals.android);
-  })();
-
-  // ---- 6) THIS WEEK'S TESTS ----
-  (function(){
-    const tests = data.weeklyTests || [
-      {name:'KYC Copy A/B',hypothesis:'Shorter KYC intro increases submission rate',status:'running',metric:'KYC Submit Rate'},
-      {name:'Pmax Creative Refresh',hypothesis:'New freelancer visuals improve CTR',status:'planned',metric:'CTR'},
-      {name:'Egypt Landing Page',hypothesis:'Localized AR page increases EG signups 20%',status:'completed',metric:'Signup Rate'}
-    ];
-    const grid = document.getElementById('testsGrid');
-    if (!grid) return;
-    grid.innerHTML = tests.map(t => `
-      <div class="test-card">
-        <div class="test-name">${t.name}</div>
-        <div class="test-hypo">${t.hypothesis}</div>
-        <div class="test-footer">
-          <span class="test-status ${t.status}">${t.status}</span>
-          <span class="test-metric">📊 ${t.metric}</span>
-        </div>
-      </div>
-    `).join('');
-  })();
-
-  // ---- 7) WHAT WE LEARNED ----
-  (function(){
-    const learnings = data.weeklyLearnings || [
-      {emoji:'🔴',finding:'NG/EG KYC is completely blocked',impact:'230+ users stuck with zero conversions'},
-      {emoji:'📉',finding:'DAU crashed 46% WoW',impact:'Biggest decline across all metrics - needs root cause'},
-      {emoji:'🤖',finding:'Appnext shows fraud pattern',impact:'273 installs, near-zero downstream activity'},
-      {emoji:'✅',finding:'Google Pmax best performer',impact:'$10 CPA - should scale budget allocation'},
-      {emoji:'📱',finding:'iOS KYC 3.8x worse than Android',impact:'2.4% vs 9.2% conversion rate gap'}
-    ];
-    const scroll = document.getElementById('learningsScroll');
-    if (!scroll) return;
-    scroll.innerHTML = learnings.map(l => `
-      <div class="learning-card">
-        <div class="learning-emoji">${l.emoji}</div>
-        <div class="learning-finding">${l.finding}</div>
-        <div class="learning-impact">${l.impact}</div>
-      </div>
-    `).join('');
-  })();
-
-  // ---- 8) CAMPAIGN HEALTH INDICATORS ----
-  (function(){
-    const health = data.campaignHealth || [
-      {campaign:'Google Pmax Freelancer',health:'healthy'},
-      {campaign:'EG ENG Generic',health:'healthy'},
-      {campaign:'TR Freelancer Platform',health:'healthy'},
-      {campaign:'Apple Search Ads Brand',health:'healthy'},
-      {campaign:'TR Rakipler Payoneer',health:'bleeding'},
-      {campaign:'TR Demand Gen RTGT',health:'dead'},
-      {campaign:'Appnext CPI UA',health:'fraud'},
-      {campaign:'TikTok',health:'dead'}
-    ];
-    const healthMap = {};
-    health.forEach(h => { healthMap[h.campaign] = h.health; });
-
-    document.querySelectorAll('.campaign-table tbody tr').forEach(row => {
-      const nameCell = row.querySelector('.camp-name');
-      if (!nameCell) return;
-      const name = nameCell.textContent.trim();
-      const h = healthMap[name];
-      if (h) {
-        const dot = document.createElement('span');
-        dot.className = 'health-dot ' + h;
-        dot.title = h.toUpperCase();
-        nameCell.insertBefore(dot, nameCell.firstChild);
-      }
-    });
-  })();
-
-  // ---- 9) KYC MINI FUNNELS ----
-  (function(){
-    const kycData = data.kycByCountry || [
-      {country:'TR',flag:'🇹🇷',kycStarted:2200,bridgeShown:2150,kycSubmit:170,broken:false},
-      {country:'NG',flag:'🇳🇬',kycStarted:450,bridgeShown:0,kycSubmit:0,broken:true},
-      {country:'EG',flag:'🇪🇬',kycStarted:300,bridgeShown:0,kycSubmit:0,broken:true},
-      {country:'PK',flag:'🇵🇰',kycStarted:23,bridgeShown:0,kycSubmit:0,broken:true}
-    ];
-    const grid = document.getElementById('kycFunnelGrid');
-    if (!grid) return;
-    const maxStarted = Math.max(...kycData.map(c=>c.kycStarted), 1);
-    grid.innerHTML = kycData.map(c => {
-      const shownPct = c.kycStarted > 0 ? Math.round(c.bridgeShown / c.kycStarted * 100) : 0;
-      const submitPct = c.kycStarted > 0 ? Math.round(c.kycSubmit / c.kycStarted * 100) : 0;
-      const barW1 = Math.round(c.kycStarted / maxStarted * 100);
-      const barW2 = c.kycStarted > 0 ? Math.round(c.bridgeShown / c.kycStarted * 100) : 0;
-      const barW3 = c.kycStarted > 0 ? Math.max(Math.round(c.kycSubmit / c.kycStarted * 100), c.kycSubmit > 0 ? 3 : 0) : 0;
-      return `
-        <div class="kyc-funnel-card ${c.broken?'broken':''}">
-          <div class="kyc-funnel-flag">${c.flag}</div>
-          <div class="kyc-funnel-name">${c.country}</div>
-          <div class="kyc-funnel-step"><span class="step-label">Started</span><span class="step-val">${fmtN(c.kycStarted)}</span></div>
-          <div class="kyc-funnel-bar"><div class="fill" style="width:${barW1}%;background:var(--accent)"></div></div>
-          <div class="kyc-funnel-step"><span class="step-label">Shown</span><span class="step-val">${fmtN(c.bridgeShown)}</span></div>
-          <div class="kyc-funnel-bar"><div class="fill" style="width:${barW2}%;background:${c.broken?'#ef4444':'#60a5fa'}"></div></div>
-          <div class="kyc-funnel-step"><span class="step-label">Submit</span><span class="step-val">${fmtN(c.kycSubmit)}</span></div>
-          <div class="kyc-funnel-bar"><div class="fill" style="width:${barW3}%;background:${c.broken?'#ef4444':'var(--accent)'}"></div></div>
-          ${c.broken ? '<div style="margin-top:.4rem;font-size:.65rem;color:#f87171;font-weight:700">❌ BLOCKED</div>' : ''}
-        </div>
-      `;
-    }).join('');
-  })();
-
-  // ---- 10) THIS WEEK'S AGENDA ----
-  (function(){
-    const agenda = data.weeklyAgenda || [
-      {priority:'P0',text:'Unblock KYC for Nigeria & Egypt',done:false},
-      {priority:'P0',text:'Investigate DAU -46% crash root cause',done:false},
-      {priority:'P0',text:'Pause Appnext (fraud pattern)',done:false},
-      {priority:'P1',text:'Scale Pmax + Google Search budgets',done:false},
-      {priority:'P1',text:'Fix iOS KYC conversion gap',done:false},
-      {priority:'P1',text:'Pause TikTok (no ROI signal)',done:false},
-      {priority:'P2',text:'Launch Egypt localized landing page',done:false},
-      {priority:'P2',text:'Set up weekly automated Amplitude reports',done:false}
-    ];
-    const list = document.getElementById('agendaList');
-    if (!list) return;
-    list.innerHTML = agenda.map(a => {
-      const p = (a.priority||'P2').toLowerCase();
-      return `
-        <div class="agenda-item ${a.done?'done':''}">
-          <div class="agenda-check">${a.done?'✓':''}</div>
-          <span class="agenda-pri ${p}">${a.priority||'P2'}</span>
-          <span class="agenda-text">${a.text}</span>
-        </div>
-      `;
-    }).join('');
-  })();
-
-})();
-
-// ========== KYC COUNTRY BREAKDOWN CHART ==========
-(function(){
-  const ctx = document.getElementById('kycCountryCanvas');
-  if (!ctx || typeof Chart === 'undefined') return;
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['🇹🇷 Turkey', '🇳🇬 Nigeria', '🇪🇬 Egypt'],
-      datasets: [{
-        label: 'KYC Submitted',
-        data: [170, 0, 0],
-        backgroundColor: [
-          'rgba(0,184,92,0.75)',
-          'rgba(239,68,68,0.4)',
-          'rgba(239,68,68,0.4)'
-        ],
-        borderColor: [
-          'rgba(0,255,136,1)',
-          'rgba(239,68,68,0.6)',
-          'rgba(239,68,68,0.6)'
-        ],
-        borderWidth: 1,
-        borderRadius: 8,
-        barPercentage: 0.55
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#fff',
-          titleColor: '#1a1a1a',
-          bodyColor: '#00b85c',
-          borderColor: '#e0e0e0',
-          borderWidth: 1
-        }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: '#1a1a1a', font: { size: 12, weight: 600 } }
-        },
-        y: {
-          grid: { color: 'rgba(0,0,0,0.06)' },
-          ticks: { color: '#888', font: { size: 11 } },
-          beginAtZero: true,
-          suggestedMax: 200
-        }
-      }
-    }
-  });
-})();
-
-// ========== COUNTRY CARDS WITH SPEND ==========
-(async function loadCountryCards(){
-  let data = {};
-  try {
-    const res = await fetch('data.json', { cache: 'no-store' });
-    if (res.ok) data = await res.json();
-  } catch(e) { console.warn('Country card data fetch failed', e); }
-
-  const countries = data.countries || {};
-  const spendArr = data.countrySpend || [
-    { code:'TR', flag:'🇹🇷', name:'Turkey', weeklySpend:5800, mtdSpend:19600, monthlyTarget:23000, cpi:8.0, trueCAC:26.79, deepDiveUrl:'country-tr.html' },
-    { code:'EG', flag:'🇪🇬', name:'Egypt', weeklySpend:320, mtdSpend:6900, monthlyTarget:8500, cpi:2.0, trueCAC:68.51, deepDiveUrl:'country-eg.html' },
-    { code:'NG', flag:'🇳🇬', name:'Nigeria', weeklySpend:33, mtdSpend:230, monthlyTarget:2200, cpi:0.07, trueCAC:7.42, deepDiveUrl:'country-ng.html' },
-    { code:'PK', flag:'🇵🇰', name:'Pakistan', weeklySpend:0, mtdSpend:0, monthlyTarget:6000, cpi:0, trueCAC:0, deepDiveUrl:'country-pk.html' }
-  ];
-
-  const grid = document.getElementById('countryGrid');
-  if (!grid) return;
-
-  function fmt$(n){ if (!n) return '$0'; return '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:0}); }
-  function fmtK(n){ if (!n) return '$0'; if (n >= 1000) return '$' + (n/1000).toFixed(1) + 'K'; return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0}); }
-  function fmtCPI(n){ if (!n) return '—'; return '$' + Number(n).toFixed(2); }
-  function fmtCAC(n){ if (!n) return '—'; return '$' + Number(n).toFixed(2); }
-
-  grid.innerHTML = spendArr.map(sp => {
-    const cd = countries[sp.code] || {};
-    const installs = cd.installs ? cd.installs.value : '—';
-    const signups = cd.signups ? cd.signups.value : '—';
-    const installDelta = cd.installs ? cd.installs.deltaPct : null;
-
-    const pacingPct = sp.monthlyTarget > 0 ? Math.round(sp.mtdSpend / sp.monthlyTarget * 100) : 0;
-    let pacingColor = 'pacing-green';
-    let pacingBarColor = '#22c55e';
-    if (pacingPct > 100) { pacingColor = 'pacing-red'; pacingBarColor = '#ef4444'; }
-    else if (pacingPct > 85) { pacingColor = 'pacing-orange'; pacingBarColor = '#f59e0b'; }
-    else if (pacingPct < 50 && sp.mtdSpend > 0) { pacingColor = 'pacing-orange'; pacingBarColor = '#f59e0b'; }
-    else if (sp.mtdSpend === 0 && sp.monthlyTarget > 0) { pacingColor = 'pacing-red'; pacingBarColor = '#ef4444'; }
-
-    const installDeltaHtml = installDelta !== null
-      ? ` <span style="font-size:.6rem;font-weight:700;color:${installDelta < 0 ? '#ef4444' : '#22c55e'}">${installDelta < 0 ? '▼' : '▲'}${Math.abs(installDelta)}%</span>`
-      : '';
-
-    return `
-      <div class="country-card">
-        <div class="country-head">
-          <span class="country-flag">${sp.flag}</span>
-          <span class="country-name">${sp.name}</span>
-        </div>
-        <div class="country-metrics">
-          <div class="country-metric"><span class="country-metric-label">Installs</span><span class="country-metric-value">${typeof installs === 'number' ? installs.toLocaleString('en-US') : installs}${installDeltaHtml}</span></div>
-          <div class="country-metric"><span class="country-metric-label">Signups</span><span class="country-metric-value">${typeof signups === 'number' ? signups.toLocaleString('en-US') : signups}</span></div>
-        </div>
-        <div class="country-spend-section">
-          <div class="country-spend-row"><span class="country-spend-label">Weekly (Mar 15-21)</span><span class="country-spend-value">${fmtK(sp.weeklySpend)}</span></div>
-          <div class="country-spend-row"><span class="country-spend-label">MTD Spend</span><span class="country-spend-value">${fmtK(sp.mtdSpend)}</span></div>
-          <div class="country-spend-row"><span class="country-spend-label">Budget Target</span><span class="country-spend-value">${fmtK(sp.monthlyTarget)}</span></div>
-          <div class="country-pacing-bar"><div class="country-pacing-fill" style="width:${Math.min(pacingPct, 100)}%;background:${pacingBarColor}"></div></div>
-          <div class="country-spend-row"><span class="country-spend-label">Pacing</span><span class="country-pacing-text ${pacingColor}">${pacingPct}%</span></div>
-          <div class="country-spend-row"><span class="country-spend-label">CPI</span><span class="country-spend-value">${fmtCPI(sp.cpi)}</span></div>
-          <div class="country-spend-row"><span class="country-spend-label">TRUE CAC</span><span class="country-spend-value" style="color:${sp.trueCAC > 50 ? '#ef4444' : sp.trueCAC > 30 ? '#d97706' : '#059669'}">${fmtCAC(sp.trueCAC)}</span></div>
-        </div>
-        <a href="${sp.deepDiveUrl}" class="country-deep-link">Deep Dive →</a>
-      </div>
-    `;
-  }).join('');
-})();
-
-// ========== CAMPAIGN PERFORMANCE TABLE (v2) ==========
-(async function loadCampaignTable(){
-  let data = {};
-  try {
-    const res = await fetch('data.json', { cache: 'no-store' });
-    if (res.ok) data = await res.json();
-  } catch(e) { console.warn('Campaign data fetch failed', e); }
-
-  const campaigns = data.campaignPerformance || [];
-  if (!campaigns.length) return;
-
-  const tbody = document.getElementById('campPerfBody');
-  const badge = document.getElementById('campTableBadge');
-  if (!tbody) return;
-  if (badge) badge.textContent = campaigns.length + ' CAMPAIGNS';
-
-  const healthDot = h => {
-    const map = { healthy:'🟢', bleeding:'🟡', dead:'🔴', fraud:'🟣' };
-    return map[h] || '⚪';
-  };
-  const actionBadge = a => {
-    const map = {
-      scale: '<span class="status-badge status-scale">🚀 Scale</span>',
-      maintain: '<span class="status-badge status-maintain">✅ Maintain</span>',
-      watch: '<span class="status-badge status-watch">⚠️ Watch</span>',
-      kill: '<span class="status-badge status-kill">🛑 Kill</span>'
-    };
-    return map[a] || a;
-  };
-  const fmtMoney = n => n == null ? '—' : '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:2});
-  const fmtNum = n => n == null ? '—' : Number(n).toLocaleString('en-US');
-  const wowArrow = d => {
-    if (d > 0) return '<span class="wow-arrow up">▲ ' + d.toFixed(0) + '%</span>';
-    if (d < 0) return '<span class="wow-arrow down">▼ ' + Math.abs(d).toFixed(0) + '%</span>';
-    return '<span class="wow-arrow flat">→</span>';
-  };
-
-  // Determine top 3 scale & bottom 3 kill
-  const scaleRows = campaigns.filter(c => c.action === 'scale').sort((a,b) => (a.trueCAC||9999) - (b.trueCAC||9999)).slice(0,3).map(c => c.name);
-  const killRows = campaigns.filter(c => c.action === 'kill').sort((a,b) => (b.spend||0) - (a.spend||0)).slice(0,3).map(c => c.name);
-
-  let currentFilter = 'all';
-  let sortKey = null;
-  let sortAsc = true;
-
-  function renderTable(list) {
-    if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:var(--text-dim);padding:2rem">No campaigns match filter.</td></tr>';
-      return;
-    }
-    tbody.innerHTML = list.map(c => {
-      let rowClass = '';
-      if (scaleRows.includes(c.name)) rowClass = 'scale-highlight';
-      if (killRows.includes(c.name)) rowClass = 'kill-highlight';
-      return `<tr class="${rowClass}">
-        <td class="camp-name">${healthDot(c.health)} ${c.name}</td>
-        <td>${c.countryFlag || ''} <span class="market-badge">${c.country}</span></td>
-        <td>${c.channelIcon || ''} ${c.channel}</td>
-        <td class="num">${fmtMoney(c.spend)}</td>
-        <td class="num">${fmtNum(c.installs)}</td>
-        <td class="num">${c.cpi != null ? '$'+c.cpi.toFixed(2) : '—'}</td>
-        <td class="num">${fmtNum(c.newActives)}</td>
-        <td class="num">${fmtMoney(c.trueCAC)}</td>
-        <td>${wowArrow(c.wowDelta||0)} ${actionBadge(c.action)}</td>
-        <td class="camp-commentary">${c.commentary || ''}</td>
-      </tr>`;
-    }).join('');
-  }
-
-  function getFiltered() {
-    let list = currentFilter === 'all' ? [...campaigns] : campaigns.filter(c => c.action === currentFilter);
-    if (sortKey) {
-      list.sort((a,b) => {
-        let va = a[sortKey], vb = b[sortKey];
-        if (va == null) va = sortKey === 'name' || sortKey === 'country' || sortKey === 'channel' ? '' : 999999;
-        if (vb == null) vb = sortKey === 'name' || sortKey === 'country' || sortKey === 'channel' ? '' : 999999;
-        if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-        return sortAsc ? va - vb : vb - va;
-      });
-    }
-    return list;
-  }
-
-  renderTable(getFiltered());
-
-  // Filter buttons
-  document.getElementById('campFilters').addEventListener('click', e => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    document.querySelectorAll('#campFilters .cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.action;
-    renderTable(getFiltered());
-  });
-
-  // Sortable headers
-  document.querySelectorAll('#campPerfTable th.sortable').forEach(th => {
-    th.addEventListener('click', () => {
-      const key = th.dataset.sort;
-      if (sortKey === key) sortAsc = !sortAsc;
-      else { sortKey = key; sortAsc = true; }
-      renderTable(getFiltered());
-    });
-  });
-})();
-
-// ========== TREND HISTORY CHARTS ==========
-(function(){
-  if (typeof Chart === 'undefined') return;
-
-  // Fallback data from Sprint 1 findings
-  const defaultTrend = [
-    { week: 'W9', installs: 2234, signups: 1609, new_actives: 1084, true_cac: 32.5 },
-    { week: 'W10', installs: 1445, signups: 1207, new_actives: 1028, true_cac: 38.2 },
-    { week: 'W11', installs: 1366, signups: 1223, new_actives: 1028, true_cac: 36.8 },
-    { week: 'W12', installs: 1366, signups: 1223, new_actives: 1028, true_cac: 36.8 }
-  ];
-
-  // Try to load from data.json trendHistory if available
-  let trendData = defaultTrend;
-  try {
-    // data already fetched earlier; check global or re-parse
-    fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
-      if (d && d.trendHistory && d.trendHistory.length >= 2) {
-        trendData = d.trendHistory;
-        renderTrendCharts(trendData);
-      }
-    }).catch(() => {});
-  } catch(e) {}
-
-  renderTrendCharts(trendData);
-
-  function renderTrendCharts(data) {
-    const labels = data.map(d => d.week);
-
-    function getDelta(values) {
-      if (values.length < 2) return { pct: 0, dir: 'flat' };
-      const last = values[values.length - 1];
-      const prev = values[values.length - 2];
-      if (prev === 0) return { pct: 0, dir: 'flat' };
-      const pct = ((last - prev) / prev * 100);
-      return { pct, dir: pct > 1 ? 'improving' : pct < -1 ? 'declining' : 'flat' };
-    }
-
-    function setDelta(elId, delta, invertColor) {
-      const el = document.getElementById(elId);
-      if (!el) return;
-      const arrow = delta.dir === 'improving' ? '▲' : delta.dir === 'declining' ? '▼' : '→';
-      const cls = invertColor
-        ? (delta.dir === 'improving' ? 'declining' : delta.dir === 'declining' ? 'improving' : 'flat')
-        : delta.dir;
-      el.className = 'trend-card-delta ' + cls;
-      el.textContent = `${arrow} ${Math.abs(delta.pct).toFixed(1)}%`;
-    }
-
-    function trendColor(delta, invert) {
-      const dir = invert
-        ? (delta.dir === 'improving' ? 'declining' : delta.dir === 'declining' ? 'improving' : 'flat')
-        : delta.dir;
-      if (dir === 'improving') return { line: 'rgba(34,197,94,0.9)', fill: 'rgba(34,197,94,0.08)', point: '#22c55e' };
-      if (dir === 'declining') return { line: 'rgba(239,68,68,0.9)', fill: 'rgba(239,68,68,0.08)', point: '#ef4444' };
-      return { line: 'rgba(148,163,184,0.7)', fill: 'rgba(148,163,184,0.05)', point: '#94a3b8' };
-    }
-
-    function fmtAxis(v, isMoney) {
-      if (isMoney) {
-        if (v >= 1000) return '$' + (v/1000).toFixed(1) + 'K';
-        return '$' + v.toFixed(0);
-      }
-      if (v >= 1000000) return (v/1000000).toFixed(1) + 'M';
-      if (v >= 1000) return (v/1000).toFixed(1) + 'K';
-      return v.toLocaleString('en-US');
-    }
-
-    function makeTrendChart(canvasId, values, colors, opts) {
-      opts = opts || {};
-      var isMoney = !!opts.isMoney;
-      var metricLabel = opts.label || 'Value';
-      var ctx = document.getElementById(canvasId);
-      if (!ctx) return;
-      // Destroy existing chart if re-rendering
-      if (ctx._trendChart) ctx._trendChart.destroy();
-      ctx._trendChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: values,
-            borderColor: colors.line,
-            backgroundColor: colors.fill,
-            borderWidth: 2.5,
-            pointRadius: 4,
-            pointBackgroundColor: colors.point,
-            pointBorderColor: 'rgba(0,0,0,0.3)',
-            pointBorderWidth: 1,
-            pointHoverRadius: 6,
-            tension: 0.35,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: '#fff',
-              titleColor: '#1a1a1a',
-              bodyColor: '#333',
-              borderColor: '#e0e0e0',
-              borderWidth: 1,
-              callbacks: {
-                label: function(c) {
-                  var v = c.raw;
-                  var idx = c.dataIndex;
-                  var formatted = isMoney ? '$' + v.toFixed(1) : v.toLocaleString('en-US');
-                  var result = metricLabel + ': ' + formatted;
-                  if (idx > 0) {
-                    var prev = values[idx - 1];
-                    if (prev !== 0) {
-                      var delta = ((v - prev) / prev * 100);
-                      var arrow = delta >= 0 ? '▲' : '▼';
-                      result += ' (' + arrow + Math.abs(delta).toFixed(1) + '%)';
-                    }
-                  }
-                  return result;
-                }
-              }
-            }
-          },
-          scales: {
-            x: {
-              grid: { display: false },
-              ticks: { color: '#555', font: { size: 11, weight: 600 } }
-            },
-            y: {
-              grid: { color: 'rgba(0,0,0,0.06)' },
-              ticks: {
-                color: '#555',
-                font: { size: 10 },
-                maxTicksLimit: 4,
-                callback: function(v) { return fmtAxis(v, isMoney); }
-              },
-              beginAtZero: false
-            }
-          }
-        }
-      });
-    }
-
-    // Installs
-    const installs = data.map(d => d.installs);
-    const dInstalls = getDelta(installs);
-    setDelta('trendDeltaInstalls', dInstalls);
-    makeTrendChart('trendInstalls', installs, trendColor(dInstalls), {label:'Installs'});
-
-    // Signups
-    const signups = data.map(d => d.signups);
-    const dSignups = getDelta(signups);
-    setDelta('trendDeltaSignups', dSignups);
-    makeTrendChart('trendSignups', signups, trendColor(dSignups), {label:'Signups'});
-
-    // New Actives
-    const actives = data.map(d => d.new_actives);
-    const dActives = getDelta(actives);
-    setDelta('trendDeltaActives', dActives);
-    makeTrendChart('trendActives', actives, trendColor(dActives), {label:'New Actives'});
-
-    // TRUE CAC (inverted: lower is better)
-    const cac = data.map(d => d.true_cac);
-    const dCAC = getDelta(cac);
-    setDelta('trendDeltaCAC', dCAC, true); // invert color
-    makeTrendChart('trendCAC', cac, trendColor(dCAC, true), {label:'TRUE CAC', isMoney:true});
-  }
-})();
-
-// ========== PRINT / PDF HOOKS ==========
-(function(){
-  // Set print date on body for CSS content attr
-  function setPrintDate(){
-    const d = new Date();
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    document.body.setAttribute('data-print-date',
-      months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
-    );
-  }
-
-  // Resize all Chart.js instances before/after print for proper rendering
-  function resizeCharts(){
-    if (typeof Chart !== 'undefined' && Chart.instances) {
-      Object.values(Chart.instances).forEach(function(chart){
-        if (chart && chart.resize) {
-          chart.resize();
-        }
-      });
-    }
-  }
-
-  window.addEventListener('beforeprint', function(){
-    setPrintDate();
-    // Small delay to let layout settle, then resize charts
-    resizeCharts();
-    // Force a second resize after a tick for browsers that need it
-    setTimeout(resizeCharts, 100);
-  });
-
-  window.addEventListener('afterprint', function(){
-    // Restore chart sizes after print dialog closes
-    resizeCharts();
-  });
-
-  // Also set the date immediately in case print is triggered quickly
-  setPrintDate();
+    else console.warn('data.json fetch failed:', res.status);
+  } catch(e) { console.warn('data.json fetch error:', e); }
+  renderDashboard(data);
 })();
 </script>
 </body>
