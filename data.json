@@ -571,6 +571,36 @@
       "status": "backlog"
     }
   ],
+  "countrySpend": [
+    {
+      "country": "TR",
+      "weekly_spend": 4320,
+      "mtd_spend": 19600,
+      "planned_monthly": 23000,
+      "pacing_pct": 85.2
+    },
+    {
+      "country": "EG",
+      "weekly_spend": 1598,
+      "mtd_spend": 6900,
+      "planned_monthly": 8500,
+      "pacing_pct": 81.2
+    },
+    {
+      "country": "NG",
+      "weekly_spend": 229,
+      "mtd_spend": 230,
+      "planned_monthly": 2200,
+      "pacing_pct": 10.5
+    },
+    {
+      "country": "PK",
+      "weekly_spend": 0,
+      "mtd_spend": 0,
+      "planned_monthly": 6000,
+      "pacing_pct": 0.0
+    }
+  ],
   "campaignPerformance": [
     {
       "name": "Pmax Search",
