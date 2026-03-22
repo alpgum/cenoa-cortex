@@ -297,6 +297,148 @@ footer span{color:var(--accent)}
 /* No results */
 .no-results{text-align:center;padding:2.5rem;color:var(--text-dim);font-size:.85rem;display:none}
 
+/* ========== PRINT / PDF EXPORT ========== */
+@media print {
+  /* Page setup */
+  @page { margin: 1.5cm 1cm; size: A4 }
+
+  /* Header on each printed page */
+  body::before {
+    content: "Cenoa Growth Engine — Printed " attr(data-print-date);
+    display: block;
+    text-align: center;
+    font-size: 9pt;
+    color: #999;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4pt;
+    margin-bottom: 12pt;
+    position: running(pageHeader);
+  }
+
+  /* Hide non-essential UI elements */
+  header nav.header-nav,
+  .search-wrap,
+  .cat-filters,
+  #campFilters,
+  #catFilters,
+  #lookerTabs,
+  .exec-actions,
+  .exec-chip,
+  #exportPdfBtn,
+  footer,
+  .modal-overlay,
+  .data-banner,
+  #skeletonLoader,
+  .hero,
+  .country-deep-link,
+  .retry-btn,
+  .amp-card,
+  .analytics-frame { display: none !important }
+
+  /* Force white background everywhere */
+  *, *::before, *::after {
+    background: #fff !important;
+    color: #1a1a1a !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Restore colors for key elements */
+  .status-badge, .market-badge, .cat-tag, .kpi-delta,
+  .health-dot, .wow-arrow, .exec-kpi-delta,
+  .country-pacing-fill, .kyc-funnel-bar .fill,
+  .pacing-gauge canvas {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .status-badge.status-scale { background: rgba(0,184,92,.1) !important; color: #00994d !important }
+  .status-badge.status-maintain { background: rgba(59,130,246,.1) !important; color: #60a5fa !important }
+  .status-badge.status-watch { background: rgba(251,191,36,.12) !important; color: #d97706 !important }
+  .status-badge.status-kill { background: rgba(239,68,68,.12) !important; color: #ef4444 !important }
+  .wow-arrow.up { color: #22c55e !important }
+  .wow-arrow.down { color: #ef4444 !important }
+  .kpi-delta.up { color: #22c55e !important; background: rgba(34,197,94,.1) !important }
+  .kpi-delta.down { color: #ef4444 !important; background: rgba(239,68,68,.1) !important }
+  .exec-kpi-delta.down { color: #ef4444 !important; background: rgba(239,68,68,.1) !important }
+  .exec-kpi-delta.warn { color: #f59e0b !important; background: rgba(245,158,11,.1) !important }
+  .market-badge { background: rgba(59,130,246,.12) !important; color: #60a5fa !important }
+  .country-pacing-fill { background: var(--accent) !important }
+
+  /* Typography for print */
+  body { font-size: 10pt !important; line-height: 1.5 !important }
+  h2 { font-size: 13pt !important }
+  .exec-kpi-value { font-size: 18pt !important }
+  .kpi-value { font-size: 12pt !important }
+
+  /* Remove hover effects and animations */
+  * { transition: none !important; animation: none !important; transform: none !important }
+  .doc-card::before, .org-card .org-says { display: none !important }
+
+  /* Header bar: keep brand + timestamp only */
+  header {
+    position: relative !important;
+    border-bottom: 2px solid #000 !important;
+    padding: 8pt 0 !important;
+    margin-bottom: 12pt !important;
+    background: #fff !important;
+  }
+  .header-brand { font-size: 11pt !important; color: #000 !important }
+  .header-pulse { display: none !important }
+  .header-timestamp { font-size: 8pt !important; color: #666 !important }
+
+  /* Page breaks before major sections */
+  #campaignTable { page-break-before: always }
+  #countryBreakdown { page-break-before: always }
+  #trendHistory { page-break-before: always }
+  #analytics, #attrQuality { page-break-before: always }
+  #agentStatus { page-break-before: always }
+
+  /* Avoid breaking inside cards/tables */
+  .kpi-card, .country-card, .trend-card, .test-card, .learning-card,
+  .ch-card, .org-card, .kyc-funnel-card, .agenda-item, .exec-kpi {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .campaign-table tr { page-break-inside: avoid; break-inside: avoid }
+
+  /* Tables: full width, no scroll */
+  .campaign-table-wrap {
+    overflow: visible !important;
+    border-radius: 0 !important;
+    border: 1px solid #ccc !important;
+  }
+  .campaign-table { min-width: 0 !important; width: 100% !important; font-size: 8pt !important }
+  .campaign-table th, .campaign-table td { padding: 3pt 5pt !important; white-space: normal !important }
+  .camp-commentary { max-width: none !important }
+
+  /* Grids: sensible print columns */
+  .kpi-row { grid-template-columns: repeat(4, 1fr) !important }
+  .country-grid { grid-template-columns: repeat(2, 1fr) !important }
+  .trend-grid { grid-template-columns: repeat(2, 1fr) !important }
+  .kyc-funnel-grid { grid-template-columns: repeat(2, 1fr) !important }
+  .channel-perf-grid { grid-template-columns: repeat(3, 1fr) !important }
+  .platform-split-grid { grid-template-columns: repeat(3, 1fr) !important }
+
+  /* Charts: ensure they render */
+  canvas { max-width: 100% !important; max-height: 200px !important }
+  .trend-card canvas { max-height: 100px !important }
+
+  /* Section styling */
+  .section { margin-top: 16pt !important }
+  .section-header { border-bottom: 1px solid #ccc; padding-bottom: 4pt; margin-bottom: 8pt }
+  .section-header .line { display: none }
+  .section-header .badge { border: 1px solid #ccc !important; font-size: 7pt !important }
+
+  /* Container */
+  .container, .exec-summary { max-width: 100% !important; padding: 0 !important }
+
+  /* Learnings: unwrap horizontal scroll */
+  .learnings-scroll { flex-wrap: wrap !important; overflow: visible !important }
+  .learning-card { flex: 0 0 45% !important }
+}
+
 /* Animations */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeUp .5s ease forwards;opacity:0}
@@ -326,6 +468,26 @@ footer span{color:var(--accent)}
 
 /* No-data placeholder for widgets */
 .no-data-placeholder{display:flex;align-items:center;justify-content:center;color:#aaa;font-size:.82rem;font-style:italic;padding:1.5rem;text-align:center}
+
+/* Hide dashboard content until data loads */
+.dashboard-loading .exec-summary,
+.dashboard-loading #kpiBanner,
+.dashboard-loading #budgetPacing,
+.dashboard-loading #trendHistory,
+.dashboard-loading #campaignTable,
+.dashboard-loading #channelPerf,
+.dashboard-loading #cacVsTarget,
+.dashboard-loading #countryBreakdown,
+.dashboard-loading #kycMiniFunnels,
+.dashboard-loading #platformSplit,
+.dashboard-loading #weeklyTests,
+.dashboard-loading #weeklyLearnings,
+.dashboard-loading #weeklyAgenda,
+.dashboard-loading #attrQuality,
+.dashboard-loading #funnelChart,
+.dashboard-loading #analytics,
+.dashboard-loading #agentStatus,
+.dashboard-loading #docHub{display:none !important}
 
 /* KPI Banner */
 .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem;margin-bottom:.8rem}
@@ -597,7 +759,7 @@ footer span{color:var(--accent)}
 }
 </style>
 </head>
-<body>
+<body class="dashboard-loading">
 
 <header>
   <div class="header-brand">
@@ -605,6 +767,7 @@ footer span{color:var(--accent)}
     CENOA <span>&times;</span> CORTEX - Marketing Operations Dashboard
   </div>
   <span class="header-timestamp" id="headerTimestamp">⚠️ No timestamp</span>
+  <button id="exportPdfBtn" onclick="window.print()" style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:.3rem .7rem;font-size:.7rem;font-weight:600;color:var(--text-dim);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.3rem;white-space:nowrap" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">📄 Export PDF</button>
   <nav class="header-nav">
     <a href="#execSummary">Summary</a>
     <a href="#kpiBanner">KPIs</a>
@@ -630,6 +793,41 @@ footer span{color:var(--accent)}
   </nav>
 </header>
 
+
+<!-- DATA LOADING BANNER -->
+<div class="data-banner error" id="dataBannerError">
+  <span class="banner-icon">⚠️</span>
+  <span class="banner-text">Failed to load data. Using cached version.</span>
+  <button class="retry-btn" onclick="window.__fetchDashboardData()">Retry</button>
+</div>
+<div class="data-banner cached" id="dataBannerCached">
+  <span class="banner-icon">📦</span>
+  <span class="banner-text" id="cachedDateText">Using cached data.</span>
+</div>
+
+<!-- SKELETON LOADING STATE -->
+<div id="skeletonLoader" class="dashboard-skeleton">
+  <div style="padding:1rem 0">
+    <div class="skeleton-block skeleton-text w60" style="height:20px;margin-bottom:1rem"></div>
+    <div class="skeleton-row">
+      <div class="skeleton-block skeleton-card"></div>
+      <div class="skeleton-block skeleton-card"></div>
+      <div class="skeleton-block skeleton-card"></div>
+    </div>
+    <div class="skeleton-block skeleton-text w40" style="height:16px;margin-bottom:1.5rem"></div>
+    <div style="margin-bottom:.6rem"><div class="skeleton-block skeleton-text w40" style="height:18px"></div></div>
+    <div class="skeleton-row">
+      <div class="skeleton-block skeleton-card" style="height:80px"></div>
+      <div class="skeleton-block skeleton-card" style="height:80px"></div>
+      <div class="skeleton-block skeleton-card" style="height:80px"></div>
+      <div class="skeleton-block skeleton-card" style="height:80px"></div>
+      <div class="skeleton-block skeleton-card" style="height:80px"></div>
+      <div class="skeleton-block skeleton-card" style="height:80px"></div>
+    </div>
+    <div class="skeleton-block skeleton-chart"></div>
+    <div class="skeleton-block skeleton-table"></div>
+  </div>
+</div>
 
 <!-- EXECUTIVE SUMMARY -->
 <section class="exec-summary" id="execSummary">
@@ -1351,28 +1549,156 @@ const DEFAULTS = {
 // ========== GLOBAL DATA (populated by renderDashboard) ==========
 let DATA = JSON.parse(JSON.stringify(DEFAULTS));
 
+// ========== UNIFIED DATA LOADER WITH CACHE & ERROR HANDLING ==========
+const CACHE_KEY = 'cortex_data_cache';
+const CACHE_TS_KEY = 'cortex_data_cache_ts';
+const FETCH_TIMEOUT = 10000; // 10 seconds
+
+function saveToCache(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    localStorage.setItem(CACHE_TS_KEY, new Date().toISOString());
+  } catch(e) { console.warn('Cache save failed', e); }
+}
+
+function loadFromCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    const ts = localStorage.getItem(CACHE_TS_KEY);
+    if (raw) return { data: JSON.parse(raw), timestamp: ts };
+  } catch(e) { console.warn('Cache load failed', e); }
+  return null;
+}
+
+function showSkeleton() {
+  document.body.classList.add('dashboard-loading');
+  const sk = document.getElementById('skeletonLoader');
+  if (sk) sk.style.display = '';
+}
+
+function hideSkeleton() {
+  document.body.classList.remove('dashboard-loading');
+  const sk = document.getElementById('skeletonLoader');
+  if (sk) sk.style.display = 'none';
+}
+
+function showErrorBanner() {
+  const el = document.getElementById('dataBannerError');
+  if (el) el.classList.add('show');
+}
+
+function hideErrorBanner() {
+  const el = document.getElementById('dataBannerError');
+  if (el) el.classList.remove('show');
+}
+
+function showCachedBanner(ts) {
+  const el = document.getElementById('dataBannerCached');
+  const textEl = document.getElementById('cachedDateText');
+  if (!el) return;
+  if (ts && textEl) {
+    const dt = new Date(ts);
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    textEl.textContent = 'Cached data from ' + months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear() + ' ' + String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0');
+  }
+  el.classList.add('show');
+}
+
+function hideCachedBanner() {
+  const el = document.getElementById('dataBannerCached');
+  if (el) el.classList.remove('show');
+}
+
+// Safe accessor: returns fallback if field is missing
+function safe(obj, path, fallback) {
+  if (!obj) return fallback;
+  const parts = path.split('.');
+  let cur = obj;
+  for (const p of parts) {
+    if (cur == null || typeof cur !== 'object') return fallback;
+    cur = cur[p];
+  }
+  return cur !== undefined && cur !== null ? cur : fallback;
+}
+
+async function fetchDashboardData() {
+  showSkeleton();
+  hideErrorBanner();
+  hideCachedBanner();
+
+  let data = null;
+  let fromCache = false;
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+    const res = await fetch('data.json', { cache: 'no-store', signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+    saveToCache(data);
+  } catch(e) {
+    console.warn('data.json fetch failed:', e);
+    const cached = loadFromCache();
+    if (cached) {
+      data = cached.data;
+      fromCache = true;
+      showErrorBanner();
+      showCachedBanner(cached.timestamp);
+    } else {
+      showErrorBanner();
+      hideSkeleton();
+      // Still render with defaults so page isn't blank
+      data = {};
+    }
+  }
+
+  // Merge with defaults for graceful degradation
+  const merged = Object.assign({}, JSON.parse(JSON.stringify(DEFAULTS)), data || {});
+  if (data && data.kpis) merged.kpis = Object.assign({}, DEFAULTS.kpis, data.kpis);
+  if (data && data.budgetPacing) merged.budgetPacing = Object.assign({}, DEFAULTS.budgetPacing, data.budgetPacing);
+  if (data && data.attributionQuality) merged.attributionQuality = Object.assign({}, DEFAULTS.attributionQuality, data.attributionQuality);
+  if (data && data.platformSplit) merged.platformSplit = Object.assign({}, DEFAULTS.platformSplit, data.platformSplit);
+
+  DATA = merged;
+
+  // Render everything
+  try { renderHeaderTimestamp(merged); } catch(e) { console.warn('renderHeaderTimestamp error', e); }
+  try { renderExecSummary(merged); } catch(e) { console.warn('renderExecSummary error', e); }
+  try { renderKpiBanner(merged); } catch(e) { console.warn('renderKpiBanner error', e); }
+  try { renderKpiSparklines(merged); } catch(e) { console.warn('renderKpiSparklines error', e); }
+  try { renderBudgetPacing(merged); } catch(e) { console.warn('renderBudgetPacing error', e); }
+  try { renderChannelPerf(merged); } catch(e) { console.warn('renderChannelPerf error', e); }
+  try { renderCacVsTarget(merged); } catch(e) { console.warn('renderCacVsTarget error', e); }
+  try { renderCountryCards(merged); } catch(e) { console.warn('renderCountryCards error', e); }
+  try { renderKycFunnels(merged); } catch(e) { console.warn('renderKycFunnels error', e); }
+  try { renderPlatformSplit(merged); } catch(e) { console.warn('renderPlatformSplit error', e); }
+  try { renderTests(merged); } catch(e) { console.warn('renderTests error', e); }
+  try { renderLearnings(merged); } catch(e) { console.warn('renderLearnings error', e); }
+  try { renderAgenda(merged); } catch(e) { console.warn('renderAgenda error', e); }
+  try { renderAttrQuality(merged); } catch(e) { console.warn('renderAttrQuality error', e); }
+  try { renderFunnelChart(merged); } catch(e) { console.warn('renderFunnelChart error', e); }
+  try { renderCampaignTable(merged); } catch(e) { console.warn('renderCampaignTable error', e); }
+  try { renderTrendCharts(merged); } catch(e) { console.warn('renderTrendCharts error', e); }
+
+  hideSkeleton();
+  if (!fromCache) hideCachedBanner();
+}
+
+// Expose for retry button
+window.__fetchDashboardData = fetchDashboardData;
+
 // ========== HEADER TIMESTAMP ==========
-(async function loadHeaderTimestamp(){
+function renderHeaderTimestamp(data) {
   const el = document.getElementById('headerTimestamp');
   if (!el) return;
-  try {
-    const res = await fetch('data.json', { cache: 'no-store' });
-    if (!res.ok) return;
-    const data = await res.json();
-    if (!data.lastUpdated) { el.textContent = '⚠️ No timestamp'; return; }
-    const dt = new Date(data.lastUpdated);
-    if (isNaN(dt.getTime())) { el.textContent = '⚠️ No timestamp'; return; }
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const mon = months[dt.getMonth()];
-    const day = dt.getDate();
-    const year = dt.getFullYear();
-    const hh = String(dt.getHours()).padStart(2,'0');
-    const mm = String(dt.getMinutes()).padStart(2,'0');
-    el.textContent = 'Data as of: ' + mon + ' ' + day + ', ' + year + ' ' + hh + ':' + mm + ' TRT';
-  } catch(e) {
-    el.textContent = '⚠️ No timestamp';
-  }
-})();
+  const lu = safe(data, 'lastUpdated', null);
+  if (!lu) { el.textContent = '⚠️ No timestamp'; return; }
+  const dt = new Date(lu);
+  if (isNaN(dt.getTime())) { el.textContent = '⚠️ No timestamp'; return; }
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  el.textContent = 'Data as of: ' + months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear() + ' ' + String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0') + ' TRT';
+}
 
 // ========== DATA ==========
 const documents = [
@@ -1430,67 +1756,42 @@ const markets = [
   {flag:"🇵🇰",name:"Pakistan",code:"PK",status:"Pre-Launch",cls:"prelaunch"}
 ];
 
-// ========== EXECUTIVE SUMMARY (data.json) ==========
-(async function loadExecSummary(){
-  try {
-    const res = await fetch('data.json', { cache: 'no-store' });
-    if (!res.ok) return;
-    const data = await res.json();
+// ========== EXECUTIVE SUMMARY ==========
+function renderExecSummary(data) {
+  const weekLabel = document.getElementById('execWeekLabel');
+  if (weekLabel) weekLabel.textContent = data.week ? 'Week of ' + data.week + ':' : '—';
 
-    // Week label
-    const weekLabel = document.getElementById('execWeekLabel');
-    if (weekLabel && data.week) weekLabel.textContent = 'Week of ' + data.week + ':';
-
-    // Install delta
-    const installDelta = document.getElementById('execInstallDelta');
-    if (installDelta && data.kpis && data.kpis.installs) {
-      const d = data.kpis.installs.deltaPct;
-      installDelta.textContent = (d < 0 ? '▼' : '▲') + Math.abs(d) + '%';
-      installDelta.className = d < 0 ? 'dn' : 'up';
-    }
-
-    // New Actives — compute from channel performance
-    const channels = data.channelPerformance || [];
-    const totalNewActives = channels.reduce((s, c) => s + (c.new_active || 0), 0);
-    if (totalNewActives > 0) {
-      const el = document.getElementById('execNewActives');
-      if (el) el.textContent = totalNewActives.toLocaleString('en-US');
-    }
-
-    // TRUE CAC — blended (total spend / total new actives)
-    const totalSpend = channels.reduce((s, c) => s + (c.spend || 0), 0);
-    if (totalNewActives > 0 && totalSpend > 0) {
-      const blendedCAC = totalSpend / totalNewActives;
-      const cacEl = document.getElementById('execTrueCAC');
-      if (cacEl) cacEl.textContent = '$' + blendedCAC.toFixed(2);
-    }
-
-    // Budget Pace
-    if (data.budgetPacing) {
-      const bp = data.budgetPacing;
-      const pct = bp.pacing_pct || (bp.mtd_spend / bp.target * 100);
-      const paceEl = document.getElementById('execBudgetPace');
-      if (paceEl) paceEl.textContent = pct.toFixed(1) + '%';
-      const paceDelta = document.getElementById('execBudgetDelta');
-      if (paceDelta) {
-        const status = (bp.status || '').toLowerCase();
-        paceDelta.textContent = status === 'underspending' ? 'underspending' : status === 'overspending' ? 'overspending' : 'on track';
-        paceDelta.className = 'exec-kpi-delta ' + (status === 'underspending' ? 'warn' : status === 'overspending' ? 'down' : 'neutral');
-      }
-    }
-
-    // Attribution health
-    if (data.attributionQuality) {
-      const aq = data.attributionQuality;
-      const attrText = document.getElementById('execAttrText');
-      if (attrText) {
-        attrText.textContent = aq.none_pct + '% unattributed — fix in progress';
-      }
-    }
-  } catch(e) {
-    console.warn('Exec summary data.json fetch failed', e);
+  const installDelta = document.getElementById('execInstallDelta');
+  const d = safe(data, 'kpis.installs.deltaPct', 0);
+  if (installDelta) {
+    installDelta.textContent = (d < 0 ? '▼' : '▲') + Math.abs(d) + '%';
+    installDelta.className = d < 0 ? 'dn' : 'up';
   }
-})();
+
+  const channels = data.channelPerformance || [];
+  const totalNewActives = channels.reduce((s, c) => s + (c.new_active || 0), 0);
+  const el = document.getElementById('execNewActives');
+  if (el) el.textContent = totalNewActives > 0 ? totalNewActives.toLocaleString('en-US') : 'No data';
+
+  const totalSpend = channels.reduce((s, c) => s + (c.spend || 0), 0);
+  const cacEl = document.getElementById('execTrueCAC');
+  if (cacEl) cacEl.textContent = totalNewActives > 0 && totalSpend > 0 ? '$' + (totalSpend / totalNewActives).toFixed(2) : 'No data';
+
+  const bp = data.budgetPacing || {};
+  const pct = bp.pacing_pct || (bp.mtd_spend && bp.target ? bp.mtd_spend / bp.target * 100 : 0);
+  const paceEl = document.getElementById('execBudgetPace');
+  if (paceEl) paceEl.textContent = pct > 0 ? pct.toFixed(1) + '%' : 'No data';
+  const paceDelta = document.getElementById('execBudgetDelta');
+  if (paceDelta) {
+    const status = (bp.status || '').toLowerCase();
+    paceDelta.textContent = status === 'underspending' ? 'underspending' : status === 'overspending' ? 'overspending' : status ? status : 'No data';
+    paceDelta.className = 'exec-kpi-delta ' + (status === 'underspending' ? 'warn' : status === 'overspending' ? 'down' : 'neutral');
+  }
+
+  const aq = data.attributionQuality || {};
+  const attrText = document.getElementById('execAttrText');
+  if (attrText) attrText.textContent = aq.none_pct != null ? aq.none_pct + '% unattributed — fix in progress' : 'No attribution data';
+}
 
 // ========== KPI SPARKLINES (last 4 weeks) ==========
 const KPI_SPARK_DEFAULT = {
@@ -1563,8 +1864,7 @@ function renderKpiSparklines(data){
   });
 }
 
-// render immediately with defaults (then refresh after data.json loads)
-renderKpiSparklines();
+// (sparklines rendered by unified loader)
 
 // ========== KPI BANNER (data.json) ==========
 (async function loadKpis(){
@@ -1799,11 +2099,14 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         tooltip: {
           backgroundColor: '#fff',
           titleColor: '#1a1a1a',
-          bodyColor: '#00b85c',
+          bodyColor: '#333',
           borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
-            label: function(c){ return c.dataset.label + ': $' + c.raw.toFixed(1); }
+            label: function(c){
+              if (c.dataset.label === 'Target $100') return 'Target: $100.00';
+              return c.label + ': $' + c.raw.toFixed(2) + ' CAC';
+            }
           }
         }
       },
@@ -1814,7 +2117,7 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         },
         y: {
           grid: { color: 'rgba(0,0,0,0.06)' },
-          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return '$' + v; } },
+          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return '$' + v.toFixed(0); } },
           beginAtZero: true,
           suggestedMax: 250
         }
@@ -1849,18 +2152,30 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
         tooltip: {
           backgroundColor: '#fff',
           titleColor: '#1a1a1a',
-          bodyColor: '#00b85c',
+          bodyColor: '#333',
           borderColor: '#e0e0e0',
           borderWidth: 1,
           callbacks: {
-            label: function(c){ return c.raw.toLocaleString('en-US'); }
+            label: function(c){
+              var funnelData = c.chart.data.datasets[0].data;
+              var idx = c.dataIndex;
+              var v = c.raw;
+              var result = c.label + ': ' + v.toLocaleString('en-US');
+              if (idx > 0) {
+                var prev = funnelData[idx - 1];
+                if (prev > 0) {
+                  result += ' (' + ((v / prev) * 100).toFixed(1) + '% of previous)';
+                }
+              }
+              return result;
+            }
           }
         }
       },
       scales: {
         x: {
           grid: { color: 'rgba(0,0,0,0.06)' },
-          ticks: { color: '#888', font: { size: 11 } }
+          ticks: { color: '#888', font: { size: 11 }, callback: function(v){ return v >= 1000 ? (v/1000).toFixed(1)+'K' : v; } }
         },
         y: {
           grid: { display: false },
@@ -2615,8 +2930,21 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
       return { line: 'rgba(148,163,184,0.7)', fill: 'rgba(148,163,184,0.05)', point: '#94a3b8' };
     }
 
-    function makeTrendChart(canvasId, values, colors) {
-      const ctx = document.getElementById(canvasId);
+    function fmtAxis(v, isMoney) {
+      if (isMoney) {
+        if (v >= 1000) return '$' + (v/1000).toFixed(1) + 'K';
+        return '$' + v.toFixed(0);
+      }
+      if (v >= 1000000) return (v/1000000).toFixed(1) + 'M';
+      if (v >= 1000) return (v/1000).toFixed(1) + 'K';
+      return v.toLocaleString('en-US');
+    }
+
+    function makeTrendChart(canvasId, values, colors, opts) {
+      opts = opts || {};
+      var isMoney = !!opts.isMoney;
+      var metricLabel = opts.label || 'Value';
+      var ctx = document.getElementById(canvasId);
       if (!ctx) return;
       // Destroy existing chart if re-rendering
       if (ctx._trendChart) ctx._trendChart.destroy();
@@ -2646,13 +2974,24 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
             tooltip: {
               backgroundColor: '#fff',
               titleColor: '#1a1a1a',
-              bodyColor: '#00b85c',
+              bodyColor: '#333',
               borderColor: '#e0e0e0',
               borderWidth: 1,
               callbacks: {
                 label: function(c) {
-                  const v = c.raw;
-                  return typeof v === 'number' && v % 1 !== 0 ? '$' + v.toFixed(1) : v.toLocaleString('en-US');
+                  var v = c.raw;
+                  var idx = c.dataIndex;
+                  var formatted = isMoney ? '$' + v.toFixed(1) : v.toLocaleString('en-US');
+                  var result = metricLabel + ': ' + formatted;
+                  if (idx > 0) {
+                    var prev = values[idx - 1];
+                    if (prev !== 0) {
+                      var delta = ((v - prev) / prev * 100);
+                      var arrow = delta >= 0 ? '▲' : '▼';
+                      result += ' (' + arrow + Math.abs(delta).toFixed(1) + '%)';
+                    }
+                  }
+                  return result;
                 }
               }
             }
@@ -2663,8 +3002,13 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
               ticks: { color: '#555', font: { size: 11, weight: 600 } }
             },
             y: {
-              grid: { color: 'rgba(255,255,255,0.04)' },
-              ticks: { color: '#555', font: { size: 10 }, maxTicksLimit: 4 },
+              grid: { color: 'rgba(0,0,0,0.06)' },
+              ticks: {
+                color: '#555',
+                font: { size: 10 },
+                maxTicksLimit: 4,
+                callback: function(v) { return fmtAxis(v, isMoney); }
+              },
               beginAtZero: false
             }
           }
@@ -2676,26 +3020,65 @@ document.getElementById('marketGrid').innerHTML = markets.map((m, i) => `
     const installs = data.map(d => d.installs);
     const dInstalls = getDelta(installs);
     setDelta('trendDeltaInstalls', dInstalls);
-    makeTrendChart('trendInstalls', installs, trendColor(dInstalls));
+    makeTrendChart('trendInstalls', installs, trendColor(dInstalls), {label:'Installs'});
 
     // Signups
     const signups = data.map(d => d.signups);
     const dSignups = getDelta(signups);
     setDelta('trendDeltaSignups', dSignups);
-    makeTrendChart('trendSignups', signups, trendColor(dSignups));
+    makeTrendChart('trendSignups', signups, trendColor(dSignups), {label:'Signups'});
 
     // New Actives
     const actives = data.map(d => d.new_actives);
     const dActives = getDelta(actives);
     setDelta('trendDeltaActives', dActives);
-    makeTrendChart('trendActives', actives, trendColor(dActives));
+    makeTrendChart('trendActives', actives, trendColor(dActives), {label:'New Actives'});
 
     // TRUE CAC (inverted: lower is better)
     const cac = data.map(d => d.true_cac);
     const dCAC = getDelta(cac);
     setDelta('trendDeltaCAC', dCAC, true); // invert color
-    makeTrendChart('trendCAC', cac, trendColor(dCAC, true));
+    makeTrendChart('trendCAC', cac, trendColor(dCAC, true), {label:'TRUE CAC', isMoney:true});
   }
+})();
+
+// ========== PRINT / PDF HOOKS ==========
+(function(){
+  // Set print date on body for CSS content attr
+  function setPrintDate(){
+    const d = new Date();
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    document.body.setAttribute('data-print-date',
+      months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+    );
+  }
+
+  // Resize all Chart.js instances before/after print for proper rendering
+  function resizeCharts(){
+    if (typeof Chart !== 'undefined' && Chart.instances) {
+      Object.values(Chart.instances).forEach(function(chart){
+        if (chart && chart.resize) {
+          chart.resize();
+        }
+      });
+    }
+  }
+
+  window.addEventListener('beforeprint', function(){
+    setPrintDate();
+    // Small delay to let layout settle, then resize charts
+    resizeCharts();
+    // Force a second resize after a tick for browsers that need it
+    setTimeout(resizeCharts, 100);
+  });
+
+  window.addEventListener('afterprint', function(){
+    // Restore chart sizes after print dialog closes
+    resizeCharts();
+  });
+
+  // Also set the date immediately in case print is triggered quickly
+  setPrintDate();
 })();
 </script>
 </body>
