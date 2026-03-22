@@ -50,6 +50,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-i
 .header-pulse{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;margin-right:.4rem;flex-shrink:0}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 6px transparent}}
 .header-right{font-size:.7rem;color:#aaa;letter-spacing:.08em}
+.header-timestamp{font-size:.65rem;color:#999;letter-spacing:.06em;white-space:nowrap;margin-left:auto;margin-right:1rem;flex-shrink:0}
 
 /* Container */
 .container{max-width:1400px;margin:0 auto;padding:0 2rem}
@@ -509,6 +510,7 @@ footer span{color:var(--accent)}
     <div class="header-pulse"></div>
     CENOA <span>&times;</span> CORTEX - Marketing Operations Dashboard
   </div>
+  <span class="header-timestamp" id="headerTimestamp">⚠️ No timestamp</span>
   <nav class="header-nav">
     <a href="#execSummary">Summary</a>
     <a href="#kpiBanner">KPIs</a>
@@ -1138,6 +1140,29 @@ footer span{color:var(--accent)}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
+// ========== HEADER TIMESTAMP ==========
+(async function loadHeaderTimestamp(){
+  const el = document.getElementById('headerTimestamp');
+  if (!el) return;
+  try {
+    const res = await fetch('data.json', { cache: 'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.lastUpdated) { el.textContent = '⚠️ No timestamp'; return; }
+    const dt = new Date(data.lastUpdated);
+    if (isNaN(dt.getTime())) { el.textContent = '⚠️ No timestamp'; return; }
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const mon = months[dt.getMonth()];
+    const day = dt.getDate();
+    const year = dt.getFullYear();
+    const hh = String(dt.getHours()).padStart(2,'0');
+    const mm = String(dt.getMinutes()).padStart(2,'0');
+    el.textContent = 'Data as of: ' + mon + ' ' + day + ', ' + year + ' ' + hh + ':' + mm + ' TRT';
+  } catch(e) {
+    el.textContent = '⚠️ No timestamp';
+  }
+})();
+
 // ========== DATA ==========
 const documents = [
   {cat:"data",title:"Historical Campaign Performance",desc:"Aggregated performance data from all previous marketing campaigns across channels.",file:"historical-campaign-performance.md"},
